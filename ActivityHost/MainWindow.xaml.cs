@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Text.Json;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -36,17 +35,18 @@ namespace ActivityHost
             Data.CreateFolder(storeFolder);
             Data.CreateFile(storeFileApps);
             Data.CreateFile(storeFileGeneral);
-            Load();
+            appUsages = Data.LoadList(storeFileApps);
+            generalData = Data.LoadGeneralData(storeFileGeneral);
             Timer();
         }
 
         void EnableAutostart()
         {
             string path = Path.GetFullPath(Process.GetCurrentProcess().MainModule.FileName);
-            RegistryKey rk = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-            if (rk.GetValue("ActivityHost") == null)
+            RegistryKey? rk = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            if (rk?.GetValue("ActivityHost") == null)
             {
-                rk.SetValue("ActivityHost", path);
+                rk?.SetValue("ActivityHost", path);
             }
         }
 
@@ -54,7 +54,7 @@ namespace ActivityHost
         {
             if (currentDate.Day != DateTime.Now.Day)
             {
-                Save();
+                Data.Save(storeFileApps, storeFileGeneral, appUsages, generalData);
                 appUsages.Clear();
                 generalData = new GeneralData();
                 currentDate = DateTime.Now;
@@ -100,7 +100,7 @@ namespace ActivityHost
                     offTimer = evaluationTime;
                     CaptureGeneralData();
                     CaptureAppData();
-                    Save();
+                    Data.Save(storeFileApps, storeFileGeneral, appUsages, generalData);
                 }
             });
             timer.Start();
@@ -174,35 +174,6 @@ namespace ActivityHost
                     UsedSeconds = 1,
                     UsedMinutes = 0,
                 });
-            }
-        }
-
-        void Save()
-        {
-            File.WriteAllText(storeFileApps, JsonSerializer.Serialize(appUsages));
-            File.WriteAllText(storeFileGeneral, JsonSerializer.Serialize(generalData));
-        }
-
-        void Load()
-        {
-            try
-            {
-                var contentApp = File.ReadAllText(storeFileApps);
-                appUsages = JsonSerializer.Deserialize<List<AppUsage>>(contentApp) ?? new();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            try
-            {
-                var contentGeneral = File.ReadAllText(storeFileGeneral);
-                generalData = JsonSerializer.Deserialize<GeneralData>(contentGeneral) ?? new();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
             }
         }
     }

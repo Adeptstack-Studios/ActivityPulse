@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Text.Json;
 
 namespace ActivityHost
 {
@@ -28,6 +29,40 @@ namespace ActivityHost
             {
                 Directory.CreateDirectory(folder);
             }
+        }
+
+        public static void Save(string appFilePath, string generalFilePath, List<AppUsage> appUsages, GeneralData generalData)
+        {
+            File.WriteAllText(appFilePath, JsonSerializer.Serialize(appUsages));
+            File.WriteAllText(generalFilePath, JsonSerializer.Serialize(generalData));
+        }
+
+        public static List<AppUsage> LoadList(string appFilePath)
+        {
+            try
+            {
+                var contentApp = File.ReadAllText(appFilePath);
+                return JsonSerializer.Deserialize<List<AppUsage>>(contentApp) ?? new();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return new();
+        }
+
+        public static GeneralData LoadGeneralData(string generalFilePath)
+        {
+            try
+            {
+                var contentGeneral = File.ReadAllText(generalFilePath);
+                return JsonSerializer.Deserialize<GeneralData>(contentGeneral) ?? new();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return new();
         }
     }
 }

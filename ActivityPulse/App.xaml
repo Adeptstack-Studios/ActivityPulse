@@ -2,8 +2,54 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ActivityPulse"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:prop="clr-namespace:ActivityPulse.Settings"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <sys:String x:Key="WindowTitle">Activity Pulse</sys:String>
+        
+        <FontFamily x:Key="FAsolid">/Fonts/FAsolid900.otf#Font Awesome 6 Free Solid</FontFamily>
+        <FontFamily x:Key="FAbrands">/Fonts/FAbrands.otf#Font Awesome 6 Brands Regular</FontFamily>
+        <FontFamily x:Key="FAregular">/Fonts/FAregular.otf#Font Awesome 6 Free Regular</FontFamily>
+
+        <SolidColorBrush x:Key="DarkBackground" Color="#ff222222"/>
+        <SolidColorBrush x:Key="DarkMenu" Color="#ff303030" />
+        <SolidColorBrush x:Key="DarkForeground" Color="White"/>
+
+        <SolidColorBrush x:Key="LightBackground" Color="White"/>
+        <SolidColorBrush x:Key="LightMenu" Color="#b0bec5" />
+        <SolidColorBrush x:Key="LightForeground" Color="#ff373737"/>
+
+        <SolidColorBrush x:Key="SystemColor" Color="{x:Static SystemParameters.WindowGlassColor}" />
+        <Color x:Key="SystemColorColor">DeepSkyBlue</Color>
+
+        <Color x:Key="ThemeAccentColorL" >#000</Color>
+        <Color x:Key="ThemeAccentColorD" >#000</Color>
+        <SolidColorBrush x:Key="ThemeBackground" Color="#000" />
+        <SolidColorBrush x:Key="ThemeMenu" Color="#000" />
+        <SolidColorBrush x:Key="ThemeForeground" Color="#000" />
+        <SolidColorBrush x:Key="ThemeAccentD" Color="#000" />
+        <SolidColorBrush x:Key="ThemeAccentL" Color="#000" />
+        
+        
+        <!--Styles-->
+        <!--======================================-->
+        
+        <!--TextBlock-->
+        <!--======================================-->
+        <Style x:Key="ModeTextBlock" TargetType="TextBlock">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                    <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                    <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                    <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
     </Application.Resources>
 </Application>

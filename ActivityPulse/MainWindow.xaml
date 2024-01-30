@@ -3,10 +3,139 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:prop="clr-namespace:ActivityPulse.Settings"
         xmlns:local="clr-namespace:ActivityPulse"
         mc:Ignorable="d"
-        Title="Activity Pulse" Height="450" Width="800">
-    <Grid>
+        Title="Activity Pulse" Height="600" Width="1080" WindowStyle="None" WindowStartupLocation="CenterScreen">
 
+    <Window.Resources>
+        <Style x:Key="WindowCloseBTN" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bdr" Background="Transparent" >
+                            <ContentPresenter x:Name="content"  Content="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="bdr" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#c0392b" />
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="content" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" To="White"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="bdr" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"  />
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="content" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="WindowBTN" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bdr" Background="Transparent">
+                            <ContentPresenter x:Name="content" Content="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="bdr" FillBehavior="HoldEnd" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#7f8c8d" />
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" To="White"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="bdr" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"  />
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="40" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+    </WindowChrome.WindowChrome>
+
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="135"/>
+                <ColumnDefinition Width="0.55*"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="135"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Height="40" HorizontalAlignment="Left">
+                <!--<Image Source="img/PLP-NoTas.ico" Margin="15,5.5" />-->
+                <!--<TextBlock Text="PLP-NoTas"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Medium" />-->
+            </StackPanel>
+            <Grid Grid.Column="1">
+                <TextBlock Background="Transparent" />
+            </Grid>
+            <Grid Grid.Column="2">
+                <TextBlock Style="{StaticResource ModeTextBlock}" x:Name="TB_Title" Text="{DynamicResource WindowTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Medium" />
+            </Grid>
+            <StackPanel Orientation="Horizontal" Grid.Column="4" Height="40" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right">
+                <Button IsTabStop="False" Width="45" x:Name="min_btn" ToolTip="Minimize" Content="&#xf2d1;" FontFamily="{StaticResource FAsolid}" FontSize="12" Padding="0,0,0,8" Style="{StaticResource WindowBTN}" />
+                <Button IsTabStop="False" Width="45" x:Name="max_btn" ToolTip="Maximize" Content="&#xf065;" FontFamily="{StaticResource FAsolid}" FontSize="16" Style="{StaticResource WindowBTN}" />
+                <Button IsTabStop="False" Width="45" x:Name="close_btn" ToolTip="Close" Content="&#xf00d;" FontFamily="{StaticResource FAsolid}" FontSize="18" Style="{StaticResource WindowCloseBTN}" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </Grid>
+        
     </Grid>
 </Window>

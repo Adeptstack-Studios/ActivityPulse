@@ -50,6 +50,126 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        
+        <!--Container-->
+        <!--=====================================-->
+        <Style x:Key="Menu" TargetType="Grid">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                    <Setter Property="Background" Value="{DynamicResource DarkBackground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                    <Setter Property="Background" Value="{DynamicResource LightMenu}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                    <Setter Property="Background" Value="{DynamicResource ThemeMenu}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="Background" TargetType="Grid">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                    <Setter Property="Background" Value="{DynamicResource DarkMenu}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                    <Setter Property="Background" Value="{DynamicResource LightBackground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                    <Setter Property="Background" Value="{DynamicResource ThemeBackground}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="MenuSP" TargetType="StackPanel">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                    <Setter Property="Background" Value="{DynamicResource DarkBackground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                    <Setter Property="Background" Value="{DynamicResource LightMenu}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                    <Setter Property="Background" Value="{DynamicResource ThemeMenu}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="BackgroundSP" TargetType="StackPanel">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                    <Setter Property="Background" Value="{DynamicResource DarkMenu}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                    <Setter Property="Background" Value="{DynamicResource LightBackground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                    <Setter Property="Background" Value="{DynamicResource ThemeBackground}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="Stroke" TargetType="Border">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                    <Setter Property="Background" Value="#ff909090" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                    <Setter Property="Background" Value="{DynamicResource DarkBackground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                    <Setter Property="Background" Value="{DynamicResource ThemeForeground}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="Border" TargetType="Border">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                    <Setter Property="BorderBrush" Value="{DynamicResource LightForeground}" />
+                    <Setter Property="Background" Value="{DynamicResource DarkBackground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                    <Setter Property="BorderBrush" Value="{DynamicResource LightForeground}" />
+                    <Setter Property="Background" Value="{DynamicResource LightBackground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                    <Setter Property="Background" Value="{DynamicResource ThemeBackground}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource ThemeForeground}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="Bar" TargetType="Border">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                    <Setter Property="BorderBrush" Value="{DynamicResource LightForeground}" />
+                    <Setter Property="Background" Value="#ff282828" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                    <Setter Property="BorderBrush" Value="{DynamicResource LightForeground}" />
+                    <Setter Property="Background" Value="{DynamicResource LightMenu}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                    <Setter Property="Background" Value="{DynamicResource ThemeAccentD}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource ThemeForeground}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="BdrBackground" TargetType="Border">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                    <Setter Property="Background" Value="{DynamicResource DarkMenu}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                    <Setter Property="Background" Value="{DynamicResource LightBackground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                    <Setter Property="Background" Value="{DynamicResource ThemeBackground}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
 
     </Application.Resources>
 </Application>

@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
@@ -147,6 +148,28 @@ namespace ActivityPulse
                 WindowStyle = WindowStyle.SingleBorderWindow;
                 Close();
             };
+
+            TestIfHostActive();
+        }
+
+        void TestIfHostActive()
+        {
+            bool isActive = false;
+            var process = Process.GetProcesses();
+
+            foreach (var item in process)
+            {
+                if (item.ProcessName == "ActivityHost")
+                {
+                    isActive = true;
+                    break;
+                }
+            }
+
+            if (!isActive)
+            {
+                MessageBox.Show("Activity Host ist nicht gestartet, stellen Sie sicher, dass Autostart für ActivityHost eingeschaltet ist um korrekte Zeiten zu bekommen");
+            }
         }
     }
 }

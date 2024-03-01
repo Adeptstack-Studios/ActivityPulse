@@ -6,7 +6,7 @@
         xmlns:prop="clr-namespace:ActivityPulse.Settings"
         xmlns:local="clr-namespace:ActivityPulse"
         mc:Ignorable="d"
-        Title="Activity Pulse" Height="600" Width="1080" WindowStyle="None" WindowStartupLocation="CenterScreen">
+        Title="Activity Pulse" MinHeight="600" MinWidth="1080" WindowStyle="None" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style x:Key="WindowCloseBTN" TargetType="Button">
@@ -97,13 +97,13 @@
         <WindowChrome CaptionHeight="40" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
     </WindowChrome.WindowChrome>
 
-    <Grid >
+    <Grid Style="{StaticResource Menu}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" >
+        <Grid Grid.Row="0" Style="{StaticResource Background}" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="135"/>
                 <ColumnDefinition Width="0.55*"/>
@@ -128,7 +128,7 @@
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="1" >
+        <Grid Grid.Row="1" Style="{StaticResource Menu}" >
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50" />

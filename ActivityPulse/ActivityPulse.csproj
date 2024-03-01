@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\FAbrands.otf" />
+    <None Remove="Fonts\FAregular.otf" />
+    <None Remove="Fonts\FAsolid900.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Settings\AppSettings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
@@ -26,6 +32,12 @@
     <Folder Include="Images\AppIcon\" />
     <Folder Include="Images\Resources\" />
     <Folder Include="Images\Splashscreen\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\FAbrands.otf" />
+    <Resource Include="Fonts\FAregular.otf" />
+    <Resource Include="Fonts\FAsolid900.otf" />
   </ItemGroup>
 
 </Project>

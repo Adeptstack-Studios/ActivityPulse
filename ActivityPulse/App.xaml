@@ -17,7 +17,7 @@
         <SolidColorBrush x:Key="DarkForeground" Color="White"/>
 
         <SolidColorBrush x:Key="LightBackground" Color="White"/>
-        <SolidColorBrush x:Key="LightMenu" Color="#b0bec5" />
+        <SolidColorBrush x:Key="LightMenu" Color="#d1dfe6" />
         <SolidColorBrush x:Key="LightForeground" Color="#ff373737"/>
 
         <SolidColorBrush x:Key="SystemColor" Color="{x:Static SystemParameters.WindowGlassColor}" />

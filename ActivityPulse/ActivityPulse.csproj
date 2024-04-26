@@ -35,6 +35,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="PLP-SystemInfo" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ActivityUtilities\ActivityUtilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Fonts\FAbrands.otf" />
     <Resource Include="Fonts\FAregular.otf" />
     <Resource Include="Fonts\FAsolid900.otf" />

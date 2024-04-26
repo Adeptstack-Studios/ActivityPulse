@@ -1,4 +1,4 @@
-﻿namespace ActivityHost
+﻿namespace ActivityUtilities
 {
     public class GeneralData
     {

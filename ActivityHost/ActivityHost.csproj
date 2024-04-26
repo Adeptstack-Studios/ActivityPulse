@@ -12,4 +12,8 @@
     <PackageReference Include="System.Text.Json" Version="8.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ActivityUtilities\ActivityUtilities.csproj" />
+  </ItemGroup>
+
 </Project>

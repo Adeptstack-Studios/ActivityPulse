@@ -1,5 +1,6 @@
 ﻿using ActivityPulse.Models;
 using ActivityUtilities;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -14,6 +15,8 @@ namespace ActivityPulse.Pages
         string storeFolder;
         string storeFileApps;
         string storeFileGeneral;
+        GeneralData gData;
+        List<AppUsage> appUsages;
 
         List<string> colors = new List<string>
         {
@@ -32,12 +35,10 @@ namespace ActivityPulse.Pages
             storeFileGeneral = @$"{Data.path}{day.Year}/{day.Month}/{day.Day}/General.json";
 
             tbkTitle.Text = day.ToShortDateString();
-            GeneralData gData = Data.LoadGeneralData(storeFileGeneral);
-            List<AppUsage> appUsages = Data.LoadList(storeFileApps);
+            gData = Data.LoadGeneralData(storeFileGeneral);
+            appUsages = Data.LoadList(storeFileApps);
 
             tbkScreenTime.Text = GetTimeString(gData.gesSecondsUsed);
-
-            CreateLineDiagramMostUsedApps(gData, appUsages);
         }
 
         string GetTimeString(long seconds)
@@ -55,13 +56,14 @@ namespace ActivityPulse.Pages
 
         void CreateLineDiagramMostUsedApps(GeneralData gData, List<AppUsage> appUsages)
         {
+            canvasMostUsedApps.Children.Clear();
             List<AppUsage> mostUsed = appUsages.OrderByDescending(t => t.UsedMinutes).ThenByDescending(t => t.UsedSeconds).ToList(); //from t in appUsages orderby t.UsedMinutes, t.UsedSeconds select new { t.AppName, t.UsedMinutes, t.UsedSeconds, t.timeUsed, t.IconPath };
 
-            double canavsWidth = 500;
+            double canavsWidth = canvasMostUsedApps.ActualWidth;
             double gesUsedTime = gData.gesSecondsUsed;
             double marginLeft = 0;
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < (mostUsed.Count >= 3 ? 3 : mostUsed.Count); i++)
             {
                 double gesAppTime = (mostUsed[i].UsedMinutes * 60) + mostUsed[i].UsedSeconds;
                 double percentige = gesAppTime / gesUsedTime;
@@ -133,14 +135,14 @@ namespace ActivityPulse.Pages
             void ListApps()
             {
                 List<MostUsedAppsContext> listMostUsed = new List<MostUsedAppsContext>();
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < (mostUsed.Count >= 3 ? 3 : mostUsed.Count); i++)
                 {
                     listMostUsed.Add(new MostUsedAppsContext
-                    {
-                        AppName = mostUsed[i].AppName,
-                        UsedTime = GetTimeString((mostUsed[i].UsedMinutes * 60) + mostUsed[i].UsedSeconds),
-                        IconPath = mostUsed[i].IconPath,
-                    });
+                    (
+                        mostUsed[i].AppName,
+                        GetTimeString((mostUsed[i].UsedMinutes * 60) + mostUsed[i].UsedSeconds),
+                        mostUsed[i].IconPath
+                    ));
                 }
 
                 lbMostUsed.ItemsSource = null;
@@ -153,16 +155,177 @@ namespace ActivityPulse.Pages
                 for (int i = 3; i < mostUsed.Count; i++)
                 {
                     listMostUsed.Add(new MostUsedAppsContext
-                    {
-                        AppName = mostUsed[i].AppName,
-                        UsedTime = GetTimeString((mostUsed[i].UsedMinutes * 60) + mostUsed[i].UsedSeconds),
-                        IconPath = mostUsed[i].IconPath,
-                    });
+                    (
+                        mostUsed[i].AppName,
+                        GetTimeString((mostUsed[i].UsedMinutes * 60) + mostUsed[i].UsedSeconds),
+                        mostUsed[i].IconPath
+                    ));
                 }
 
                 lbOther.ItemsSource = null;
                 lbOther.ItemsSource = listMostUsed;
             }
+        }
+
+        void CreateUsageIntervalChart(GeneralData gData, List<AppUsage> appUsages)
+        {
+            cnvsIntervalls.Children.Clear();
+            int spaces = 26;
+            double cnvsWidth = cnvsIntervalls.ActualWidth;
+            double cnvsHeight = cnvsIntervalls.ActualHeight;
+            double hourDifference = cnvsWidth / spaces;
+
+            for (int i = 1; i < spaces; i++)
+            {
+                Border b = new Border
+                {
+                    Height = 7,
+                    Width = 2,
+                    Background = Brushes.White,
+                    Opacity = 0.85
+                };
+                TextBlock tb = new TextBlock
+                {
+                    Text = i == 25 ? (i - 1).ToString() + " h" : (i - 1).ToString(),
+                    Style = (Style)Application.Current.Resources["ModeTextBlock"],
+                    FontSize = 10,
+                    Opacity = 0.7
+                };
+
+                cnvsIntervalls.Children.Add(b);
+                cnvsIntervalls.Children.Add(tb);
+                Canvas.SetLeft(b, i * hourDifference);
+                Canvas.SetBottom(b, 17);
+                Canvas.SetBottom(tb, 0);
+                if (i > 10)
+                {
+                    Canvas.SetLeft(tb, i * hourDifference - 4.5);
+                }
+                else
+                {
+                    Canvas.SetLeft(tb, i * hourDifference - 1.5);
+                }
+            }
+
+            IntervallOfContext intervalls = GetIntervallsFromDateTimeList(gData.timeUsed, "system");
+
+            foreach (var intervall in intervalls.Intervalls)
+            {
+                int hours = intervall.BisDate.Hour - intervall.VonDate.Hour;
+
+                Border b = new Border
+                {
+                    Height = 5,
+                    CornerRadius = new CornerRadius(2),
+                    Width = hours == 0 ? 5 : hourDifference * hours,
+                    Background = Brushes.DarkGray,
+                };
+
+                cnvsIntervalls.Children.Add(b);
+                Canvas.SetLeft(b, (intervall.VonDate.Hour + 1) * hourDifference);
+                Canvas.SetBottom(b, 35);
+            }
+
+            List<AppUsage> mostUsed = appUsages.OrderByDescending(t => t.UsedMinutes).ThenByDescending(t => t.UsedSeconds).ToList();
+            List<IntervallOfContext> appIntervalls = new List<IntervallOfContext>();
+
+            for (int i = 0; i < 6; i++)
+            {
+                if (i < mostUsed.Count)
+                {
+                    appIntervalls.Add(new IntervallOfContext(mostUsed[i].AppName, GetIntervallsFromDateTimeList(mostUsed[i].timeUsed, mostUsed[i].AppName).Intervalls));
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            int height = 35;
+            for (int i = 0; i < appIntervalls.Count; i++)
+            {
+                height += 15;
+                foreach (var intervall in appIntervalls[i].Intervalls)
+                {
+                    int hours = intervall.BisDate.Hour - intervall.VonDate.Hour;
+
+                    Border b = new Border
+                    {
+                        Height = 5,
+                        CornerRadius = new CornerRadius(2),
+                        Width = hours == 0 ? 5 : hourDifference * hours,
+                        Background = i < colors.Count ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[0])),
+                    };
+
+                    cnvsIntervalls.Children.Add(b);
+                    Canvas.SetLeft(b, (intervall.VonDate.Hour + 1) * hourDifference);
+                    Canvas.SetBottom(b, height);
+                }
+
+                StackPanel horiSP = new StackPanel
+                {
+                    Orientation = Orientation.Horizontal,
+                    Children =
+                    {
+                        new Border
+                        {
+                            Background = i < colors.Count ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[0])),
+                            CornerRadius = new CornerRadius(5),
+                            Height = 15,
+                            Width = 15,
+                            VerticalAlignment = VerticalAlignment.Center,
+                        },
+
+                        new TextBlock
+                        {
+                            Text = appIntervalls[i].Name,
+                            VerticalAlignment = VerticalAlignment.Center,
+                        }
+                    }
+                };
+
+                spUsage.Children.Add(horiSP);
+            }
+        }
+
+        IntervallOfContext GetIntervallsFromDateTimeList(List<DateTime> dateTimeList, string name)
+        {
+            IntervallOfContext intervalls = new IntervallOfContext();
+            intervalls.Name = name;
+
+            if (dateTimeList.Count >= 1)
+            {
+                DateTime oldDt = dateTimeList[0];
+                DateTime begin = dateTimeList[0];
+
+                foreach (DateTime dt in dateTimeList)
+                {
+                    if (oldDt.Hour != dt.Hour)
+                    {
+                        if (oldDt.Hour + 1 != dt.Hour)
+                        {
+                            intervalls.Intervalls.Add(new IntervallContext(begin, oldDt, name));
+                            begin = dt;
+                        }
+                    }
+
+                    oldDt = dt;
+                }
+
+                intervalls.Intervalls.Add(new IntervallContext(begin, dateTimeList[dateTimeList.Count - 1], name));
+            }
+
+            return intervalls;
+        }
+
+        private void cnvsIntervalls_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            CreateUsageIntervalChart(gData, appUsages);
+        }
+
+        private void canvasMostUsedApps_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            CreateLineDiagramMostUsedApps(gData, appUsages);
         }
     }
 }

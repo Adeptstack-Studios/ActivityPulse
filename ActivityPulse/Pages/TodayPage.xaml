@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ActivityPulse.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="1080"
       Title="TodayPage">
 
     <Grid>
@@ -24,12 +24,12 @@
         </Grid>
 
         <Grid Grid.Row="1" Grid.RowSpan="2" Margin="20,0,20,50" >
-            <Border Grid.Column="1" Style="{StaticResource Bar}"  Margin="25,0,75,20" CornerRadius="25" >
+            <Border Grid.Column="1" Style="{StaticResource Bar}"  Margin="75,0,25,20" CornerRadius="25" >
                 <ScrollViewer VerticalScrollBarVisibility="Hidden" >
                     <StackPanel>
                         <TextBlock Margin="45,30,45,0" x:Name="tbkScreenTime" TextAlignment="Left" Style="{StaticResource ModeTextBlock}" VerticalAlignment="Center" FontWeight="Medium" FontSize="28" />
-                        <Grid Margin="-5,5,0,0" Width="500" VerticalAlignment="Top" HorizontalAlignment="Center" >
-                            <Canvas Height="40" x:Name="canvasMostUsedApps" >
+                        <Grid Margin="38,5,40,5" VerticalAlignment="Top" >
+                            <Canvas Height="40" x:Name="canvasMostUsedApps" SizeChanged="canvasMostUsedApps_SizeChanged" >
 
                             </Canvas>
                         </Grid>
@@ -69,7 +69,21 @@
                     </StackPanel>
                 </ScrollViewer>
             </Border>
+        </Grid>
+        <Grid Grid.Row="1" Grid.RowSpan="2" Margin="20,0,20,50" Grid.Column="1" >
+            <Border Grid.Column="1" Style="{StaticResource Bar}"  Margin="25,0,75,20" CornerRadius="25" Grid.RowSpan="2" Grid.Row="1" >
+                <Grid Margin="30,20">
+                    <StackPanel x:Name="spUsage">
+                        <Grid Height="270">
+                            <Canvas x:Name="cnvsIntervalls" Margin="0,10" SizeChanged="cnvsIntervalls_SizeChanged" />
+                        </Grid>
 
+                        <!--<TextBlock x:Name="tbCNVSWidth" Text="{Binding ElementName=cnvsIntervalls, Path=ActualWidth}" />
+                        <TextBlock Text="{Binding ElementName=cnvsIntervalls, Path=ActualHeight}" />-->
+                        <TextBlock Text="Apps" Style="{StaticResource ModeTextBlock}" FontSize="16" FontWeight="Medium" />
+                    </StackPanel>
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 </Page>

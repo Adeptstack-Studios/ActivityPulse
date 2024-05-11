@@ -1,4 +1,5 @@
 ﻿using ActivityPulse.Pages;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -150,8 +151,14 @@ namespace ActivityPulse
                 Close();
             };
 
-            frame.Content = new TodayPage(new DateTime(2024, 5, 1));
+            frame.Content = new TodayPage(new DateTime(2024, 5, 12));
             TestIfHostActive();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            //e.Cancel = true;
         }
 
         void TestIfHostActive()

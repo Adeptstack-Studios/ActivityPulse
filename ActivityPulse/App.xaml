@@ -170,6 +170,275 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        
+        <!--ListBox / ListBoxItem-->
+        <!--========================================-->
+        <Style x:Key="LB_FullHorizontal"
+TargetType="ListBox">
+            <Setter Property="SnapsToDevicePixels"
+   Value="true" />
+            <Setter Property="OverridesDefaultStyle"
+   Value="true" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+   Value="Hidden" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+   Value="Auto" />
+            <Setter Property="ScrollViewer.CanContentScroll"
+   Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border Name="Border" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" >
+                            <ScrollViewer Margin="0" Focusable="false" HorizontalAlignment="Center" Style="{StaticResource LeftUpScroller}">
+                                <StackPanel Orientation="Horizontal" Margin="2" IsItemsHost="True"  />
+                            </ScrollViewer>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Border" Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{StaticResource DisabledControlLightColor}" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="Border" Property="BorderBrush">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource DisabledBorderLightColor}" />
+                                    </Setter.Value>
+
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource DarkForeground}" />
+
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                <Setter Property="BorderBrush" Value="{DynamicResource LightForeground}" />
+                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource ThemeForeground}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LB_horizontal"
+TargetType="ListBox">
+            <Setter Property="SnapsToDevicePixels"
+   Value="true" />
+            <Setter Property="OverridesDefaultStyle"
+   Value="true" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+   Value="Hidden" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+   Value="Auto" />
+            <Setter Property="ScrollViewer.CanContentScroll"
+   Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border Name="Border" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" >
+                            <ScrollViewer Margin="0" Focusable="false">
+                                <WrapPanel Orientation="Horizontal" MaxWidth="{TemplateBinding ActualWidth}" Margin="2" IsItemsHost="True" HorizontalAlignment="Center"  />
+                            </ScrollViewer>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Border" Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{StaticResource DisabledControlLightColor}" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="Border" Property="BorderBrush">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource DisabledBorderLightColor}" />
+                                    </Setter.Value>
+
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                <Setter Property="Background" Value="{DynamicResource DarkBackground}" />
+                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource DarkForeground}" />
+
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                <Setter Property="Background" Value="{DynamicResource LightBackground}" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource LightForeground}" />
+                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                                <Setter Property="Background" Value="{DynamicResource ThemeBackground}" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource ThemeForeground}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LB_vertical"
+TargetType="ListBox">
+            <Setter Property="SnapsToDevicePixels"
+   Value="true" />
+            <Setter Property="OverridesDefaultStyle"
+   Value="true" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+   Value="Hidden" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+   Value="Auto" />
+            <Setter Property="ScrollViewer.CanContentScroll"
+   Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border Name="Border" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" >
+                            <ScrollViewer Margin="0" Focusable="false">
+                                <StackPanel Orientation="Vertical" Width="{TemplateBinding ActualWidth}" Margin="2" IsItemsHost="True" />
+                            </ScrollViewer>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                <Setter Property="Background" Value="{DynamicResource DarkBackground}" />
+                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource DarkForeground}" />
+
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                <Setter Property="Background" Value="{DynamicResource LightBackground}" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource LightForeground}" />
+                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                                <Setter Property="Background" Value="{DynamicResource ThemeBackground}" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource ThemeForeground}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LB_verticalNoScroll"
+TargetType="ListBox">
+            <Setter Property="SnapsToDevicePixels"
+   Value="true" />
+            <Setter Property="OverridesDefaultStyle"
+   Value="true" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+   Value="Hidden" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+   Value="Auto" />
+            <Setter Property="ScrollViewer.CanContentScroll"
+   Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border Name="Border" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" >
+                            <StackPanel Orientation="Vertical" Width="{TemplateBinding ActualWidth}" Margin="2" IsItemsHost="True" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                <Setter Property="Background" Value="{DynamicResource DarkBackground}" />
+                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource DarkForeground}" />
+
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                <Setter Property="Background" Value="{DynamicResource LightBackground}" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource LightForeground}" />
+                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                                <Setter Property="Background" Value="{DynamicResource ThemeBackground}" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource ThemeForeground}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="{x:Type ListBoxItem}"
+TargetType="ListBoxItem">
+            <Setter Property="SnapsToDevicePixels"
+   Value="true" />
+            <Setter Property="OverridesDefaultStyle"
+   Value="true" />
+            <Setter Property="Margin" Value="10,10,10,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Border" Padding="0" Margin="0,0,10,0" SnapsToDevicePixels="true" CornerRadius="20" BorderThickness="2" BorderBrush="Transparent">
+                            <Border.Background>
+                                <SolidColorBrush Color="DarkGray" />
+                            </Border.Background>
+                            <ContentPresenter x:Name="content"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="False"/>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.15" Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush.Color" To="{x:Static SystemParameters.WindowGlassColor}"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.EnterActions>
+                                <MultiTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.15" Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.ExitActions>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush.Color" To="{x:Static SystemParameters.WindowGlassColor}"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.EnterActions>
+                                <MultiTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.ExitActions>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
     </Application.Resources>
 </Application>

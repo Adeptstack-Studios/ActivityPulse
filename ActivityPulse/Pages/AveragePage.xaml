@@ -9,6 +9,45 @@
       Title="AveragePage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="1.5*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <TextBlock Text="01.01.2024" x:Name="tbkTitle" TextAlignment="Center" Style="{StaticResource ModeTextBlock}" VerticalAlignment="Center" FontWeight="Medium" FontSize="24" />
+        </Grid>
+
+        <Grid Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource Bar}" Margin="75,20,25,20" CornerRadius="25" >
+
+            </Border>
+
+            <Border Grid.Column="1" Style="{StaticResource Bar}"  Margin="25,20,75,20" CornerRadius="25" >
+
+            </Border>
+
+        </Grid>
+
+        <Grid Grid.Row="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource Bar}" Margin="75,20,25,40" CornerRadius="25" >
+
+            </Border>
+
+            <Border Grid.Column="1" Style="{StaticResource Bar}"  Margin="25,20,75,40" CornerRadius="25" >
+
+            </Border>
+        </Grid>
     </Grid>
 </Page>

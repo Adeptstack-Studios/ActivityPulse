@@ -105,8 +105,7 @@
 
         <Grid Grid.Row="0" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="135"/>
-                <ColumnDefinition Width="0.55*"/>
+                <ColumnDefinition Width="300"/>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="135"/>
@@ -114,27 +113,19 @@
             <StackPanel Grid.Column="0" Orientation="Horizontal" Height="40" HorizontalAlignment="Left">
                 <!--<Image Source="img/PLP-NoTas.ico" Margin="15,5.5" />-->
                 <!--<TextBlock Text="PLP-NoTas"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Medium" />-->
+                <TextBlock Margin="50,0,0,0" Style="{StaticResource ModeTextBlock}" x:Name="TB_Title" Text="{DynamicResource WindowTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Medium" />
             </StackPanel>
             <Grid Grid.Column="1">
-                <TextBlock Background="Transparent" />
             </Grid>
-            <Grid Grid.Column="2">
-                <TextBlock Style="{StaticResource ModeTextBlock}" x:Name="TB_Title" Text="{DynamicResource WindowTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Medium" />
-            </Grid>
-            <StackPanel Style="{StaticResource BackgroundSP}" Orientation="Horizontal" Grid.Column="4" Height="40" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right">
+            <StackPanel Style="{StaticResource MenuSP}" Orientation="Horizontal" Grid.Column="3" Height="40" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right">
                 <Button IsTabStop="False" Width="45" x:Name="min_btn" ToolTip="Minimize" Content="&#xf2d1;" FontFamily="{StaticResource FAsolid}" FontSize="12" Padding="0,0,0,8" Style="{StaticResource WindowBTN}" />
                 <Button IsTabStop="False" Width="45" x:Name="max_btn" ToolTip="Maximize" Content="&#xf065;" FontFamily="{StaticResource FAsolid}" FontSize="16" Style="{StaticResource WindowBTN}" />
                 <Button IsTabStop="False" Width="45" x:Name="close_btn" ToolTip="Close" Content="&#xf00d;" FontFamily="{StaticResource FAsolid}" FontSize="18" Style="{StaticResource WindowCloseBTN}" />
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="1" Style="{StaticResource Menu}" >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-            </Grid>
+        <Grid Grid.Row="1" Style="{StaticResource Background}" >
+            <Frame x:Name="frame" NavigationUIVisibility="Hidden" />
         </Grid>
         
     </Grid>

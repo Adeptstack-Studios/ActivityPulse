@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using ActivityPulse.Pages;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
@@ -149,6 +150,7 @@ namespace ActivityPulse
                 Close();
             };
 
+            frame.Content = new TodayPage(new DateTime(2024, 5, 1));
             TestIfHostActive();
         }
 

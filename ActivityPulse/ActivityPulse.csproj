@@ -5,12 +5,19 @@
     <TargetFramework>net8.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Images\AppIcon\logo.ico</ApplicationIcon>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Fonts\FAbrands.otf" />
     <None Remove="Fonts\FAregular.otf" />
     <None Remove="Fonts\FAsolid900.otf" />
+    <None Remove="Images\AppIcon\logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\AppIcon\logo.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Images\AppIcon\" />
     <Folder Include="Images\Resources\" />
     <Folder Include="Images\Splashscreen\" />
   </ItemGroup>
@@ -46,6 +52,7 @@
     <Resource Include="Fonts\FAbrands.otf" />
     <Resource Include="Fonts\FAregular.otf" />
     <Resource Include="Fonts\FAsolid900.otf" />
+    <Resource Include="Images\AppIcon\logo.png" />
   </ItemGroup>
 
 </Project>

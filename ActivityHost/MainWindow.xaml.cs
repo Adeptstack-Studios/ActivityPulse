@@ -1,5 +1,6 @@
 ﻿using ActivityUtilities;
 using Microsoft.Win32;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -39,6 +40,12 @@ namespace ActivityHost
             appUsages = Data.LoadList(storeFileApps);
             generalData = Data.LoadGeneralData(storeFileGeneral);
             Timer();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            e.Cancel = true;
         }
 
         void EnableAutostart()
@@ -112,7 +119,7 @@ namespace ActivityHost
             bool allow = true;
             foreach (var item in generalData.timeUsed)
             {
-                if (item.Minute == DateTime.Now.Minute)
+                if (item.Minute == DateTime.Now.Minute && item.Hour == DateTime.Now.Hour)
                 {
                     allow = false;
                     break;
@@ -155,7 +162,7 @@ namespace ActivityHost
                 bool allow = true;
                 foreach (var item in appUsages[index].timeUsed)
                 {
-                    if (item.Minute == DateTime.Now.Minute)
+                    if (item.Minute == DateTime.Now.Minute && item.Hour == DateTime.Now.Hour)
                     {
                         allow = false;
                         break;

@@ -85,5 +85,8 @@
                 </Grid>
             </Border>
         </Grid>
+
+        <Button FontSize="32" x:Name="dayBeforeBtn" Click="dayBeforeBtn_Click" Style="{StaticResource LinkButton}" Content="&#xf104;" FontFamily="{StaticResource FAsolid}" Grid.Column="0" Grid.RowSpan="3" Width="40" Height="45" Margin="20,0" HorizontalAlignment="Left" />
+        <Button FontSize="32" x:Name="dayAfterBtn" Click="dayAfterBtn_Click" Style="{StaticResource LinkButton}" Content="&#xf105;" FontFamily="{StaticResource FAsolid}" Grid.Column="1" Grid.RowSpan="3" Width="40" Height="45" Margin="20,0" HorizontalAlignment="Right" />
     </Grid>
 </Page>

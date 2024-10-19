@@ -151,7 +151,7 @@ namespace ActivityPulse
                 Close();
             };
 
-            frame.Content = new TodayPage(new DateTime(2024, 5, 12));
+            frame.Content = new TodayPage(DateTime.Now);
             TestIfHostActive();
         }
 
@@ -163,22 +163,17 @@ namespace ActivityPulse
 
         void TestIfHostActive()
         {
-            bool isActive = false;
-            var process = Process.GetProcesses();
+            var process = Process.GetProcessesByName("ActivityHost");
 
-            foreach (var item in process)
-            {
-                if (item.ProcessName == "ActivityHost")
-                {
-                    isActive = true;
-                    break;
-                }
-            }
-
-            if (!isActive)
+            if (process.Length == 0)
             {
                 MessageBox.Show("Activity Host ist nicht gestartet, stellen Sie sicher, dass Autostart für ActivityHost eingeschaltet ist um korrekte Zeiten zu bekommen");
             }
+        }
+
+        private void homeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new CalendarPage();
         }
     }
 }

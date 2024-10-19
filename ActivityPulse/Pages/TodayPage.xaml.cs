@@ -17,6 +17,7 @@ namespace ActivityPulse.Pages
         string storeFileGeneral;
         GeneralData gData;
         List<AppUsage> appUsages;
+        DateTime day;
 
         List<string> colors = new List<string>
         {
@@ -30,6 +31,7 @@ namespace ActivityPulse.Pages
         public TodayPage(DateTime day)
         {
             InitializeComponent();
+            this.day = day;
             storeFolder = @$"{Data.path}{day.Year}/{day.Month}/{day.Day}";
             storeFileApps = @$"{Data.path}{day.Year}/{day.Month}/{day.Day}/{day.Day}.json";
             storeFileGeneral = @$"{Data.path}{day.Year}/{day.Month}/{day.Day}/General.json";
@@ -212,17 +214,21 @@ namespace ActivityPulse.Pages
             foreach (var intervall in intervalls.Intervalls)
             {
                 int hours = intervall.BisDate.Hour - intervall.VonDate.Hour;
+                double bmv = intervall.VonDate.Minute / 6;
+                double emv = intervall.BisDate.Minute / 6;
+                double beginMinuteValue = bmv / 10;
+                double endMinuteValue = emv / 10;
 
                 Border b = new Border
                 {
                     Height = 5,
                     CornerRadius = new CornerRadius(2),
-                    Width = hours == 0 ? 5 : hourDifference * hours,
+                    Width = hours == 0 ? 5 : hourDifference * (hours + endMinuteValue - beginMinuteValue),
                     Background = Brushes.DarkGray,
                 };
 
                 cnvsIntervalls.Children.Add(b);
-                Canvas.SetLeft(b, (intervall.VonDate.Hour + 1) * hourDifference);
+                Canvas.SetLeft(b, (intervall.VonDate.Hour + 1 + beginMinuteValue) * hourDifference);
                 Canvas.SetBottom(b, 35);
             }
 
@@ -248,17 +254,21 @@ namespace ActivityPulse.Pages
                 foreach (var intervall in appIntervalls[i].Intervalls)
                 {
                     int hours = intervall.BisDate.Hour - intervall.VonDate.Hour;
+                    double bmv = intervall.VonDate.Minute / 6;
+                    double emv = intervall.BisDate.Minute / 6;
+                    double beginMinuteValue = bmv / 10;
+                    double endMinuteValue = emv / 10;
 
                     Border b = new Border
                     {
                         Height = 5,
                         CornerRadius = new CornerRadius(2),
-                        Width = hours == 0 ? 5 : hourDifference * hours,
+                        Width = hours == 0 ? 5 : hourDifference * (hours + endMinuteValue - beginMinuteValue),
                         Background = i < colors.Count ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[0])),
                     };
 
                     cnvsIntervalls.Children.Add(b);
-                    Canvas.SetLeft(b, (intervall.VonDate.Hour + 1) * hourDifference);
+                    Canvas.SetLeft(b, (intervall.VonDate.Hour + 1 + beginMinuteValue) * hourDifference);
                     Canvas.SetBottom(b, height);
                 }
 
@@ -326,6 +336,16 @@ namespace ActivityPulse.Pages
         private void canvasMostUsedApps_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             CreateLineDiagramMostUsedApps(gData, appUsages);
+        }
+
+        private void dayBeforeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Content = new TodayPage(day.AddDays(-1));
+        }
+
+        private void dayAfterBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Content = new TodayPage(day.AddDays(1));
         }
     }
 }

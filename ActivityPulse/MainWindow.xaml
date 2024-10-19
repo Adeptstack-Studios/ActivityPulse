@@ -113,9 +113,11 @@
             <StackPanel Grid.Column="0" Orientation="Horizontal" Height="40" HorizontalAlignment="Left">
                 <!--<Image Source="img/PLP-NoTas.ico" Margin="15,5.5" />-->
                 <!--<TextBlock Text="PLP-NoTas"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Medium" />-->
-                <TextBlock Margin="50,0,0,0" Style="{StaticResource ModeTextBlock}" x:Name="TB_Title" Text="{DynamicResource WindowTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Medium" />
+                <Button x:Name="homeBtn" Click="homeBtn_Click" Margin="20,2,0,0" Style="{StaticResource LinkButton}" Content="home" FontFamily="{StaticResource FAsolid}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontWeight="Medium" WindowChrome.IsHitTestVisibleInChrome="True" />
+                <TextBlock Margin="15,0,0,0" Style="{StaticResource ModeTextBlock}" x:Name="TB_Title" Text="{DynamicResource WindowTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Medium" />
             </StackPanel>
             <Grid Grid.Column="1">
+            
             </Grid>
             <StackPanel Style="{StaticResource MenuSP}" Orientation="Horizontal" Grid.Column="3" Height="40" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right">
                 <Button IsTabStop="False" Width="45" x:Name="min_btn" ToolTip="Minimize" Content="&#xf2d1;" FontFamily="{StaticResource FAsolid}" FontSize="12" Padding="0,0,0,8" Style="{StaticResource WindowBTN}" />

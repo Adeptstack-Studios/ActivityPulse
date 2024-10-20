@@ -83,14 +83,18 @@ namespace ActivityHost
             uint pid;
             GetWindowThreadProcessId(hwnd, out pid);
             Process p = Process.GetProcessById((int)pid);
-            try
+            if (!Utilities.IsBannedProcess(p))
             {
-                return Path.GetFileNameWithoutExtension(p.MainModule.FileName);//.Dump();
+                try
+                {
+                    return Path.GetFileNameWithoutExtension(p.MainModule.FileName);//.Dump();
+                }
+                catch (Exception)
+                {
+                    return "Other";
+                }
             }
-            catch (Exception)
-            {
-                return "Other";
-            }
+            return "Other";
         }
 
         int offTimer = evaluationTime;

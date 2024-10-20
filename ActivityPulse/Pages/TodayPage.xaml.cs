@@ -32,6 +32,7 @@ namespace ActivityPulse.Pages
         {
             InitializeComponent();
             this.day = day;
+            MainWindow.UpdateTitle($"ActivityPulse - {day.ToShortDateString()}");
             storeFolder = @$"{Data.path}{day.Year}/{day.Month}/{day.Day}";
             storeFileApps = @$"{Data.path}{day.Year}/{day.Month}/{day.Day}/{day.Day}.json";
             storeFileGeneral = @$"{Data.path}{day.Year}/{day.Month}/{day.Day}/General.json";
@@ -223,7 +224,7 @@ namespace ActivityPulse.Pages
                 {
                     Height = 5,
                     CornerRadius = new CornerRadius(2),
-                    Width = hours == 0 ? 5 : hourDifference * (hours + endMinuteValue - beginMinuteValue),
+                    Width = hourDifference * (hours + endMinuteValue - beginMinuteValue),
                     Background = Brushes.DarkGray,
                 };
 
@@ -263,7 +264,7 @@ namespace ActivityPulse.Pages
                     {
                         Height = 5,
                         CornerRadius = new CornerRadius(2),
-                        Width = hours == 0 ? 5 : hourDifference * (hours + endMinuteValue - beginMinuteValue),
+                        Width = hourDifference * (hours + endMinuteValue - beginMinuteValue),
                         Background = i < colors.Count ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[0])),
                     };
 

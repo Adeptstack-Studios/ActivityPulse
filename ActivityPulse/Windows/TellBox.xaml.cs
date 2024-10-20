@@ -1,18 +1,15 @@
-﻿using ActivityPulse.Pages;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Threading;
 
-namespace ActivityPulse
+namespace ActivityPulse.Windows
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaktionslogik für TellBox.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TellBox : Window
     {
-
         private static IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (msg)
@@ -127,7 +124,7 @@ namespace ActivityPulse
         [DllImport("User32")]
         internal static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
 
-        public MainWindow()
+        public TellBox(string message, string title)
         {
             InitializeComponent();
             SourceInitialized += (s, e) =>
@@ -135,15 +132,27 @@ namespace ActivityPulse
                 IntPtr handle = (new WindowInteropHelper(this)).Handle;
                 HwndSource.FromHwnd(handle).AddHook(new HwndSourceHook(WindowProc));
             };
-            min_btn.Click += (s, e) =>
+            close_btn.Click += (s, e) =>
             {
                 WindowStyle = WindowStyle.SingleBorderWindow;
-                WindowState = WindowState.Minimized;
+                Close();
             };
-            max_btn.Click += (s, e) =>
+
+            this.Title = title;
+            TB_Title.Text = title;
+            TBk_msg.Text = message;
+        }
+
+        int action = 0;
+        int index = 0;
+
+        public TellBox(string message, string title, Visibility cancelBTNVisible, int action)
+        {
+            InitializeComponent();
+            SourceInitialized += (s, e) =>
             {
-                WindowStyle = WindowStyle.SingleBorderWindow;
-                WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+                IntPtr handle = (new WindowInteropHelper(this)).Handle;
+                HwndSource.FromHwnd(handle).AddHook(new HwndSourceHook(WindowProc));
             };
             close_btn.Click += (s, e) =>
             {
@@ -151,34 +160,70 @@ namespace ActivityPulse
                 Close();
             };
 
-            frame.Content = new TodayPage(DateTime.Now);
-            TestIfHostActive();
+            this.Title = title;
+            TB_Title.Text = title;
+            TBk_msg.Text = message;
+            this.action = action;
+            cancel_btn.Visibility = cancelBTNVisible;
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+        public TellBox(string message, string title, Visibility cancelBTNVisible, int action, int index)
         {
-            base.OnClosing(e);
-            //e.Cancel = true;
-        }
-
-        void TestIfHostActive()
-        {
-            var process = Process.GetProcessesByName("ActivityHost");
-
-            if (process.Length == 0)
+            InitializeComponent();
+            SourceInitialized += (s, e) =>
             {
-                MessageBox.Show("Activity Host ist nicht gestartet, stellen Sie sicher, dass Autostart für ActivityHost eingeschaltet ist um korrekte Zeiten zu bekommen");
+                IntPtr handle = (new WindowInteropHelper(this)).Handle;
+                HwndSource.FromHwnd(handle).AddHook(new HwndSourceHook(WindowProc));
+            };
+            close_btn.Click += (s, e) =>
+            {
+                WindowStyle = WindowStyle.SingleBorderWindow;
+                Close();
+            };
+
+            this.Title = title;
+            TB_Title.Text = title;
+            TBk_msg.Text = message;
+            this.action = action;
+            cancel_btn.Visibility = cancelBTNVisible;
+            this.index = index;
+        }
+
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+            if (WindowStyle != WindowStyle.None)
+            {
+                Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (DispatcherOperationCallback)delegate (object unused)
+                {
+                    WindowStyle = WindowStyle.None;
+                    return null;
+                }
+                , null);
             }
         }
 
-        private void homeBtn_Click(object sender, RoutedEventArgs e)
+        private void window_StateChanged(object sender, EventArgs e)
         {
-            frame.Content = new CalendarPage();
+            if (window.WindowState == WindowState.Normal)
+            {
+                Console.WriteLine("Hi, how are you? You found a secret");
+            }
+            else if (window.WindowState == WindowState.Maximized)
+            {
+                Console.WriteLine("Hi, how are you? You found a secret");
+            }
         }
 
-        public static void UpdateTitle(string title)
+        private void ok_btn_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Resources["WindowTitle"] = string.Format(title);
+            this.DialogResult = true;
+            this.Close();
+        }
+
+        private void cancel_btn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

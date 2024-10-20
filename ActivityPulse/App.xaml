@@ -12,6 +12,9 @@
         <FontFamily x:Key="FAbrands">/Fonts/FAbrands.otf#Font Awesome 6 Brands Regular</FontFamily>
         <FontFamily x:Key="FAregular">/Fonts/FAregular.otf#Font Awesome 6 Free Regular</FontFamily>
 
+        <Color x:Key="DisabledControlLightColor">#FFE8EDF9</Color>
+        <Color x:Key="DisabledBorderLightColor">#FFAAAAAA</Color>
+
         <SolidColorBrush x:Key="DarkBackground" Color="#ff222222"/>
         <SolidColorBrush x:Key="DarkMenu" Color="#ff303030" />
         <SolidColorBrush x:Key="DarkForeground" Color="White"/>
@@ -34,7 +37,34 @@
         
         <!--Styles-->
         <!--======================================-->
-        
+
+        <!--SCROLLER-->
+        <!--======================================-->
+        <Style x:Key="LeftUpScroller" TargetType="{x:Type ScrollViewer}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+                                <ScrollContentPresenter CanContentScroll="{TemplateBinding CanContentScroll}" />
+                            </Border>
+                            <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="0" Value="{TemplateBinding VerticalOffset}" Maximum="{TemplateBinding ScrollableHeight}" ViewportSize="{TemplateBinding ViewportHeight}" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
+                            <ScrollBar x:Name="PART_HorizontalScrollBar" Orientation="Horizontal" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Value="{TemplateBinding HorizontalOffset}" Maximum="{TemplateBinding ScrollableWidth}" ViewportSize="{TemplateBinding ViewportWidth}" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!--Button-->
         <!--======================================-->
         <Style TargetType="Button" x:Key="LinkButton">
@@ -102,6 +132,74 @@
             </Setter>
         </Style>
 
+        <Style TargetType="Button" x:Key="CustomButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="bdr_btn_cc" CornerRadius="8" BorderThickness="0" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="content" Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard x:Name="bsb_2_b">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="bdr_btn_cc" Storyboard.TargetProperty="Background.Color" To="CadetBlue"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard x:Name="bsb_2_e">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="bdr_btn_cc" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsPressed" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.EnterActions>
+                                    <BeginStoryboard x:Name="bsb_1_b">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.15" Storyboard.TargetName="bdr_btn_cc" Storyboard.TargetProperty="Background.Color" To="#7f8c8d"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.EnterActions>
+                                <MultiTrigger.ExitActions>
+                                    <BeginStoryboard x:Name="bsb_1_e">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.15" Storyboard.TargetName="bdr_btn_cc" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.ExitActions>
+                            </MultiTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                <Setter Property="Background" TargetName="bdr_btn_cc" Value="{DynamicResource SystemColor}" />
+                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                <Setter Property="BorderBrush" TargetName="bdr_btn_cc" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                <Setter Property="Background" TargetName="bdr_btn_cc" Value="{DynamicResource SystemColor}" />
+                                <Setter Property="BorderBrush" TargetName="bdr_btn_cc" Value="{DynamicResource LightForeground}" />
+                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                                <Setter Property="Background" TargetName="bdr_btn_cc" Value="{DynamicResource ThemeMenu}" />
+                                <Setter Property="BorderBrush" TargetName="bdr_btn_cc" Value="{DynamicResource ThemeForeground}" />
+                            </DataTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="bdr_btn_cc" Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!--TextBlock-->
         <!--======================================-->
         <Style x:Key="ModeTextBlock" TargetType="TextBlock">
@@ -118,6 +216,83 @@
             </Style.Triggers>
         </Style>
         
+        <!--TEXTBOX-->
+        <!--======================================-->
+        <Style TargetType="{x:Type TextBox}" x:Key="DefaultTB">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border Name="Border" CornerRadius="10" Padding="2" BorderThickness="2" BorderBrush="Transparent">
+                            <Grid>
+                                <ScrollViewer Margin="3,0" x:Name="PART_ContentHost" />
+                                <TextBlock x:Name="Placeholder" Visibility="Collapsed" Text="{TemplateBinding Tag}" VerticalAlignment="Center" FontStyle="Italic" Opacity="0.7" Padding="5,0" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource DarkBackground}" />
+                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                <Setter Property="CaretBrush" Value="{DynamicResource DarkForeground}" />
+                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource LightBackground}" />
+                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource LightForeground}" />
+                                <Setter Property="CaretBrush" Value="{DynamicResource LightForeground}" />
+                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                                <Setter Property="CaretBrush" Value="{DynamicResource ThemeForeground}" />
+                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource ThemeBackground}" />
+                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource ThemeForeground}" />
+                            </DataTrigger>
+                            <Trigger Property="Text" Value="">
+                                <Setter Property="Visibility" TargetName="Placeholder" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsSelectionActive" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="Border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" To="#9e9e9e">
+                                            </ColorAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="Border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" >
+                                            </ColorAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="Border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" To="#9e9e9e"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="Border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border" Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!--Container-->
         <!--=====================================-->
         <Style x:Key="Menu" TargetType="Grid">
@@ -501,6 +676,45 @@ TargetType="ListBoxItem">
                                     </BeginStoryboard>
                                 </MultiTrigger.ExitActions>
                             </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!--TOOLTIP-->
+        <!--========================================-->
+        <Style x:Key="{x:Type ToolTip}" TargetType="ToolTip">
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="HasDropShadow" Value="True" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToolTip">
+                        <Border Name="Border" BorderThickness="1.5">
+                            <ContentPresenter x:Name="content" Margin="4" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasDropShadow" Value="true">
+                                <Setter TargetName="Border" Property="CornerRadius" Value="5" />
+                                <Setter TargetName="Border" Property="SnapsToDevicePixels" Value="true" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource DarkMenu}" />
+                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource LightBackground}" />
+                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource LightForeground}" />
+                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource ThemeBackground}" />
+                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource ThemeForeground}" />
+                            </DataTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>

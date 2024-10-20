@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ActivityPulse.Models;
+using ActivityPulse.Windows;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ActivityPulse.Pages
 {
@@ -20,9 +11,172 @@ namespace ActivityPulse.Pages
     /// </summary>
     public partial class CalendarPage : Page
     {
+        List<Day> dayList = new List<Day>();
+        Month months = new Month(DateTime.Now.Year, DateTime.Now.Month);
+        int oldIndex = -1;
         public CalendarPage()
         {
             InitializeComponent();
+            MainWindow.UpdateTitle("ActivityPulse - Home");
+            CLD(DateTime.Now.Year, DateTime.Now.Month);
+        }
+
+        int todayIndex = -1;
+        private void CLD(int year, int month)
+        {
+            months = new Month(year, month);
+
+            TB_YearMonth.Text = months.ToString();
+            var firstDay = months.Days.First();
+            var daysBeforeMonth = ((int)firstDay.DayOfWeek + 6) % 7;
+            var dayNames = CultureInfo.CurrentUICulture.DateTimeFormat.DayNames;
+
+            dayNames = dayNames
+                .Skip(1)
+                .Concat(dayNames.Take(1))
+                .ToArray();
+
+            dayName0.Text = dayNames[0].ToString();
+            dayName1.Text = dayNames[1].ToString();
+            dayName2.Text = dayNames[2].ToString();
+            dayName3.Text = dayNames[3].ToString();
+            dayName4.Text = dayNames[4].ToString();
+            dayName5.Text = dayNames[5].ToString();
+            dayName6.Text = dayNames[6].ToString();
+
+            int j = -1;
+            dayList.Clear();
+            CalendarThemeContext calendarTheme = App.GetCalendarThemeColors();
+            for (var i = -daysBeforeMonth; i < 42 - daysBeforeMonth; i++)
+            {
+                j++;
+
+                if (firstDay.AddDays(i).Date.Month == months.MonthOfYear)
+                {
+                    if (firstDay.AddDays(i).Date.ToShortDateString() == DateTime.Now.ToShortDateString())
+                    {
+                        dayList.Add(new Day
+                        {
+                            DayInMonth = firstDay.AddDays(i).Day,
+                            DayOfWeek = firstDay.AddDays(i).DayOfWeek.ToString(),
+                            BgBrush = calendarTheme.TodayColor,
+                            FgBrush = calendarTheme.Foreground,
+                            IsEnabled = true,
+                            DateTime = firstDay.AddDays(i).Date,
+                        });
+                        todayIndex = j;
+                    }
+                    else
+                    {
+                        dayList.Add(new Day
+                        {
+                            DayInMonth = firstDay.AddDays(i).Day,
+                            DayOfWeek = firstDay.AddDays(i).DayOfWeek.ToString(),
+                            BgBrush = calendarTheme.ActiveColor,
+                            FgBrush = calendarTheme.Foreground,
+                            IsEnabled = true,
+                            DateTime = firstDay.AddDays(i).Date,
+                        });
+                    }
+                }
+                else
+                {
+                    dayList.Add(new Day
+                    {
+                        DayInMonth = firstDay.AddDays(i).Day,
+                        DayOfWeek = firstDay.AddDays(i).DayOfWeek.ToString(),
+                        BgBrush = calendarTheme.DisabledColor,
+                        FgBrush = calendarTheme.DisabledForeground,
+                        IsEnabled = false,
+                        DateTime = firstDay.AddDays(i).Date,
+                    });
+                }
+            }
+
+            LBDays.SelectedIndex = -1;
+            LBDays.ItemsSource = null;
+            LBDays.ItemsSource = dayList;
+            LBDays.SelectedIndex = todayIndex;
+        }
+
+        private void previosMonthBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                CLD(months.PreviousMonth.Year, months.PreviousMonth.MonthOfYear);
+            }
+            catch (Exception ex)
+            {
+                TellBox tellBox = new TellBox(ex.Message, "Error");
+            }
+        }
+
+        private void nextMonthBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                CLD(months.NextMonth.Year, months.NextMonth.MonthOfYear);
+            }
+            catch (Exception ex)
+            {
+                TellBox tellBox = new TellBox(ex.Message, "Error");
+            }
+        }
+
+        private void currentMonthBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CLD(DateTime.Now.Year, DateTime.Now.Month);
+        }
+
+        private void jumpToMonthBtn_Click(object sender, RoutedEventArgs e)
+        {
+            jumpToDialog.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void closeJumpToDialog_Click(object sender, RoutedEventArgs e)
+        {
+            jumpToDialog.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        private void JumpToBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int month = Convert.ToInt32(TBMonth.Text);
+                int year = Convert.ToInt32(TBYear.Text);
+                if (year > 0 && month > 0 && month <= 12)
+                {
+                    CLD(year, month);
+                    jumpToDialog.Visibility = System.Windows.Visibility.Collapsed;
+                    TBMonth.Text = string.Empty;
+                    TBYear.Text = string.Empty;
+                }
+                else
+                {
+                    TellBox tellBox = new TellBox("You made an incorrect entry.", "Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                TellBox tellBox = new TellBox(ex.Message, "Error");
+            }
+        }
+
+        private void LBDays_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (LBDays.SelectedIndex >= 0)
+            {
+                if (oldIndex >= 0)
+                {
+                    NavigationService.Content = new TodayPage(dayList[LBDays.SelectedIndex].DateTime);
+                }
+            }
+            oldIndex = LBDays.SelectedIndex;
+        }
+
+        void UpdateCalendar()
+        {
+            CLD(months.Year, months.MonthOfYear);
         }
     }
 }

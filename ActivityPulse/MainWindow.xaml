@@ -6,7 +6,7 @@
         xmlns:prop="clr-namespace:ActivityPulse.Settings"
         xmlns:local="clr-namespace:ActivityPulse"
         mc:Ignorable="d"
-        Title="Activity Pulse" MinHeight="600" MinWidth="1080" WindowStyle="None" WindowStartupLocation="CenterScreen">
+        Title="{DynamicResource WindowTitle}" MinHeight="600" MinWidth="1080" WindowStyle="None" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style x:Key="WindowCloseBTN" TargetType="Button">

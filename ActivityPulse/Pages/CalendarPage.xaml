@@ -4,11 +4,215 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ActivityPulse.Pages"
+      xmlns:prop="clr-namespace:ActivityPulse.Settings"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="CalendarPage">
+            Title="CalendarPage"
+      x:Name="cPage">
 
-    <Grid>
+    <Page.Resources>
+        <Style x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Border" Padding="0" Margin="4,5" SnapsToDevicePixels="true" CornerRadius="15" BorderThickness="2" BorderBrush="Transparent" Background="Gray">
+                            <ContentPresenter x:Name="content"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="False"/>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.15" Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush.Color" To="{x:Static SystemParameters.WindowGlassColor}"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.EnterActions>
+                                <MultiTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.15" Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.ExitActions>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush.Color" To="{x:Static SystemParameters.WindowGlassColor}"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.EnterActions>
+                                <MultiTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.ExitActions>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid MaxHeight="{Binding ElementName=cPage, Path=ActualHeight}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Height="60" Grid.Row="0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="30,10">
+                    <Button Style="{StaticResource CustomButton}" FontFamily="{StaticResource FAsolid}" Height="40" Width="40" Margin="0,0,10,0" Content="&#xf104;" x:Name="previosMonthBtn" Click="previosMonthBtn_Click" />
+                    <Button Style="{StaticResource CustomButton}" FontFamily="{StaticResource FAsolid}" Height="40" Width="40" Margin="0,0,10,0" Content="&#xf784;" x:Name="currentMonthBtn" Click="currentMonthBtn_Click" ToolTip="Current" FontSize="16" />
+                    <Button Style="{StaticResource CustomButton}" FontFamily="{StaticResource FAsolid}" Height="40" Width="40" Margin="0,0,10,0" Content="&#xf271;" x:Name="jumpToMonthBtn" Click="jumpToMonthBtn_Click" ToolTip="Jump to" FontSize="16" />
+                    <Grid Grid.Row="3">
+                        
+                    </Grid>
+                </StackPanel>
+                <TextBlock FontSize="20" FontWeight="Medium" x:Name="TB_YearMonth" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ModeTextBlock}" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource CustomButton}" FontFamily="{StaticResource FAsolid}" Height="40" Width="40" Margin="30,10" Content="&#xf105;" x:Name="nextMonthBtn" Click="nextMonthBtn_Click" />
+                </StackPanel>
+            </Grid>
+
+            <Grid Height="30" Grid.Row="1" Margin="20,0" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock FontSize="16" FontWeight="Medium" VerticalAlignment="Center" TextAlignment="Center" x:Name="dayName1" Grid.Column="1" Style="{StaticResource ModeTextBlock}" />
+                <TextBlock FontSize="16" FontWeight="Medium" VerticalAlignment="Center" TextAlignment="Center" x:Name="dayName2" Grid.Column="2" Style="{StaticResource ModeTextBlock}" />
+                <TextBlock FontSize="16" FontWeight="Medium" VerticalAlignment="Center" TextAlignment="Center" x:Name="dayName0" Grid.Column="0" Style="{StaticResource ModeTextBlock}" />
+                <TextBlock FontSize="16" FontWeight="Medium" VerticalAlignment="Center" TextAlignment="Center" x:Name="dayName3" Grid.Column="3" Style="{StaticResource ModeTextBlock}" />
+                <TextBlock FontSize="16" FontWeight="Medium" VerticalAlignment="Center" TextAlignment="Center" x:Name="dayName4" Grid.Column="4" Style="{StaticResource ModeTextBlock}" />
+                <TextBlock FontSize="16" FontWeight="Medium" VerticalAlignment="Center" TextAlignment="Center" x:Name="dayName5" Grid.Column="5" Style="{StaticResource ModeTextBlock}" />
+                <TextBlock FontSize="16" FontWeight="Medium" VerticalAlignment="Center" TextAlignment="Center" x:Name="dayName6" Grid.Column="6" Style="{StaticResource ModeTextBlock}" />
+            </Grid>
+            <Grid Grid.Row="2" Margin="0,0,0,10" Grid.Column="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Grid.Column="0" >
+                    <Border x:Name="cldGrid" Margin="10,8" >
+
+                    </Border>
+                </Grid>
+
+                <Grid Grid.RowSpan="6" Grid.ColumnSpan="7" >
+                    <ListBox x:Name="LBDays" Style="{StaticResource LB_horizontal}" SelectionChanged="LBDays_SelectionChanged" Background="Transparent" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border IsEnabled="{Binding IsEnabled}" Height="{Binding ElementName=cldGrid, Path=ActualHeight}" Margin="0" Width="{Binding ElementName=cldGrid, Path=ActualWidth}" Background="{Binding BgBrush}" CornerRadius="12">
+                                    <Grid>
+                                        <TextBlock Text="{Binding DayInMonth}" Foreground="{Binding FgBrush}" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+                                        <ListBox x:Name="lbDayEvents" ItemsSource="{Binding CalendarEvents}" Style="{StaticResource LB_vertical}" Background="Transparent" Margin="0,0,15,0" >
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate >
+                                                    <Border MaxWidth="{Binding ElementName=lbDayEvents, Path=ActualWidth}" >
+                                                        <Grid >
+                                                            <Grid Margin="7,0" x:Name="widthGrid" />
+                                                            <TextBlock Text="{Binding EventTitle}" MaxWidth="{Binding ElementName=widthGrid, Path=ActualWidth}" />
+                                                        </Grid>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                            <ListBox.Resources>
+                                                <Style x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
+                                                    <Setter Property="SnapsToDevicePixels" Value="true" />
+                                                    <Setter Property="OverridesDefaultStyle" Value="true" />
+                                                    <Setter Property="Margin" Value="0,0,20,0"/>
+                                                    <Setter Property="IsEnabled" Value="False"/>
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="ListBoxItem">
+                                                                <Border x:Name="Border" Padding="0" Margin="0" SnapsToDevicePixels="true" CornerRadius="5" BorderThickness="2" BorderBrush="Transparent">
+                                                                    <Grid>
+                                                                        <Border  Background="Black" Opacity="0.15" CornerRadius="5" />
+                                                                        <ContentPresenter x:Name="content" Margin="1,3"/>
+                                                                    </Grid>
+                                                                </Border>
+                                                                <ControlTemplate.Triggers>
+                                                                    <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                                                        <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                                                        <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                                                        <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                                                                    </DataTrigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </ListBox.Resources>
+                                        </ListBox>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Grid>
+        </Grid>
+
+
+        <Grid Grid.RowSpan="4" Grid.ColumnSpan="2" Background="#70000000" x:Name="jumpToDialog" Visibility="Collapsed">
+            <Border Width="300" Height="150" Style="{StaticResource BdrBackground}" CornerRadius="20" >
+                <Grid>
+                    <TextBlock Text="Jump to" Style="{StaticResource ModeTextBlock}" TextAlignment="Center" FontSize="24" FontWeight="Medium" Margin="0,5" />
+                    <StackPanel Margin="20,0,20,0" Orientation="Horizontal" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                        <TextBox VerticalContentAlignment="Center" InputMethod.InputScope="NumberFullWidth" MaxLength="2" Width="100" Margin="0,0,10,0" x:Name="TBMonth" Style="{StaticResource DefaultTB}" Tag="Month" />
+                        <TextBox VerticalContentAlignment="Center" InputMethod.InputScope="NumberFullWidth" MaxLength="4" Width="100" Margin="10,0,0,0" x:Name="TBYear" Style="{StaticResource DefaultTB}" Tag="Year" />
+                    </StackPanel>
+                    <Button Style="{StaticResource CustomButton}" VerticalAlignment="Bottom" Content="Jump" Height="25" Margin="20,15" x:Name="JumpToBtn" Click="JumpToBtn_Click" />
+                    <Button x:Name="closeJumpToDialog" Click="closeJumpToDialog_Click" Style="{StaticResource LinkButton}" FontFamily="{StaticResource FAsolid}" Content="xmark" Margin="15" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Right" />
+                </Grid>
+            </Border>
+        </Grid>
+
+        
+
         
     </Grid>
 </Page>

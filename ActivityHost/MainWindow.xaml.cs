@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -77,7 +78,7 @@ namespace ActivityHost
 
         }
 
-        string GetActiveProcessFileName()
+        (string name, string icon) GetActiveProcessData()
         {
             IntPtr hwnd = GetForegroundWindow();
             uint pid;
@@ -87,14 +88,14 @@ namespace ActivityHost
             {
                 try
                 {
-                    return Path.GetFileNameWithoutExtension(p.MainModule.FileName);//.Dump();
+                    return (Path.GetFileNameWithoutExtension(p.MainModule.FileName), GetIcon(p.MainModule.FileName));//.Dump();
                 }
                 catch (Exception)
                 {
-                    return "Other";
+                    return ("Other", "");
                 }
             }
-            return "Other";
+            return ("Other", "");
         }
 
         int offTimer = evaluationTime;
@@ -140,7 +141,9 @@ namespace ActivityHost
 
         void CaptureAppData()
         {
-            string app = GetActiveProcessFileName();
+            var data = GetActiveProcessData();
+            string app = data.name;
+            string icon = data.icon;
             int index = 0;
             bool exists = false;
 
@@ -185,8 +188,22 @@ namespace ActivityHost
                     AppName = app,
                     UsedSeconds = 1,
                     UsedMinutes = 0,
+                    IconPath = icon,
                 });
             }
+        }
+
+        public string GetIcon(string fileName)
+        {
+            string path = Path.Combine(Data.path, "AppIcons");
+            string file = Path.Combine(path, Path.GetFileNameWithoutExtension(fileName) + ".png");
+            if (!File.Exists(file))
+            {
+                Icon? icon = System.Drawing.Icon.ExtractAssociatedIcon(fileName);
+                Bitmap bmp = icon.ToBitmap();
+                bmp.Save(file, System.Drawing.Imaging.ImageFormat.Png);
+            }
+            return file;
         }
     }
 }

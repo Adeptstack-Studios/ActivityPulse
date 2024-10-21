@@ -12,6 +12,12 @@ namespace ActivityUtilities
             {
                 Directory.CreateDirectory(path);
             }
+
+            string icons = Path.Combine(path, "AppIcons");
+            if (!Directory.Exists(icons))
+            {
+                Directory.CreateDirectory(icons);
+            }
         }
 
         public static void CreateFile(string file)

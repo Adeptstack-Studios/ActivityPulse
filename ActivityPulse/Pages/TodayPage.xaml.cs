@@ -144,7 +144,8 @@ namespace ActivityPulse.Pages
                     (
                         mostUsed[i].AppName,
                         GetTimeString((mostUsed[i].UsedMinutes * 60) + mostUsed[i].UsedSeconds),
-                        mostUsed[i].IconPath
+                        mostUsed[i].IconPath,
+                        new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i]))
                     ));
                 }
 
@@ -161,7 +162,8 @@ namespace ActivityPulse.Pages
                     (
                         mostUsed[i].AppName,
                         GetTimeString((mostUsed[i].UsedMinutes * 60) + mostUsed[i].UsedSeconds),
-                        mostUsed[i].IconPath
+                        mostUsed[i].IconPath,
+                        Brushes.DarkGray
                     ));
                 }
 
@@ -243,7 +245,7 @@ namespace ActivityPulse.Pages
             {
                 if (i < mostUsed.Count)
                 {
-                    appIntervalls.Add(new IntervallOfContext(mostUsed[i].AppName, GetIntervallsFromDateTimeList(mostUsed[i].timeUsed, mostUsed[i].AppName).Intervalls));
+                    appIntervalls.Add(new IntervallOfContext(mostUsed[i].AppName, GetIntervallsFromDateTimeList(mostUsed[i].timeUsed, mostUsed[i].AppName).Intervalls, mostUsed[i].IconPath));
                 }
                 else
                 {
@@ -277,31 +279,7 @@ namespace ActivityPulse.Pages
                     Canvas.SetBottom(b, height);
                 }
 
-                //StackPanel horiSP = new StackPanel
-                //{
-                //    Orientation = Orientation.Horizontal,
-                //    Children =
-                //    {
-                //        new Border
-                //        {
-                //            Background = i < colors.Count ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[0])),
-                //            CornerRadius = new CornerRadius(5),
-                //            Height = 15,
-                //            Width = 15,
-                //            VerticalAlignment = VerticalAlignment.Center,
-                //        },
-
-                //        new TextBlock
-                //        {
-                //            Text = appIntervalls[i].Name,
-                //            VerticalAlignment = VerticalAlignment.Center,
-                //        }
-                //    }
-                //};
-
-                //spUsage.Children.Add(horiSP);
-
-                appList.Add(new MostUsedDiagramAppsContext(appIntervalls[i].Name, i < colors.Count ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[0])), ""));
+                appList.Add(new MostUsedDiagramAppsContext(appIntervalls[i].Name, i < colors.Count ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[0])), appIntervalls[i].IconPath));
             }
             lbApps.ItemsSource = null;
             lbApps.ItemsSource = appList;

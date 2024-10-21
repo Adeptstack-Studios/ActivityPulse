@@ -13,7 +13,6 @@ namespace ActivityPulse.Pages
     {
         List<Day> dayList = new List<Day>();
         Month months = new Month(DateTime.Now.Year, DateTime.Now.Month);
-        int oldIndex = -1;
         public CalendarPage()
         {
             InitializeComponent();
@@ -21,7 +20,6 @@ namespace ActivityPulse.Pages
             CLD(DateTime.Now.Year, DateTime.Now.Month);
         }
 
-        int todayIndex = -1;
         private void CLD(int year, int month)
         {
             months = new Month(year, month);
@@ -44,13 +42,10 @@ namespace ActivityPulse.Pages
             dayName5.Text = dayNames[5].ToString();
             dayName6.Text = dayNames[6].ToString();
 
-            int j = -1;
             dayList.Clear();
             CalendarThemeContext calendarTheme = App.GetCalendarThemeColors();
             for (var i = -daysBeforeMonth; i < 42 - daysBeforeMonth; i++)
             {
-                j++;
-
                 if (firstDay.AddDays(i).Date.Month == months.MonthOfYear)
                 {
                     if (firstDay.AddDays(i).Date.ToShortDateString() == DateTime.Now.ToShortDateString())
@@ -61,10 +56,11 @@ namespace ActivityPulse.Pages
                             DayOfWeek = firstDay.AddDays(i).DayOfWeek.ToString(),
                             BgBrush = calendarTheme.TodayColor,
                             FgBrush = calendarTheme.Foreground,
+                            DayBrush = calendarTheme.ActiveColor,
                             IsEnabled = true,
                             DateTime = firstDay.AddDays(i).Date,
+                            TimeUsed = TodayPage.GetTimeString(TodayPage.GetGeneralData(firstDay.AddDays(i).Date).gesSecondsUsed),
                         });
-                        todayIndex = j;
                     }
                     else
                     {
@@ -74,8 +70,10 @@ namespace ActivityPulse.Pages
                             DayOfWeek = firstDay.AddDays(i).DayOfWeek.ToString(),
                             BgBrush = calendarTheme.ActiveColor,
                             FgBrush = calendarTheme.Foreground,
+                            DayBrush = calendarTheme.TodayColor,
                             IsEnabled = true,
                             DateTime = firstDay.AddDays(i).Date,
+                            TimeUsed = firstDay.AddDays(i).Date < DateTime.Now ? TodayPage.GetTimeString(TodayPage.GetGeneralData(firstDay.AddDays(i).Date).gesSecondsUsed) : "",
                         });
                     }
                 }
@@ -87,16 +85,15 @@ namespace ActivityPulse.Pages
                         DayOfWeek = firstDay.AddDays(i).DayOfWeek.ToString(),
                         BgBrush = calendarTheme.DisabledColor,
                         FgBrush = calendarTheme.DisabledForeground,
+                        DayBrush = calendarTheme.DisabledColor,
                         IsEnabled = false,
                         DateTime = firstDay.AddDays(i).Date,
                     });
                 }
             }
 
-            LBDays.SelectedIndex = -1;
             LBDays.ItemsSource = null;
             LBDays.ItemsSource = dayList;
-            LBDays.SelectedIndex = todayIndex;
         }
 
         private void previosMonthBtn_Click(object sender, RoutedEventArgs e)
@@ -166,12 +163,8 @@ namespace ActivityPulse.Pages
         {
             if (LBDays.SelectedIndex >= 0)
             {
-                if (oldIndex >= 0)
-                {
-                    NavigationService.Content = new TodayPage(dayList[LBDays.SelectedIndex].DateTime);
-                }
+                NavigationService.Content = new TodayPage(dayList[LBDays.SelectedIndex].DateTime);
             }
-            oldIndex = LBDays.SelectedIndex;
         }
 
         void UpdateCalendar()

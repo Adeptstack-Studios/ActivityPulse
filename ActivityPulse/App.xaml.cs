@@ -26,7 +26,7 @@ namespace ActivityPulse
             {
                 calendarTheme.ActiveColor = new SolidColorBrush(Color.FromRgb(9, 132, 227));
                 calendarTheme.TodayColor = new SolidColorBrush(Color.FromRgb(6, 82, 221));
-                calendarTheme.DisabledColor = new SolidColorBrush(Color.FromArgb(120, 0, 0, 0));
+                calendarTheme.DisabledColor = new SolidColorBrush(Color.FromArgb(110, 80, 80, 80));
                 calendarTheme.Foreground = Brushes.White;
                 calendarTheme.DisabledForeground = Brushes.LightGray;
             }

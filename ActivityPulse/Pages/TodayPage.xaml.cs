@@ -12,9 +12,6 @@ namespace ActivityPulse.Pages
     /// </summary>
     public partial class TodayPage : Page
     {
-        string storeFolder;
-        string storeFileApps;
-        string storeFileGeneral;
         GeneralData gData;
         List<AppUsage> appUsages;
         DateTime day;
@@ -33,18 +30,31 @@ namespace ActivityPulse.Pages
             InitializeComponent();
             this.day = day;
             MainWindow.UpdateTitle($"ActivityPulse - {day.ToShortDateString()}");
-            storeFolder = @$"{Data.path}{day.Year}/{day.Month}/{day.Day}";
-            storeFileApps = @$"{Data.path}{day.Year}/{day.Month}/{day.Day}/{day.Day}.json";
-            storeFileGeneral = @$"{Data.path}{day.Year}/{day.Month}/{day.Day}/General.json";
 
             tbkTitle.Text = day.ToShortDateString();
-            gData = Data.LoadGeneralData(storeFileGeneral);
-            appUsages = Data.LoadList(storeFileApps);
+            gData = GetGeneralData(day);
+            appUsages = GetAppUsages(day);
 
             tbkScreenTime.Text = GetTimeString(gData.gesSecondsUsed);
         }
 
-        string GetTimeString(long seconds)
+        public static GeneralData GetGeneralData(DateTime day)
+        {
+            string storeFolder = @$"{Data.path}{day.Year}/{day.Month}/{day.Day}";
+            string storeFileGeneral = @$"{Data.path}{day.Year}/{day.Month}/{day.Day}/General.json";
+
+            return Data.LoadGeneralData(storeFileGeneral);
+        }
+
+        public static List<AppUsage> GetAppUsages(DateTime day)
+        {
+            string storeFolder = $@"{Data.path}{day.Year}/{day.Month}/{day.Day}";
+            string storeFileApps = @$"{Data.path}{day.Year}/{day.Month}/{day.Day}/{day.Day}.json";
+
+            return Data.LoadList(storeFileApps);
+        }
+
+        public static string GetTimeString(long seconds)
         {
             long gesMins = seconds / 60;
             long hour = gesMins / 60;

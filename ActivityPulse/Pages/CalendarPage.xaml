@@ -18,7 +18,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border x:Name="Border" Padding="0" Margin="4,5" SnapsToDevicePixels="true" CornerRadius="15" BorderThickness="2" BorderBrush="Transparent" Background="Gray">
+                        <Border x:Name="Border" Padding="0" Margin="4,5" SnapsToDevicePixels="true" CornerRadius="14" BorderThickness="2" BorderBrush="Transparent" Style="{StaticResource BdrBackground}">
                             <ContentPresenter x:Name="content"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -143,50 +143,10 @@
                             <DataTemplate>
                                 <Border IsEnabled="{Binding IsEnabled}" Height="{Binding ElementName=cldGrid, Path=ActualHeight}" Margin="0" Width="{Binding ElementName=cldGrid, Path=ActualWidth}" Background="{Binding BgBrush}" CornerRadius="12">
                                     <Grid>
-                                        <TextBlock Text="{Binding DayInMonth}" Foreground="{Binding FgBrush}" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
-                                        <ListBox x:Name="lbDayEvents" ItemsSource="{Binding CalendarEvents}" Style="{StaticResource LB_vertical}" Background="Transparent" Margin="0,0,15,0" >
-                                            <ListBox.ItemTemplate>
-                                                <DataTemplate >
-                                                    <Border MaxWidth="{Binding ElementName=lbDayEvents, Path=ActualWidth}" >
-                                                        <Grid >
-                                                            <Grid Margin="7,0" x:Name="widthGrid" />
-                                                            <TextBlock Text="{Binding EventTitle}" MaxWidth="{Binding ElementName=widthGrid, Path=ActualWidth}" />
-                                                        </Grid>
-                                                    </Border>
-                                                </DataTemplate>
-                                            </ListBox.ItemTemplate>
-                                            <ListBox.Resources>
-                                                <Style x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
-                                                    <Setter Property="SnapsToDevicePixels" Value="true" />
-                                                    <Setter Property="OverridesDefaultStyle" Value="true" />
-                                                    <Setter Property="Margin" Value="0,0,20,0"/>
-                                                    <Setter Property="IsEnabled" Value="False"/>
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate TargetType="ListBoxItem">
-                                                                <Border x:Name="Border" Padding="0" Margin="0" SnapsToDevicePixels="true" CornerRadius="5" BorderThickness="2" BorderBrush="Transparent">
-                                                                    <Grid>
-                                                                        <Border  Background="Black" Opacity="0.15" CornerRadius="5" />
-                                                                        <ContentPresenter x:Name="content" Margin="1,3"/>
-                                                                    </Grid>
-                                                                </Border>
-                                                                <ControlTemplate.Triggers>
-                                                                    <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
-                                                                        <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
-                                                                    </DataTrigger>
-                                                                    <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
-                                                                        <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
-                                                                    </DataTrigger>
-                                                                    <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
-                                                                        <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
-                                                                    </DataTrigger>
-                                                                </ControlTemplate.Triggers>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </Style>
-                                            </ListBox.Resources>
-                                        </ListBox>
+                                        <Border Background="{Binding DayBrush}" VerticalAlignment="Bottom" HorizontalAlignment="Right" CornerRadius="50" Width="25" Height="25" Margin="5" >
+                                            <TextBlock Text="{Binding DayInMonth}" Foreground="{Binding FgBrush}" Margin="1,0,0,1" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                                        </Border>
+                                        <TextBlock Text="{Binding TimeUsed}" Foreground="{Binding FgBrush}" Margin="10,15,10,0" VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="Medium" FontSize="20" />
                                     </Grid>
                                 </Border>
                             </DataTemplate>

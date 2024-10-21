@@ -246,7 +246,7 @@ namespace ActivityPulse.Pages
                 Canvas.SetLeft(b, (intervall.VonDate.Hour + 1 + beginMinuteValue) * hourDifference);
                 Canvas.SetBottom(b, 33);
             }
-            appList.Add(new MostUsedDiagramAppsContext("System", Brushes.DarkGray, ""));
+            appList.Add(new MostUsedDiagramAppsContext("System", Brushes.DarkGray, @"pack://application:,,,/ActivityPulse;component/Images/Resources/system.png"));
 
             List<AppUsage> mostUsed = appUsages.OrderByDescending(t => t.UsedMinutes).ThenByDescending(t => t.UsedSeconds).ToList();
             List<IntervallOfContext> appIntervalls = new List<IntervallOfContext>();

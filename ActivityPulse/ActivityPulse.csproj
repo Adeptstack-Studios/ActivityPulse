@@ -14,6 +14,7 @@
     <None Remove="Fonts\FAregular.otf" />
     <None Remove="Fonts\FAsolid900.otf" />
     <None Remove="Images\AppIcon\logo.png" />
+    <None Remove="Images\Resources\system.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,7 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Images\Resources\" />
     <Folder Include="Images\Splashscreen\" />
   </ItemGroup>
 
@@ -53,6 +53,7 @@
     <Resource Include="Fonts\FAregular.otf" />
     <Resource Include="Fonts\FAsolid900.otf" />
     <Resource Include="Images\AppIcon\logo.png" />
+    <Resource Include="Images\Resources\system.png" />
   </ItemGroup>
 
 </Project>

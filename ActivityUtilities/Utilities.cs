@@ -130,6 +130,8 @@ namespace ActivityUtilities
                     return true;
                 case "lockapp":
                     return true;
+                case "shellexperiencehost":
+                    return true;
                 default:
                     return false;
             }

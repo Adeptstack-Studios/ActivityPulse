@@ -210,6 +210,7 @@ namespace ActivityPulse.Pages
                 }
             }
 
+            List<MostUsedDiagramAppsContext> appList = new List<MostUsedDiagramAppsContext>();
             IntervallOfContext intervalls = GetIntervallsFromDateTimeList(gData.timeUsed, "system");
 
             foreach (var intervall in intervalls.Intervalls)
@@ -226,12 +227,14 @@ namespace ActivityPulse.Pages
                     CornerRadius = new CornerRadius(2),
                     Width = hourDifference * (hours + endMinuteValue - beginMinuteValue),
                     Background = Brushes.DarkGray,
+                    ToolTip = $"{intervall.Name}: {intervall.VonDate.ToShortTimeString()} - {intervall.BisDate.ToShortTimeString()}"
                 };
 
                 cnvsIntervalls.Children.Add(b);
                 Canvas.SetLeft(b, (intervall.VonDate.Hour + 1 + beginMinuteValue) * hourDifference);
-                Canvas.SetBottom(b, 35);
+                Canvas.SetBottom(b, 33);
             }
+            appList.Add(new MostUsedDiagramAppsContext("System", Brushes.DarkGray, ""));
 
             List<AppUsage> mostUsed = appUsages.OrderByDescending(t => t.UsedMinutes).ThenByDescending(t => t.UsedSeconds).ToList();
             List<IntervallOfContext> appIntervalls = new List<IntervallOfContext>();
@@ -248,10 +251,10 @@ namespace ActivityPulse.Pages
                 }
             }
 
-            int height = 35;
+            int height = 33;
             for (int i = 0; i < appIntervalls.Count; i++)
             {
-                height += 15;
+                height += 13;
                 foreach (var intervall in appIntervalls[i].Intervalls)
                 {
                     int hours = intervall.BisDate.Hour - intervall.VonDate.Hour;
@@ -266,6 +269,7 @@ namespace ActivityPulse.Pages
                         CornerRadius = new CornerRadius(2),
                         Width = hourDifference * (hours + endMinuteValue - beginMinuteValue),
                         Background = i < colors.Count ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[0])),
+                        ToolTip = $"{intervall.Name}: {intervall.VonDate.ToShortTimeString()} - {intervall.BisDate.ToShortTimeString()}"
                     };
 
                     cnvsIntervalls.Children.Add(b);
@@ -273,30 +277,34 @@ namespace ActivityPulse.Pages
                     Canvas.SetBottom(b, height);
                 }
 
-                StackPanel horiSP = new StackPanel
-                {
-                    Orientation = Orientation.Horizontal,
-                    Children =
-                    {
-                        new Border
-                        {
-                            Background = i < colors.Count ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[0])),
-                            CornerRadius = new CornerRadius(5),
-                            Height = 15,
-                            Width = 15,
-                            VerticalAlignment = VerticalAlignment.Center,
-                        },
+                //StackPanel horiSP = new StackPanel
+                //{
+                //    Orientation = Orientation.Horizontal,
+                //    Children =
+                //    {
+                //        new Border
+                //        {
+                //            Background = i < colors.Count ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[0])),
+                //            CornerRadius = new CornerRadius(5),
+                //            Height = 15,
+                //            Width = 15,
+                //            VerticalAlignment = VerticalAlignment.Center,
+                //        },
 
-                        new TextBlock
-                        {
-                            Text = appIntervalls[i].Name,
-                            VerticalAlignment = VerticalAlignment.Center,
-                        }
-                    }
-                };
+                //        new TextBlock
+                //        {
+                //            Text = appIntervalls[i].Name,
+                //            VerticalAlignment = VerticalAlignment.Center,
+                //        }
+                //    }
+                //};
 
-                spUsage.Children.Add(horiSP);
+                //spUsage.Children.Add(horiSP);
+
+                appList.Add(new MostUsedDiagramAppsContext(appIntervalls[i].Name, i < colors.Count ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[0])), ""));
             }
+            lbApps.ItemsSource = null;
+            lbApps.ItemsSource = appList;
         }
 
         IntervallOfContext GetIntervallsFromDateTimeList(List<DateTime> dateTimeList, string name)
@@ -311,9 +319,9 @@ namespace ActivityPulse.Pages
 
                 foreach (DateTime dt in dateTimeList)
                 {
-                    if (oldDt.Hour != dt.Hour)
+                    if (oldDt.Minute != dt.Minute)
                     {
-                        if (oldDt.Hour + 1 != dt.Hour)
+                        if ((dt - oldDt).TotalMinutes >= 12)
                         {
                             intervalls.Intervalls.Add(new IntervallContext(begin, oldDt, name));
                             begin = dt;

@@ -253,7 +253,7 @@ namespace ActivityPulse.Pages
 
             for (int i = 0; i < 6; i++)
             {
-                if (i < mostUsed.Count)
+                if (i < mostUsed.Count && mostUsed[i].UsedMinutes >= 3)
                 {
                     appIntervalls.Add(new IntervallOfContext(mostUsed[i].AppName, GetIntervallsFromDateTimeList(mostUsed[i].timeUsed, mostUsed[i].AppName).Intervalls, mostUsed[i].IconPath));
                 }
@@ -279,7 +279,7 @@ namespace ActivityPulse.Pages
                     {
                         Height = 5,
                         CornerRadius = new CornerRadius(2),
-                        Width = hourDifference * (hours + endMinuteValue - beginMinuteValue),
+                        Width = hourDifference * (hours + endMinuteValue - beginMinuteValue) >= 0 ? hourDifference * (hours + endMinuteValue - beginMinuteValue) : 0,
                         Background = i < colors.Count ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[0])),
                         ToolTip = $"{intervall.Name}: {intervall.VonDate.ToShortTimeString()} - {intervall.BisDate.ToShortTimeString()}"
                     };

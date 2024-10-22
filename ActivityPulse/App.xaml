@@ -630,9 +630,9 @@ TargetType="ListBoxItem">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border x:Name="Border" Padding="0" Margin="0,0,10,0" SnapsToDevicePixels="true" CornerRadius="20" BorderThickness="2" BorderBrush="Transparent">
+                        <Border x:Name="Border" Padding="0" Margin="0,0,10,0" SnapsToDevicePixels="true" CornerRadius="10" BorderThickness="2" BorderBrush="Transparent">
                             <Border.Background>
-                                <SolidColorBrush Color="DarkGray" />
+                                <SolidColorBrush Color="Transparent" />
                             </Border.Background>
                             <ContentPresenter x:Name="content"/>
                         </Border>

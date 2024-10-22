@@ -36,7 +36,7 @@
                         <ListBox x:Name="lbMostUsed" Style="{StaticResource LB_verticalNoScroll}" Background="Transparent" Margin="30,0">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Height="35" Style="{StaticResource BdrBackground}" CornerRadius="15" BorderThickness="0" >
+                                    <Border Height="35" Style="{StaticResource BdrBackground}" CornerRadius="10" BorderThickness="0" >
                                         <Grid>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
                                                 <Image Source="{Binding IconPath}" Width="20" Height="20" Margin="10,0,0,0" />
@@ -53,7 +53,7 @@
                         <ListBox x:Name="lbOther" Style="{StaticResource LB_verticalNoScroll}" Background="Transparent" Margin="30,0,30,20">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Height="35" Style="{StaticResource BdrBackground}" CornerRadius="15" BorderThickness="0" >
+                                    <Border Height="35" Style="{StaticResource BdrBackground}" CornerRadius="10" BorderThickness="0" >
                                         <Grid>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
                                                 <Image Source="{Binding IconPath}" Width="20" Height="20" Margin="10,0,0,0" />

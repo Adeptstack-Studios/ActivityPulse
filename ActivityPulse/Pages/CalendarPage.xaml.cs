@@ -166,10 +166,5 @@ namespace ActivityPulse.Pages
                 NavigationService.Content = new TodayPage(dayList[LBDays.SelectedIndex].DateTime);
             }
         }
-
-        void UpdateCalendar()
-        {
-            CLD(months.Year, months.MonthOfYear);
-        }
     }
 }

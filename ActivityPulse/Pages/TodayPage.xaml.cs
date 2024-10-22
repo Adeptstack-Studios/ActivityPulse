@@ -315,6 +315,14 @@ namespace ActivityPulse.Pages
                             begin = dt;
                         }
                     }
+                    else if (dt.Hour != oldDt.Hour)
+                    {
+                        if ((dt - oldDt).TotalMinutes >= 12)
+                        {
+                            intervalls.Intervalls.Add(new IntervallContext(begin, oldDt, name));
+                            begin = dt;
+                        }
+                    }
 
                     oldDt = dt;
                 }

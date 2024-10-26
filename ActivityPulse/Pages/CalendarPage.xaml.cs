@@ -166,5 +166,58 @@ namespace ActivityPulse.Pages
                 NavigationService.Content = new TodayPage(dayList[LBDays.SelectedIndex].DateTime);
             }
         }
+
+        private void avgWeekBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Content = new AveragePage(GetWeekInterval(DateTime.Now), AverageType.Week);
+        }
+
+        private void avgMonthBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime d = new DateTime(months.Year, months.MonthOfYear, 1);
+            List<DateTime> dates = new List<DateTime>();
+
+            int day = 0;
+            do
+            {
+                dates.Add(d.AddDays(day));
+                day++;
+            } while (d.AddDays(day).Month == months.MonthOfYear);
+
+            NavigationService.Content = new AveragePage(dates, AverageType.Month);
+        }
+
+        private void avgYearBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime d = new DateTime(months.Year, 1, 1);
+            List<DateTime> dates = new List<DateTime>();
+
+            int day = 0;
+            do
+            {
+                dates.Add(d.AddDays(day));
+                day++;
+            } while (d.AddDays(day).Year == months.Year);
+
+            MessageBox.Show(dates.Count.ToString());
+            NavigationService.Content = new AveragePage(dates, AverageType.Year);
+        }
+
+        List<DateTime> GetWeekInterval(DateTime d)
+        {
+            List<DateTime> dates = new List<DateTime>();
+            DayOfWeek doW = d.DayOfWeek;
+            int di = (int)doW;
+
+            d = d.AddDays(1 - di).Date;
+
+            for (int i = 0; i < 7; i++)
+            {
+                dates.Add(d.AddDays(i));
+                MessageBox.Show(d.AddDays(i).ToShortDateString());
+            }
+
+            return dates;
+        }
     }
 }

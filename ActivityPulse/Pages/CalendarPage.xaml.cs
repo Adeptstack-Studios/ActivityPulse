@@ -125,40 +125,18 @@ namespace ActivityPulse.Pages
             CLD(DateTime.Now.Year, DateTime.Now.Month);
         }
 
+        //Jump To
         private void jumpToMonthBtn_Click(object sender, RoutedEventArgs e)
         {
-            jumpToDialog.Visibility = System.Windows.Visibility.Visible;
+            dateControl.Visibility = Visibility.Visible;
         }
 
-        private void closeJumpToDialog_Click(object sender, RoutedEventArgs e)
+        private void dateControl_OnDateDialogClick(DateTime date)
         {
-            jumpToDialog.Visibility = System.Windows.Visibility.Collapsed;
+            CLD(date.Year, date.Month);
         }
 
-        private void JumpToBtn_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                int month = Convert.ToInt32(TBMonth.Text);
-                int year = Convert.ToInt32(TBYear.Text);
-                if (year > 0 && month > 0 && month <= 12)
-                {
-                    CLD(year, month);
-                    jumpToDialog.Visibility = System.Windows.Visibility.Collapsed;
-                    TBMonth.Text = string.Empty;
-                    TBYear.Text = string.Empty;
-                }
-                else
-                {
-                    TellBox tellBox = new TellBox("You made an incorrect entry.", "Error");
-                }
-            }
-            catch (Exception ex)
-            {
-                TellBox tellBox = new TellBox(ex.Message, "Error");
-            }
-        }
-
+        //Navigate to Dayspage
         private void LBDays_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (LBDays.SelectedIndex >= 0)
@@ -167,40 +145,20 @@ namespace ActivityPulse.Pages
             }
         }
 
+        //Summary Pages
         private void avgWeekBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Content = new AveragePage(GetWeekInterval(DateTime.Now), AverageType.Week);
+            summaryDateWeek.Visibility = Visibility.Visible;
         }
 
         private void avgMonthBtn_Click(object sender, RoutedEventArgs e)
         {
-            DateTime d = new DateTime(months.Year, months.MonthOfYear, 1);
-            List<DateTime> dates = new List<DateTime>();
-
-            int day = 0;
-            do
-            {
-                dates.Add(d.AddDays(day));
-                day++;
-            } while (d.AddDays(day).Month == months.MonthOfYear);
-
-            NavigationService.Content = new AveragePage(dates, AverageType.Month);
+            summaryDateMonth.Visibility = Visibility.Visible;
         }
 
         private void avgYearBtn_Click(object sender, RoutedEventArgs e)
         {
-            DateTime d = new DateTime(months.Year, 1, 1);
-            List<DateTime> dates = new List<DateTime>();
-
-            int day = 0;
-            do
-            {
-                dates.Add(d.AddDays(day));
-                day++;
-            } while (d.AddDays(day).Year == months.Year);
-
-            MessageBox.Show(dates.Count.ToString());
-            NavigationService.Content = new AveragePage(dates, AverageType.Year);
+            summaryDateYear.Visibility = Visibility.Visible;
         }
 
         List<DateTime> GetWeekInterval(DateTime d)
@@ -214,10 +172,45 @@ namespace ActivityPulse.Pages
             for (int i = 0; i < 7; i++)
             {
                 dates.Add(d.AddDays(i));
-                MessageBox.Show(d.AddDays(i).ToShortDateString());
             }
 
             return dates;
+        }
+
+        private void summaryDateWeek_OnDateDialogClick(DateTime date)
+        {
+            NavigationService.Content = new AveragePage(GetWeekInterval(date), AverageType.Week);
+        }
+
+        private void summaryDateMonth_OnDateDialogClick(DateTime date)
+        {
+            DateTime d = new DateTime(date.Year, date.Month, 1);
+            List<DateTime> dates = new List<DateTime>();
+
+            int day = 0;
+            do
+            {
+                dates.Add(d.AddDays(day));
+                day++;
+            } while (d.AddDays(day).Month == date.Month && d.AddDays(day) <= DateTime.Now);
+
+            NavigationService.Content = new AveragePage(dates, AverageType.Month);
+        }
+
+        private void summaryDateYear_OnDateDialogClick(DateTime date)
+        {
+            DateTime d = new DateTime(date.Year, 1, 1);
+            List<DateTime> dates = new List<DateTime>();
+
+            int day = 0;
+            do
+            {
+                dates.Add(d.AddDays(day));
+                day++;
+            } while (d.AddDays(day).Year == date.Year && d.AddDays(day) <= DateTime.Now);
+
+            MessageBox.Show(dates.Count.ToString());
+            NavigationService.Content = new AveragePage(dates, AverageType.Year);
         }
     }
 }

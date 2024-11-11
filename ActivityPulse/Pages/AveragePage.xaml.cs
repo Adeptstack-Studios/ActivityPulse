@@ -45,7 +45,7 @@ namespace ActivityPulse.Pages
             {
                 totalSeconds += data.gesSecondsUsed;
             }
-
+            MessageBox.Show(gDatas.Count.ToString());
             tbkAVGScreenTime.Text = TodayPage.GetTimeString(totalSeconds / gDatas.Count);
             tbkScreenTime.Text = TodayPage.GetTimeString(totalSeconds);
         }
@@ -72,6 +72,10 @@ namespace ActivityPulse.Pages
             {
                 double gesAppTime = (mostUsed[i].UsedMinutes * 60) + mostUsed[i].UsedSeconds;
                 double percentige = gesAppTime / gesUsedTime;
+
+                MessageBox.Show(gesAppTime.ToString());
+                MessageBox.Show(gesUsedTime.ToString());
+                MessageBox.Show(percentige.ToString());
 
                 Rectangle rect = new Rectangle
                 {
@@ -188,12 +192,34 @@ namespace ActivityPulse.Pages
                     g.timeUsed.Add(item);
                 }
             }
+            g.gesSecondsUsed = totalSeconds;
 
             foreach (var item in appDayUsages)
             {
                 foreach (var day in item)
                 {
-                    appUsage.Add(day);
+                    //addieren der Zeiten bereits hinzugefügter Apps
+                    bool success = true;
+                    int index = 0;
+                    for (int i = 0; i < appUsage.Count; i++)
+                    {
+                        if (appUsage[i].AppName == day.AppName)
+                        {
+                            success = false;
+                            index = i;
+                        }
+                    }
+
+                    if (success)
+                    {
+                        appUsage.Add(day);
+                    }
+                    else
+                    {
+                        int seconds = appUsage[index].UsedSeconds + day.UsedSeconds;
+                        appUsage[index].UsedMinutes += day.UsedMinutes + (seconds / 60);
+                        appUsage[index].UsedSeconds = seconds % 60;
+                    }
                 }
             }
 

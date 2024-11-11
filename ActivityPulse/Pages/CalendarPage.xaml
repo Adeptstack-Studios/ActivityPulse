@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ActivityPulse.Pages"
       xmlns:prop="clr-namespace:ActivityPulse.Settings"
+      xmlns:controls="clr-namespace:ActivityPulse.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
             Title="CalendarPage"
@@ -88,7 +89,7 @@
                         
                     </Grid>
                 </StackPanel>
-                <TextBlock FontSize="20" FontWeight="Medium" x:Name="TB_YearMonth" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ModeTextBlock}" />
+                <TextBlock FontSize="22" FontWeight="Medium" x:Name="TB_YearMonth" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ModeTextBlock}" />
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Style="{StaticResource CustomButton}" FontFamily="{StaticResource FAsolid}" Height="40" Width="40" Margin="0,0,10,0" Content="&#xf271;" x:Name="avgWeekBtn" Click="avgWeekBtn_Click" ToolTip="Week" FontSize="16" />
                     <Button Style="{StaticResource CustomButton}" FontFamily="{StaticResource FAsolid}" Height="40" Width="40" Margin="0,0,10,0" Content="&#xf271;" x:Name="avgMonthBtn" Click="avgMonthBtn_Click" ToolTip="Month" FontSize="16" />
@@ -159,23 +160,9 @@
             </Grid>
         </Grid>
 
-
-        <Grid Grid.RowSpan="4" Grid.ColumnSpan="2" Background="#70000000" x:Name="jumpToDialog" Visibility="Collapsed">
-            <Border Width="300" Height="150" Style="{StaticResource BdrBackground}" CornerRadius="20" >
-                <Grid>
-                    <TextBlock Text="Jump to" Style="{StaticResource ModeTextBlock}" TextAlignment="Center" FontSize="24" FontWeight="Medium" Margin="0,5" />
-                    <StackPanel Margin="20,0,20,0" Orientation="Horizontal" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" >
-                        <TextBox VerticalContentAlignment="Center" InputMethod.InputScope="NumberFullWidth" MaxLength="2" Width="100" Margin="0,0,10,0" x:Name="TBMonth" Style="{StaticResource DefaultTB}" Tag="Month" />
-                        <TextBox VerticalContentAlignment="Center" InputMethod.InputScope="NumberFullWidth" MaxLength="4" Width="100" Margin="10,0,0,0" x:Name="TBYear" Style="{StaticResource DefaultTB}" Tag="Year" />
-                    </StackPanel>
-                    <Button Style="{StaticResource CustomButton}" VerticalAlignment="Bottom" Content="Jump" Height="25" Margin="20,15" x:Name="JumpToBtn" Click="JumpToBtn_Click" />
-                    <Button x:Name="closeJumpToDialog" Click="closeJumpToDialog_Click" Style="{StaticResource LinkButton}" FontFamily="{StaticResource FAsolid}" Content="xmark" Margin="15" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Right" />
-                </Grid>
-            </Border>
-        </Grid>
-
-        
-
-        
+        <controls:GetDateDialog x:Name="dateControl" OnDateDialogClick="dateControl_OnDateDialogClick" DateType="Month" Title="Jump To" />
+        <controls:GetDateDialog x:Name="summaryDateWeek" OnDateDialogClick="summaryDateWeek_OnDateDialogClick" DateType="Week" Title="Choose a date" />
+        <controls:GetDateDialog x:Name="summaryDateMonth" OnDateDialogClick="summaryDateMonth_OnDateDialogClick" DateType="Month" Title="Choose a Month" />
+        <controls:GetDateDialog x:Name="summaryDateYear" OnDateDialogClick="summaryDateYear_OnDateDialogClick" DateType="Year" Title="Choose a Year" />
     </Grid>
 </Page>

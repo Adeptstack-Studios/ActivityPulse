@@ -81,21 +81,25 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Height="60" Grid.Row="0">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="30,10">
-                    <Button Style="{StaticResource CustomButton}" FontFamily="{StaticResource FAsolid}" Height="40" Width="40" Margin="0,0,10,0" Content="&#xf104;" x:Name="previosMonthBtn" Click="previosMonthBtn_Click" />
-                    <Button Style="{StaticResource CustomButton}" FontFamily="{StaticResource FAsolid}" Height="40" Width="40" Margin="0,0,10,0" Content="&#xf784;" x:Name="currentMonthBtn" Click="currentMonthBtn_Click" ToolTip="Current" FontSize="16" />
-                    <Button Style="{StaticResource CustomButton}" FontFamily="{StaticResource FAsolid}" Height="40" Width="40" Margin="0,0,10,0" Content="&#xf271;" x:Name="jumpToMonthBtn" Click="jumpToMonthBtn_Click" ToolTip="Jump to" FontSize="16" />
-                    <Grid Grid.Row="3">
-                        
-                    </Grid>
-                </StackPanel>
+                <Border HorizontalAlignment="Left" Margin="30,10" Background="#40000000" Padding="20,0" CornerRadius="10">
+                    <StackPanel Orientation="Horizontal" >
+                        <Button Background="#30000000" Style="{StaticResource ModernButton}" FontFamily="{StaticResource FAsolid}" Height="30" Width="40" Margin="0,0,10,0" Content="&#xf104;" x:Name="previosMonthBtn" Click="previosMonthBtn_Click" />
+                        <Button Background="#30000000" Style="{StaticResource ModernButton}" FontFamily="{StaticResource FAsolid}" Height="30" Width="40" Margin="0,0,10,0" Content="&#xf784;" x:Name="currentMonthBtn" Click="currentMonthBtn_Click" ToolTip="Current" FontSize="16" />
+                        <Button Background="#30000000" Style="{StaticResource ModernButton}" FontFamily="{StaticResource FAsolid}" Height="30" Width="40" Margin="0,0,0,0" Content="&#xf271;" x:Name="jumpToMonthBtn" Click="jumpToMonthBtn_Click" ToolTip="Jump to" FontSize="16" />
+                        <Grid Grid.Row="3">
+
+                        </Grid>
+                    </StackPanel>
+                </Border>
                 <TextBlock FontSize="22" FontWeight="Medium" x:Name="TB_YearMonth" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ModeTextBlock}" />
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Style="{StaticResource CustomButton}" FontFamily="{StaticResource FAsolid}" Height="40" Width="40" Margin="0,0,10,0" Content="&#xf271;" x:Name="avgWeekBtn" Click="avgWeekBtn_Click" ToolTip="Week" FontSize="16" />
-                    <Button Style="{StaticResource CustomButton}" FontFamily="{StaticResource FAsolid}" Height="40" Width="40" Margin="0,0,10,0" Content="&#xf271;" x:Name="avgMonthBtn" Click="avgMonthBtn_Click" ToolTip="Month" FontSize="16" />
-                    <Button Style="{StaticResource CustomButton}" FontFamily="{StaticResource FAsolid}" Height="40" Width="40" Margin="0,0,10,0" Content="&#xf271;" x:Name="avgYearBtn" Click="avgYearBtn_Click" ToolTip="Year" FontSize="16" />
-                    <Button Style="{StaticResource CustomButton}" FontFamily="{StaticResource FAsolid}" Height="40" Width="40" Margin="0,10,30,10" Content="&#xf105;" x:Name="nextMonthBtn" Click="nextMonthBtn_Click" />
-                </StackPanel>
+                <Border HorizontalAlignment="Right" Margin="30,10" Background="#40000000" Padding="20,0" CornerRadius="10" >
+                    <StackPanel Orientation="Horizontal">
+                        <Button Background="#30000000" Style="{StaticResource ModernButton}" FontFamily="{StaticResource FAsolid}" Height="30" Width="40" Margin="0,0,10,0" Content="&#xf271;" x:Name="avgWeekBtn" Click="avgWeekBtn_Click" ToolTip="Week" FontSize="16" />
+                        <Button Background="#30000000" Style="{StaticResource ModernButton}" FontFamily="{StaticResource FAsolid}" Height="30" Width="40" Margin="0,0,10,0" Content="&#xf271;" x:Name="avgMonthBtn" Click="avgMonthBtn_Click" ToolTip="Month" FontSize="16" />
+                        <Button Background="#30000000" Style="{StaticResource ModernButton}" FontFamily="{StaticResource FAsolid}" Height="30" Width="40" Margin="0,0,10,0" Content="&#xf271;" x:Name="avgYearBtn" Click="avgYearBtn_Click" ToolTip="Year" FontSize="16" />
+                        <Button Background="#30000000" Style="{StaticResource ModernButton}" FontFamily="{StaticResource FAsolid}" Height="30" Width="40" Margin="0,0,0,0" Content="&#xf105;" x:Name="nextMonthBtn" Click="nextMonthBtn_Click" />
+                    </StackPanel>
+                </Border>
             </Grid>
 
             <Grid Height="30" Grid.Row="1" Margin="20,0" Grid.Column="0">

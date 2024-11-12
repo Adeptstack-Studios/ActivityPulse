@@ -73,5 +73,96 @@
                 </ScrollViewer>
             </Border>
         </Grid>
+        
+        <Grid Grid.Row="1" Grid.RowSpan="2" Margin="20,0,20,50" Grid.Column="1" >
+            <Border Grid.Column="1" Style="{StaticResource Bar}"  Margin="25,0,75,20" CornerRadius="25" Grid.RowSpan="2" Grid.Row="1" >
+                <Grid Margin="30,20">
+                    <StackPanel x:Name="spUsage">
+                        <Grid Height="150" Margin="10,30,10,0">
+                            <Border CornerRadius="15" Style="{StaticResource BdrBackground}" >
+                                <Canvas x:Name="cnvsIntervalls" Margin="5,10,5,30" SizeChanged="cnvsIntervalls_SizeChanged" />
+                            </Border>
+                        </Grid>
+
+                        <!--<TextBlock x:Name="tbCNVSWidth" Text="{Binding ElementName=cnvsIntervalls, Path=ActualWidth}" />
+                <TextBlock Text="{Binding ElementName=cnvsIntervalls, Path=ActualHeight}" />-->
+                        <TextBlock Text="Apps" Style="{StaticResource ModeTextBlock}" FontSize="20" FontWeight="Medium" Margin="0,60,0,0" />
+                        <ListBox x:Name="lbApps" Style="{StaticResource LB_horizontal}" Background="Transparent" Margin="0,10" SelectionMode="Multiple" >
+                            <ListBox.Resources>
+                                <Style x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
+                                    <Setter Property="SnapsToDevicePixels" Value="true" />
+                                    <Setter Property="OverridesDefaultStyle" Value="true" />
+                                    <Setter Property="Margin" Value="0,10,0,0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListBoxItem">
+                                                <Border x:Name="Border" Padding="0" Margin="0,0,5,0" Style="{StaticResource Bar}" SnapsToDevicePixels="true" CornerRadius="8" BorderThickness="2" BorderBrush="Transparent">
+                                                    <ContentPresenter x:Name="content"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <MultiTrigger>
+                                                        <MultiTrigger.Conditions>
+                                                            <Condition Property="IsSelected" Value="False"/>
+                                                            <Condition Property="IsMouseOver" Value="True"/>
+                                                        </MultiTrigger.Conditions>
+                                                        <MultiTrigger.EnterActions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Duration="0:0:0.15" Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush.Color" To="{x:Static SystemParameters.WindowGlassColor}"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </MultiTrigger.EnterActions>
+                                                        <MultiTrigger.ExitActions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Duration="0:0:0.15" Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush.Color"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </MultiTrigger.ExitActions>
+                                                    </MultiTrigger>
+                                                    <MultiTrigger>
+                                                        <MultiTrigger.Conditions>
+                                                            <Condition Property="IsSelected" Value="True"/>
+                                                        </MultiTrigger.Conditions>
+                                                        <MultiTrigger.EnterActions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush.Color" To="{x:Static SystemParameters.WindowGlassColor}"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </MultiTrigger.EnterActions>
+                                                        <MultiTrigger.ExitActions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush.Color"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </MultiTrigger.ExitActions>
+                                                    </MultiTrigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListBox.Resources>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Height="35" Padding="10,0" Style="{StaticResource BdrBackground}" CornerRadius="8" BorderThickness="0" >
+                                        <Grid>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
+                                                <Image Source="{Binding IconPath}" Width="20" Height="20" Margin="0,0,0,0" />
+                                                <TextBlock Text="{Binding AppName}" Style="{StaticResource ModeTextBlock}" VerticalAlignment="Center" Margin="10,0" />
+                                                <Border Width="17" Height="17" CornerRadius="5" Background="{Binding Color}" />
+                                            </StackPanel>
+                                            <TextBlock HorizontalAlignment="Right" Text="{Binding UsedTime}" Style="{StaticResource ModeTextBlock}" VerticalAlignment="Center" Margin="10,0" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Page>

@@ -178,6 +178,48 @@ namespace ActivityPulse.Pages
             }
         }
 
+        private void GenerateIntervallDiagramm(List<GeneralData> genDatas)
+        {
+            cnvsIntervalls.Children.Clear();
+            int spaces = genDatas.Count + 1;
+            double cnvsWidth = cnvsIntervalls.ActualWidth;
+            double cnvsHeight = cnvsIntervalls.ActualHeight;
+            double intervallDifference = cnvsWidth / spaces;
+
+            for (int i = 1; i < spaces; i++)
+            {
+                Border b = new Border
+                {
+                    Height = 7,
+                    Width = 2,
+                    Background = Brushes.White,
+                    Opacity = 0.85
+                };
+                TextBlock tb = new TextBlock
+                {
+                    Text = genDatas[i - 1].timeUsed[0].ToShortDateString(),
+                    Style = (Style)Application.Current.Resources["ModeTextBlock"],
+                    FontSize = 10,
+                    Opacity = 0.7,
+                    RenderTransform = new RotateTransform(270)
+                };
+
+                cnvsIntervalls.Children.Add(b);
+                cnvsIntervalls.Children.Add(tb);
+                Canvas.SetLeft(b, i * intervallDifference);
+                Canvas.SetBottom(b, -20);
+                Canvas.SetBottom(tb, -95);
+                if (i > 10)
+                {
+                    Canvas.SetLeft(tb, i * intervallDifference - 6);
+                }
+                else
+                {
+                    Canvas.SetLeft(tb, i * intervallDifference - 6);
+                }
+            }
+        }
+
         private void canvasMostUsedApps_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             GeneralData g = new GeneralData();
@@ -224,6 +266,11 @@ namespace ActivityPulse.Pages
             }
 
             CreateLineDiagramMostUsedApps(g, appUsage);
+        }
+
+        private void cnvsIntervalls_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            GenerateIntervallDiagramm(gDatas);
         }
     }
 }

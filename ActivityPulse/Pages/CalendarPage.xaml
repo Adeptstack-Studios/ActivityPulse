@@ -94,9 +94,9 @@
                 <TextBlock FontSize="22" FontWeight="Medium" x:Name="TB_YearMonth" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ModeTextBlock}" />
                 <Border HorizontalAlignment="Right" Margin="30,10" Background="#40000000" Padding="20,0" CornerRadius="10" >
                     <StackPanel Orientation="Horizontal">
-                        <Button Background="#30000000" Style="{StaticResource ModernButton}" FontFamily="{StaticResource FAsolid}" Height="30" Width="40" Margin="0,0,10,0" Content="&#xf271;" x:Name="avgWeekBtn" Click="avgWeekBtn_Click" ToolTip="Week" FontSize="16" />
-                        <Button Background="#30000000" Style="{StaticResource ModernButton}" FontFamily="{StaticResource FAsolid}" Height="30" Width="40" Margin="0,0,10,0" Content="&#xf271;" x:Name="avgMonthBtn" Click="avgMonthBtn_Click" ToolTip="Month" FontSize="16" />
-                        <Button Background="#30000000" Style="{StaticResource ModernButton}" FontFamily="{StaticResource FAsolid}" Height="30" Width="40" Margin="0,0,10,0" Content="&#xf271;" x:Name="avgYearBtn" Click="avgYearBtn_Click" ToolTip="Year" FontSize="16" />
+                        <Button Background="#30000000" Style="{StaticResource ModernButton}" FontFamily="{StaticResource FAsolid}" Height="30" Width="40" Margin="0,0,10,0" Content="&#xf784;" x:Name="avgWeekBtn" Click="avgWeekBtn_Click" ToolTip="Week" FontSize="16" />
+                        <Button Background="#30000000" Style="{StaticResource ModernButton}" FontFamily="{StaticResource FAsolid}" Height="30" Width="40" Margin="0,0,10,0" Content="&#xf073;" x:Name="avgMonthBtn" Click="avgMonthBtn_Click" ToolTip="Month" FontSize="16" />
+                        <Button Background="#30000000" Style="{StaticResource ModernButton}" FontFamily="{StaticResource FAsolid}" Height="30" Width="40" Margin="0,0,10,0" Content="&#xf133;" x:Name="avgYearBtn" Click="avgYearBtn_Click" ToolTip="Year" FontSize="16" />
                         <Button Background="#30000000" Style="{StaticResource ModernButton}" FontFamily="{StaticResource FAsolid}" Height="30" Width="40" Margin="0,0,0,0" Content="&#xf105;" x:Name="nextMonthBtn" Click="nextMonthBtn_Click" />
                     </StackPanel>
                 </Border>

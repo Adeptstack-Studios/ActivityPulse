@@ -180,5 +180,10 @@ namespace ActivityPulse
         {
             Application.Current.Resources["WindowTitle"] = string.Format(title);
         }
+
+        private void settingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

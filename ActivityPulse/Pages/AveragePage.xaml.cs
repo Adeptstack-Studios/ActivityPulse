@@ -218,6 +218,85 @@ namespace ActivityPulse.Pages
                     Canvas.SetLeft(tb, i * intervallDifference - 6);
                 }
             }
+
+            int borderWidth = avgType == AverageType.Week ? 10 : avgType == AverageType.Month ? 6 : 4;
+            long maxUsedSeconds = genDatas.MaxBy(x => x.gesSecondsUsed).gesSecondsUsed;
+            int maxHeight = 110;
+            double balkenSpace = intervallDifference - ((borderWidth - 2) / 2);
+
+            for (int i = 0; i < genDatas.Count; i++)
+            {
+                double percentage = (double)genDatas[i].gesSecondsUsed / (double)maxUsedSeconds;
+                double height = percentage * maxHeight;
+                MessageBox.Show("" + genDatas[i].gesSecondsUsed);
+                MessageBox.Show("" + maxUsedSeconds);
+
+                Border b = new Border
+                {
+                    Height = height,
+                    Width = borderWidth,
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[0])),
+                    CornerRadius = new CornerRadius(5)
+                };
+
+                cnvsIntervalls.Children.Add(b);
+                Canvas.SetLeft(b, (i + 1) * intervallDifference - ((borderWidth - 2) / 2));
+                Canvas.SetBottom(b, -5);
+            }
+
+            Border bdr1 = new Border
+            {
+                Height = 2,
+                Width = cnvsWidth - (2 * intervallDifference) + 10,
+                Opacity = 0.7,
+                Background = Brushes.White,
+            };
+            TextBlock tbk = new TextBlock
+            {
+                Text = TodayPage.GetTimeString(maxUsedSeconds),
+                Style = (Style)Application.Current.Resources["ModeTextBlock"],
+                FontSize = 10,
+                Opacity = 0.7,
+                Margin = new Thickness(10, 0, 0, 0)
+            };
+            StackPanel sp = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+            };
+            sp.Children.Add(bdr1);
+            sp.Children.Add(tbk);
+            cnvsIntervalls.Children.Add(sp);
+            Canvas.SetLeft(sp, intervallDifference - 5);
+            Canvas.SetBottom(sp, 100);
+
+
+            int h = (int)maxUsedSeconds / 60 / 60 / 2 - 1;
+            int h1 = h * 60 * 60;
+            double percent = (double)h1 / (double)maxUsedSeconds;
+            Border bdr2 = new Border
+            {
+                Height = 2,
+                Width = cnvsWidth - (2 * intervallDifference) + 10,
+                Opacity = 0.7,
+                Background = Brushes.White,
+            };
+            TextBlock tbk2 = new TextBlock
+            {
+                Text = h + " h",
+                Style = (Style)Application.Current.Resources["ModeTextBlock"],
+                FontSize = 10,
+                Opacity = 0.7,
+                Margin = new Thickness(10, 0, 0, 0)
+            };
+            StackPanel sp2 = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+            };
+            sp2.Children.Add(bdr2);
+            sp2.Children.Add(tbk2);
+            cnvsIntervalls.Children.Add(sp2);
+            Canvas.SetLeft(sp2, intervallDifference - 5);
+            Canvas.SetBottom(sp2, -5 + (percent * maxHeight));
         }
 
         private void canvasMostUsedApps_SizeChanged(object sender, SizeChangedEventArgs e)

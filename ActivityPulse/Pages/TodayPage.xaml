@@ -27,7 +27,7 @@
             <Border Grid.Column="1" Style="{StaticResource Bar}"  Margin="75,0,25,20" CornerRadius="25" >
                 <ScrollViewer VerticalScrollBarVisibility="Hidden" >
                     <StackPanel>
-                        <TextBlock Margin="45,30,45,0" x:Name="tbkScreenTime" TextAlignment="Left" Style="{StaticResource ModeTextBlock}" VerticalAlignment="Center" FontWeight="Medium" FontSize="28" />
+                        <TextBlock Margin="45,30,45,0" x:Name="tbkScreenTime" TextAlignment="Right" Style="{StaticResource ModeTextBlock}" VerticalAlignment="Center" FontWeight="Medium" FontSize="28" />
                         <Grid Margin="38,5,40,5" VerticalAlignment="Top" >
                             <Canvas Height="40" x:Name="canvasMostUsedApps" SizeChanged="canvasMostUsedApps_SizeChanged" >
 

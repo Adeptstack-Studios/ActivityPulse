@@ -150,6 +150,7 @@ namespace ActivityPulse.Pages
                     (
                         mostUsed[i].AppName,
                         TodayPage.GetTimeString((mostUsed[i].UsedMinutes * 60) + mostUsed[i].UsedSeconds),
+                        TodayPage.GetTimeString(((mostUsed[i].UsedMinutes * 60) + mostUsed[i].UsedSeconds) / gDatas.Count),
                         mostUsed[i].IconPath,
                         new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i]))
                     ));
@@ -168,6 +169,7 @@ namespace ActivityPulse.Pages
                     (
                         mostUsed[i].AppName,
                         TodayPage.GetTimeString((mostUsed[i].UsedMinutes * 60) + mostUsed[i].UsedSeconds),
+                        TodayPage.GetTimeString(((mostUsed[i].UsedMinutes * 60) + mostUsed[i].UsedSeconds) / gDatas.Count),
                         mostUsed[i].IconPath,
                         Brushes.DarkGray
                     ));

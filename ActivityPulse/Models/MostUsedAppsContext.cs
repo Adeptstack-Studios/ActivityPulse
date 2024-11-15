@@ -6,6 +6,7 @@ namespace ActivityPulse.Models
     {
         public string AppName { get; set; }
         public string UsedTime { get; set; }
+        public string AVGUsedTime { get; set; }
         public string IconPath { get; set; }
         public Brush Color { get; set; }
 
@@ -13,6 +14,15 @@ namespace ActivityPulse.Models
         {
             this.AppName = appName;
             this.UsedTime = usedTime;
+            this.IconPath = iconPath;
+            this.Color = color;
+        }
+
+        public MostUsedAppsContext(string appName, string usedTime, string avgUsedTime, string iconPath, Brush color)
+        {
+            this.AppName = appName;
+            this.UsedTime = usedTime;
+            this.AVGUsedTime = avgUsedTime;
             this.IconPath = iconPath;
             this.Color = color;
         }

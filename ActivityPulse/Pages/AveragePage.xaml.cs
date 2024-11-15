@@ -1,4 +1,5 @@
 ﻿using ActivityPulse.Models;
+using ActivityPulse.Utils;
 using ActivityUtilities;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,15 +17,6 @@ namespace ActivityPulse.Pages
         List<List<AppUsage>> appDayUsages = new List<List<AppUsage>>();
         List<DateTime> days;
         AverageType avgType;
-
-        List<string> colors = new List<string>
-        {
-            "#6a1b9a",
-            "#7b1fa2",
-            "#8e24aa",
-            "#9c27b0",
-            "#ab47bc"
-        };
 
         public AveragePage(List<DateTime> days, AverageType type)
         {
@@ -81,7 +73,7 @@ namespace ActivityPulse.Pages
                 {
                     Height = 40,
                     Width = canavsWidth * percentige,
-                    Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])),
+                    Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(ColorLists.colors[i])),
                     StrokeThickness = 0,
                 };
 
@@ -93,7 +85,7 @@ namespace ActivityPulse.Pages
                     Rectangle filler = new Rectangle
                     {
                         Width = 10,
-                        Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])),
+                        Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(ColorLists.colors[i])),
                         StrokeThickness = 0,
                         Height = 40,
                     };
@@ -152,7 +144,7 @@ namespace ActivityPulse.Pages
                         TodayPage.GetTimeString((mostUsed[i].UsedMinutes * 60) + mostUsed[i].UsedSeconds),
                         TodayPage.GetTimeString(((mostUsed[i].UsedMinutes * 60) + mostUsed[i].UsedSeconds) / gDatas.Count),
                         mostUsed[i].IconPath,
-                        new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i]))
+                        new SolidColorBrush((Color)ColorConverter.ConvertFromString(ColorLists.colors[i]))
                     ));
                 }
 
@@ -183,6 +175,7 @@ namespace ActivityPulse.Pages
         private void GenerateIntervallDiagramm(List<GeneralData> genDatas)
         {
             cnvsIntervalls.Children.Clear();
+            List<IntervallOverviewContext> overview = new List<IntervallOverviewContext>();
             int spaces = genDatas.Count + 1;
             double cnvsWidth = cnvsIntervalls.ActualWidth;
             double cnvsHeight = cnvsIntervalls.ActualHeight;
@@ -199,7 +192,7 @@ namespace ActivityPulse.Pages
                 };
                 TextBlock tb = new TextBlock
                 {
-                    Text = genDatas[i - 1].timeUsed[0].ToShortDateString(),
+                    Text = genDatas[i - 1].timeUsed[genDatas[i - 1].timeUsed.Count - 1].ToShortDateString(),
                     Style = (Style)Application.Current.Resources["ModeTextBlock"],
                     FontSize = 10,
                     Opacity = 0.7,
@@ -237,14 +230,24 @@ namespace ActivityPulse.Pages
                 {
                     Height = height,
                     Width = borderWidth,
-                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[0])),
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(ColorLists.colors[0])),
                     CornerRadius = new CornerRadius(5)
                 };
+
+                overview.Add(new IntervallOverviewContext(
+                    genDatas[i].timeUsed[genDatas[i].timeUsed.Count - 1],
+                    TodayPage.GetTimeString(genDatas[i].gesSecondsUsed),
+                    height,
+                    ColorLists.monthBrushes[genDatas[i].timeUsed[genDatas[i].timeUsed.Count - 1].Month - 1]
+                ));
 
                 cnvsIntervalls.Children.Add(b);
                 Canvas.SetLeft(b, (i + 1) * intervallDifference - ((borderWidth - 2) / 2));
                 Canvas.SetBottom(b, -5);
             }
+
+            lbDayList.ItemsSource = null;
+            lbDayList.ItemsSource = overview;
 
             Border bdr1 = new Border
             {
@@ -351,7 +354,14 @@ namespace ActivityPulse.Pages
 
         private void cnvsIntervalls_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            GenerateIntervallDiagramm(gDatas);
+            if (avgType == AverageType.Week || avgType == AverageType.Month)
+            {
+                GenerateIntervallDiagramm(gDatas);
+            }
+            else
+            {
+
+            }
         }
     }
 }

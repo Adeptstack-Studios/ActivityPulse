@@ -1,4 +1,5 @@
 ﻿using ActivityPulse.Models;
+using ActivityPulse.Utils;
 using ActivityUtilities;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,15 +16,6 @@ namespace ActivityPulse.Pages
         GeneralData gData;
         List<AppUsage> appUsages;
         DateTime day;
-
-        List<string> colors = new List<string>
-        {
-            "#6a1b9a",
-            "#7b1fa2",
-            "#8e24aa",
-            "#9c27b0",
-            "#ab47bc"
-        };
 
         public TodayPage(DateTime day)
         {
@@ -85,7 +77,7 @@ namespace ActivityPulse.Pages
                 {
                     Height = 40,
                     Width = canavsWidth * percentige,
-                    Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])),
+                    Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(ColorLists.colors[i])),
                     StrokeThickness = 0,
                 };
 
@@ -97,7 +89,7 @@ namespace ActivityPulse.Pages
                     Rectangle filler = new Rectangle
                     {
                         Width = 10,
-                        Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])),
+                        Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(ColorLists.colors[i])),
                         StrokeThickness = 0,
                         Height = 40,
                     };
@@ -155,7 +147,7 @@ namespace ActivityPulse.Pages
                         mostUsed[i].AppName,
                         GetTimeString((mostUsed[i].UsedMinutes * 60) + mostUsed[i].UsedSeconds),
                         mostUsed[i].IconPath,
-                        new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i]))
+                        new SolidColorBrush((Color)ColorConverter.ConvertFromString(ColorLists.colors[i]))
                     ));
                 }
 
@@ -280,7 +272,7 @@ namespace ActivityPulse.Pages
                         Height = 5,
                         CornerRadius = new CornerRadius(2),
                         Width = hourDifference * (hours + endMinuteValue - beginMinuteValue) >= 0 ? hourDifference * (hours + endMinuteValue - beginMinuteValue) : 0,
-                        Background = i < colors.Count ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[0])),
+                        Background = i < ColorLists.colors.Count ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(ColorLists.colors[i])) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(ColorLists.colors[0])),
                         ToolTip = $"{intervall.Name}: {intervall.VonDate.ToShortTimeString()} - {intervall.BisDate.ToShortTimeString()}"
                     };
 
@@ -289,7 +281,7 @@ namespace ActivityPulse.Pages
                     Canvas.SetBottom(b, height);
                 }
 
-                appList.Add(new MostUsedDiagramAppsContext(appIntervalls[i].Name, i < colors.Count ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[i])) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(colors[0])), appIntervalls[i].IconPath));
+                appList.Add(new MostUsedDiagramAppsContext(appIntervalls[i].Name, i < ColorLists.colors.Count ? new SolidColorBrush((Color)ColorConverter.ConvertFromString(ColorLists.colors[i])) : new SolidColorBrush((Color)ColorConverter.ConvertFromString(ColorLists.colors[0])), appIntervalls[i].IconPath));
             }
             lbApps.ItemsSource = null;
             lbApps.ItemsSource = appList;

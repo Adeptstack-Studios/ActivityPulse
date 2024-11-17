@@ -183,34 +183,37 @@ namespace ActivityPulse.Pages
 
             for (int i = 1; i < spaces; i++)
             {
-                Border b = new Border
+                if (genDatas[i - 1].timeUsed.Count > 0)
                 {
-                    Height = 7,
-                    Width = 2,
-                    Background = Brushes.White,
-                    Opacity = 0.85
-                };
-                TextBlock tb = new TextBlock
-                {
-                    Text = genDatas[i - 1].timeUsed[genDatas[i - 1].timeUsed.Count - 1].ToShortDateString(),
-                    Style = (Style)Application.Current.Resources["ModeTextBlock"],
-                    FontSize = 10,
-                    Opacity = 0.7,
-                    RenderTransform = new RotateTransform(270)
-                };
+                    Border b = new Border
+                    {
+                        Height = 7,
+                        Width = 2,
+                        Background = Brushes.White,
+                        Opacity = 0.85
+                    };
+                    TextBlock tb = new TextBlock
+                    {
+                        Text = genDatas[i - 1].timeUsed[genDatas[i - 1].timeUsed.Count - 1].ToShortDateString(),
+                        Style = (Style)Application.Current.Resources["ModeTextBlock"],
+                        FontSize = 10,
+                        Opacity = 0.7,
+                        RenderTransform = new RotateTransform(270)
+                    };
 
-                cnvsIntervalls.Children.Add(b);
-                cnvsIntervalls.Children.Add(tb);
-                Canvas.SetLeft(b, i * intervallDifference);
-                Canvas.SetBottom(b, -20);
-                Canvas.SetBottom(tb, -95);
-                if (i > 10)
-                {
-                    Canvas.SetLeft(tb, i * intervallDifference - 6);
-                }
-                else
-                {
-                    Canvas.SetLeft(tb, i * intervallDifference - 6);
+                    cnvsIntervalls.Children.Add(b);
+                    cnvsIntervalls.Children.Add(tb);
+                    Canvas.SetLeft(b, i * intervallDifference);
+                    Canvas.SetBottom(b, -20);
+                    Canvas.SetBottom(tb, -95);
+                    if (i > 10)
+                    {
+                        Canvas.SetLeft(tb, i * intervallDifference - 6);
+                    }
+                    else
+                    {
+                        Canvas.SetLeft(tb, i * intervallDifference - 6);
+                    }
                 }
             }
 
@@ -221,29 +224,33 @@ namespace ActivityPulse.Pages
 
             for (int i = 0; i < genDatas.Count; i++)
             {
-                double percentage = (double)genDatas[i].gesSecondsUsed / (double)maxUsedSeconds;
-                double height = percentage * maxHeight;
-                MessageBox.Show("" + genDatas[i].gesSecondsUsed);
-                MessageBox.Show("" + maxUsedSeconds);
-
-                Border b = new Border
+                //MessageBox.Show(genDatas[i].timeUsed.Count.ToString());
+                if (genDatas[i].timeUsed.Count > 0)
                 {
-                    Height = height,
-                    Width = borderWidth,
-                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(ColorLists.colors[0])),
-                    CornerRadius = new CornerRadius(5)
-                };
+                    double percentage = (double)genDatas[i].gesSecondsUsed / (double)maxUsedSeconds;
+                    double height = percentage * maxHeight;
+                    MessageBox.Show("" + genDatas[i].gesSecondsUsed);
+                    MessageBox.Show("" + maxUsedSeconds);
 
-                overview.Add(new IntervallOverviewContext(
-                    genDatas[i].timeUsed[genDatas[i].timeUsed.Count - 1],
-                    TodayPage.GetTimeString(genDatas[i].gesSecondsUsed),
-                    height,
-                    ColorLists.monthBrushes[genDatas[i].timeUsed[genDatas[i].timeUsed.Count - 1].Month - 1]
-                ));
+                    Border b = new Border
+                    {
+                        Height = height,
+                        Width = borderWidth,
+                        Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(ColorLists.colors[0])),
+                        CornerRadius = new CornerRadius(5)
+                    };
 
-                cnvsIntervalls.Children.Add(b);
-                Canvas.SetLeft(b, (i + 1) * intervallDifference - ((borderWidth - 2) / 2));
-                Canvas.SetBottom(b, -5);
+                    overview.Add(new IntervallOverviewContext(
+                        genDatas[i].timeUsed[genDatas[i].timeUsed.Count - 1],
+                        TodayPage.GetTimeString(genDatas[i].gesSecondsUsed),
+                        height,
+                        ColorLists.monthBrushes[genDatas[i].timeUsed[genDatas[i].timeUsed.Count - 1].Month - 1]
+                    ));
+
+                    cnvsIntervalls.Children.Add(b);
+                    Canvas.SetLeft(b, (i + 1) * intervallDifference - ((borderWidth - 2) / 2));
+                    Canvas.SetBottom(b, -5);
+                }
             }
 
             lbDayList.ItemsSource = null;
@@ -360,6 +367,7 @@ namespace ActivityPulse.Pages
             }
             else
             {
+                GenerateIntervallDiagramm(gDatas);
 
             }
         }

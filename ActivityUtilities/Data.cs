@@ -18,6 +18,12 @@ namespace ActivityUtilities
             {
                 Directory.CreateDirectory(icons);
             }
+
+            string cache = Path.Combine(path, "Cache");
+            if (!Directory.Exists(cache))
+            {
+                Directory.CreateDirectory(cache);
+            }
         }
 
         public static void CreateFile(string file)

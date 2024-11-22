@@ -71,7 +71,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal" Height="40" HorizontalAlignment="Left">
-                <Image Source="img/PLP-NoTas.ico" Margin="15,5.5" />
+                <Image Source="Images/AppIcon/logo.ico" Margin="15,5.5" />
             </StackPanel>
             <Grid Grid.Column="1">
                 <TextBlock Style="{StaticResource ModeTextBlock}" x:Name="TB_Title" Text="Changelog" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Medium" />

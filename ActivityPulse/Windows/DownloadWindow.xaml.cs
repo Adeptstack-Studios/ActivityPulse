@@ -1,19 +1,19 @@
-﻿using ActivityPulse.Pages;
-using ActivityPulse.Windows;
+﻿using ActivityUtilities;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Threading;
 
-namespace ActivityPulse
+namespace ActivityPulse.Windows
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaktionslogik für DownloadWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class DownloadWindow : Window
     {
-
         private static IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (msg)
@@ -128,7 +128,11 @@ namespace ActivityPulse
         [DllImport("User32")]
         internal static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
 
-        public MainWindow()
+        WebClient webClient = new WebClient();
+        Uri url;
+        string app;
+        string path;
+        public DownloadWindow(string url, string app)
         {
             InitializeComponent();
             SourceInitialized += (s, e) =>
@@ -141,51 +145,61 @@ namespace ActivityPulse
                 WindowStyle = WindowStyle.SingleBorderWindow;
                 WindowState = WindowState.Minimized;
             };
-            max_btn.Click += (s, e) =>
-            {
-                WindowStyle = WindowStyle.SingleBorderWindow;
-                WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
-            };
             close_btn.Click += (s, e) =>
             {
                 WindowStyle = WindowStyle.SingleBorderWindow;
                 Close();
             };
+            TB_1.Text = "Downloading " + app;
+            this.Title = TB_1.Text;
 
-            frame.Content = new TodayPage(DateTime.Now);
-            TestIfHostActive();
+            this.url = new Uri(url);
+            this.app = app;
+
+            path = System.IO.Path.Combine(Data.path + "/Cache", app + ".exe");
+
+            Update();
+
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+        protected override void OnActivated(EventArgs e)
         {
-            base.OnClosing(e);
-            //e.Cancel = true;
-        }
-
-        void TestIfHostActive()
-        {
-            var process = Process.GetProcessesByName("ActivityHost");
-
-            if (process.Length == 0)
+            base.OnActivated(e);
+            if (WindowStyle != WindowStyle.None)
             {
-                TellBox tb = new TellBox("Activity Host ist nicht gestartet, stellen Sie sicher, dass Autostart für ActivityHost eingeschaltet ist um korrekte Zeiten zu bekommen", "Warnung");
-                tb.ShowDialog();
+                Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (DispatcherOperationCallback)delegate (object unused)
+                {
+                    WindowStyle = WindowStyle.None;
+                    return null;
+                }
+                , null);
             }
         }
 
-        private void homeBtn_Click(object sender, RoutedEventArgs e)
+        void Update()
         {
-            frame.Content = new CalendarPage();
+            webClient.DownloadProgressChanged += Progress;
+            webClient.DownloadFileCompleted += Completed;
+            webClient.DownloadFileAsync(url, path);
         }
 
-        public static void UpdateTitle(string title)
+        private void Completed(object sender, AsyncCompletedEventArgs e)
         {
-            Application.Current.Resources["WindowTitle"] = string.Format(title);
+            try
+            {
+                Process.Start(path, "/SILENT /SP /SUPPRESSMSGBOXES /NORESTART /RESTARTAPPLICATIONS /FORCECLOSEAPPLICATIONS");
+                //this.Close();
+            }
+            catch (Exception ex)
+            {
+                new TellBox(ex.Message, "Error").Show();
+            }
         }
 
-        private void settingsBtn_Click(object sender, RoutedEventArgs e)
+        private void Progress(object sender, ProgressChangedEventArgs e)
         {
-            frame.Content = new SettingsPage();
+            PB_1.Value = e.ProgressPercentage;
+            PB_1.Tag = e.ProgressPercentage.ToString() + "%";
         }
     }
 }

@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:ActivityPulse"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:prop="clr-namespace:ActivityPulse.Settings"
-             StartupUri="MainWindow.xaml">
+             StartupUri="Windows.MainWindow.xaml">
     
     <Application.Resources>
         <sys:String x:Key="WindowTitle">Activity Pulse</sys:String>
@@ -492,7 +492,90 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
+        <Style x:Key="WindowCloseBTN" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bdr" Background="Transparent" >
+                            <ContentPresenter x:Name="content"  Content="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="bdr" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#c0392b" />
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="content" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" To="White"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="bdr" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"  />
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="content" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="WindowBTN" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bdr" Background="Transparent">
+                            <ContentPresenter x:Name="content" Content="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="bdr" FillBehavior="HoldEnd" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#7f8c8d" />
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" To="White"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="bdr" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"  />
+                                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!--COMBOBOX-->
         <!--========================================-->
         <ControlTemplate x:Key="ComboBoxToggleButtonV2" TargetType="{x:Type ToggleButton}">

@@ -3,7 +3,6 @@ using ActivityPulse.Utils;
 using ActivityPulse.Windows;
 using PLP_SystemInfo.ComponentInfo;
 using System.Diagnostics;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -154,48 +153,48 @@ namespace ActivityPulse.Pages
             }
         }
 
-        private void btnSetStoragePath_Click(object sender, RoutedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(tbStoragePath.Text))
-            {
-                if (Directory.Exists(tbStoragePath.Text))
-                {
-                    TellBox tb = new TellBox("Are you sure you want to change the location? If you do, make sure your notes are backed up offsite in case something goes wrong with the change, such as a network drive becoming unavailable.", "Warning");
-                    bool? result = tb.ShowDialog();
+        //private void btnSetStoragePath_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (!string.IsNullOrEmpty(tbStoragePath.Text))
+        //    {
+        //        if (Directory.Exists(tbStoragePath.Text))
+        //        {
+        //            TellBox tb = new TellBox("Are you sure you want to change the location? If you do, make sure your notes are backed up offsite in case something goes wrong with the change, such as a network drive becoming unavailable.", "Warning");
+        //            bool? result = tb.ShowDialog();
 
-                    if (result == true)
-                    {
-                        string oldPath = Settings.AppSettings.Default.UserDataLocation;
-                        Settings.AppSettings.Default.UserDataLocation = tbStoragePath.Text;
-                        Settings.AppSettings.Default.Save();
-                        //DataHandler.ImportOlderFiles(oldPath + @"\Notivity", Settings.AppSettings.Default.UserDataLocation + @"\Notivity");
-                    }
-                }
-                else
-                {
-                    TellBox tb = new TellBox("The specified file path does not exist", "Error");
-                    tb.ShowDialog();
-                }
-            }
-            else
-            {
-                TellBox tb = new TellBox("The file path cannot be empty.", "Error");
-                tb.ShowDialog();
-            }
-        }
+        //            if (result == true)
+        //            {
+        //                string oldPath = Settings.AppSettings.Default.UserDataLocation;
+        //                Settings.AppSettings.Default.UserDataLocation = tbStoragePath.Text;
+        //                Settings.AppSettings.Default.Save();
+        //                Data.CopyDirectory(oldPath + @"\ActivityPulse", Settings.AppSettings.Default.UserDataLocation + @"\ActivityPulse", true);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            TellBox tb = new TellBox("The specified file path does not exist", "Error");
+        //            tb.ShowDialog();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        TellBox tb = new TellBox("The file path cannot be empty.", "Error");
+        //        tb.ShowDialog();
+        //    }
+        //}
 
-        private void search_storagepath_btn_Click(object sender, RoutedEventArgs e)
-        {
-            Ookii.Dialogs.Wpf.VistaFolderBrowserDialog fbd = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
-            fbd.RootFolder = Environment.SpecialFolder.MyDocuments;
-            fbd.ShowNewFolderButton = true;
+        //private void search_storagepath_btn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Ookii.Dialogs.Wpf.VistaFolderBrowserDialog fbd = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
+        //    fbd.RootFolder = Environment.SpecialFolder.MyDocuments;
+        //    fbd.ShowNewFolderButton = true;
 
-            bool? result = fbd.ShowDialog();
+        //    bool? result = fbd.ShowDialog();
 
-            if (result == true)
-            {
-                tbStoragePath.Text = fbd.SelectedPath;
-            }
-        }
+        //    if (result == true)
+        //    {
+        //        tbStoragePath.Text = fbd.SelectedPath;
+        //    }
+        //}
     }
 }

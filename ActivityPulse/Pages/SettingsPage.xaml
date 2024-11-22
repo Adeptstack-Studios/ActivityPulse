@@ -104,12 +104,12 @@
                         <!--<Label Foreground="{Binding fgc}" x:Name="LBL_GS" Content="Allgemeine Einstellungen" FontSize="16" FontWeight="Bold" />-->
                         <Border Style="{StaticResource Bar}" Margin="10,20,30,20" BorderThickness="0" Padding="20,30" CornerRadius="20" >
                             <StackPanel>
-                                <TextBlock Text="Storage path" Style="{StaticResource ModeTextBlock}" FontWeight="Bold" Margin="0,0,0,0" FontSize="13" />
+                                <!--<TextBlock Text="Storage path" Style="{StaticResource ModeTextBlock}" FontWeight="Bold" Margin="0,0,0,0" FontSize="13" />
                                 <StackPanel Orientation="Horizontal" Margin="5,10,5,10">
                                     <TextBox VerticalContentAlignment="Center" Text="" Tag="location of your user data" x:Name="tbStoragePath" Style="{StaticResource DefaultTB}" Height="25" Width="250" />
                                     <Button Content="Search" x:Name="search_storagepath_btn" Click="search_storagepath_btn_Click" Style="{StaticResource CustomButton}" Margin="10,0" Padding="10,0" />
                                     <Button Content="Set" x:Name="btnSetStoragePath" Click="btnSetStoragePath_Click" Style="{StaticResource CustomButton}" Margin="10,0" Padding="20,0" />
-                                </StackPanel>
+                                </StackPanel>-->
                                 <ComboBox Tag="&#xf06e;" ToolTip="Theme" Style="{StaticResource ComboV2}" x:Name="CB_Mode" Width="200" SelectionChanged="CB_Mode_SelectionChanged" Height="30" HorizontalAlignment="Left" >
                                     <ComboBoxItem Content="System" />
                                     <ComboBoxItem Content="Light" />

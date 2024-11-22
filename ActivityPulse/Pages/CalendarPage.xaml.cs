@@ -209,7 +209,6 @@ namespace ActivityPulse.Pages
                 day++;
             } while (d.AddDays(day).Year == date.Year && d.AddDays(day) <= DateTime.Now);
 
-            MessageBox.Show(dates.Count.ToString());
             NavigationService.Content = new AveragePage(dates, AverageType.Year);
         }
     }

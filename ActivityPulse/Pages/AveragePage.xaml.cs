@@ -37,7 +37,6 @@ namespace ActivityPulse.Pages
             {
                 totalSeconds += data.gesSecondsUsed;
             }
-            MessageBox.Show(gDatas.Count.ToString());
             tbkAVGScreenTime.Text = TodayPage.GetTimeString(totalSeconds / gDatas.Count);
             tbkScreenTime.Text = TodayPage.GetTimeString(totalSeconds);
         }
@@ -64,10 +63,6 @@ namespace ActivityPulse.Pages
             {
                 double gesAppTime = (mostUsed[i].UsedMinutes * 60) + mostUsed[i].UsedSeconds;
                 double percentige = gesAppTime / gesUsedTime;
-
-                MessageBox.Show(gesAppTime.ToString());
-                MessageBox.Show(gesUsedTime.ToString());
-                MessageBox.Show(percentige.ToString());
 
                 Rectangle rect = new Rectangle
                 {
@@ -194,7 +189,7 @@ namespace ActivityPulse.Pages
                     };
                     TextBlock tb = new TextBlock
                     {
-                        Text = genDatas[i - 1].timeUsed[genDatas[i - 1].timeUsed.Count - 1].ToShortDateString(),
+                        Text = avgType == AverageType.Year ? genDatas[i - 1].timeUsed[genDatas[i - 1].timeUsed.Count - 1].ToShortDateString().Substring(3) : genDatas[i - 1].timeUsed[genDatas[i - 1].timeUsed.Count - 1].ToShortDateString(),
                         Style = (Style)Application.Current.Resources["ModeTextBlock"],
                         FontSize = 10,
                         Opacity = 0.7,
@@ -217,7 +212,7 @@ namespace ActivityPulse.Pages
                 }
             }
 
-            int borderWidth = avgType == AverageType.Week ? 10 : avgType == AverageType.Month ? 6 : 4;
+            int borderWidth = avgType == AverageType.Week ? 10 : avgType == AverageType.Month ? 8 : 10;
             long maxUsedSeconds = genDatas.MaxBy(x => x.gesSecondsUsed).gesSecondsUsed;
             int maxHeight = 110;
             double balkenSpace = intervallDifference - ((borderWidth - 2) / 2);
@@ -229,8 +224,6 @@ namespace ActivityPulse.Pages
                 {
                     double percentage = (double)genDatas[i].gesSecondsUsed / (double)maxUsedSeconds;
                     double height = percentage * maxHeight;
-                    MessageBox.Show("" + genDatas[i].gesSecondsUsed);
-                    MessageBox.Show("" + maxUsedSeconds);
 
                     Border b = new Border
                     {
@@ -244,7 +237,8 @@ namespace ActivityPulse.Pages
                         genDatas[i].timeUsed[genDatas[i].timeUsed.Count - 1],
                         TodayPage.GetTimeString(genDatas[i].gesSecondsUsed),
                         height,
-                        ColorLists.monthBrushes[genDatas[i].timeUsed[genDatas[i].timeUsed.Count - 1].Month - 1]
+                        ColorLists.monthBrushes[genDatas[i].timeUsed[genDatas[i].timeUsed.Count - 1].Month - 1],
+                        avgType == AverageType.Year ? Visibility.Visible : Visibility.Collapsed
                     ));
 
                     cnvsIntervalls.Children.Add(b);
@@ -367,6 +361,29 @@ namespace ActivityPulse.Pages
             }
             else
             {
+                List<GeneralData> gDatas = new List<GeneralData>();
+
+                int currentMonth = 0;
+                foreach (var data in this.gDatas)
+                {
+                    if (data.timeUsed.Count > 0)
+                    {
+                        var date = data.timeUsed[data.timeUsed.Count - 1];
+                        if (currentMonth == date.Month)
+                        {
+                            gDatas[currentMonth - 1].gesSecondsUsed += data.gesSecondsUsed;
+                        }
+                        else
+                        {
+                            gDatas.Add(new GeneralData
+                            {
+                                timeUsed = new List<DateTime> { new DateTime(date.Year, date.Month, 1) },
+                                gesSecondsUsed = data.gesSecondsUsed,
+                            });
+                            currentMonth++;
+                        }
+                    }
+                }
                 GenerateIntervallDiagramm(gDatas);
 
             }

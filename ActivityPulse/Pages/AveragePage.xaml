@@ -166,10 +166,13 @@
                                             <ColumnDefinition />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
-                                        <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" >
-                                            <Border Width="17" Height="17" CornerRadius="5" Background="{Binding BdrBrush}" />
-                                            <TextBlock Text="{Binding DateString}" Style="{StaticResource ModeTextBlock}" VerticalAlignment="Center" Margin="10,0" />
-                                        </StackPanel>
+                                        <Grid>
+                                            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" >
+                                                <Border Width="17" Height="17" CornerRadius="5" Background="{Binding BdrBrush}" />
+                                                <TextBlock Text="{Binding DateString}" Style="{StaticResource ModeTextBlock}" VerticalAlignment="Center" Margin="10,0" />
+                                            </StackPanel>
+                                            <Border Style="{StaticResource BdrBackground}" Width="15" HorizontalAlignment="Left" Margin="27,0,0,0" Visibility="{Binding Visibility}" />
+                                        </Grid>
                                         <Border Grid.Column="1" Background="#6a1b9a" Height="10" Width="{Binding BalkenWidth}" CornerRadius="5" HorizontalAlignment="Left" />
                                         <TextBlock Grid.Column="2" HorizontalAlignment="Right" Text="{Binding UsedTime}" Style="{StaticResource ModeTextBlock}" VerticalAlignment="Center" Margin="10,0" />
                                     </Grid>

@@ -142,54 +142,57 @@ namespace ActivityHost
         void CaptureAppData()
         {
             var data = GetActiveProcessData();
-            string app = data.name;
-            string icon = data.icon;
-            int index = 0;
-            bool exists = false;
-
-            for (int i = 0; i < appUsages.Count; i++)
+            if (data.name != "Other" && !string.IsNullOrEmpty(data.icon))
             {
-                if (appUsages[i].AppName == app)
-                {
-                    index = i;
-                    exists = true;
-                    break;
-                }
-            }
+                string app = data.name;
+                string icon = data.icon;
+                int index = 0;
+                bool exists = false;
 
-            if (exists)
-            {
-                appUsages[index].UsedSeconds += evaluationTime;
-                if (appUsages[index].UsedSeconds >= 60)
+                for (int i = 0; i < appUsages.Count; i++)
                 {
-                    appUsages[index].UsedMinutes += 1;
-                    appUsages[index].UsedSeconds = appUsages[index].UsedSeconds - 60;
-                }
-
-                bool allow = true;
-                foreach (var item in appUsages[index].timeUsed)
-                {
-                    if (item.Minute == DateTime.Now.Minute && item.Hour == DateTime.Now.Hour)
+                    if (appUsages[i].AppName == app)
                     {
-                        allow = false;
+                        index = i;
+                        exists = true;
                         break;
                     }
                 }
 
-                if (allow)
+                if (exists)
                 {
-                    appUsages[index].timeUsed.Add(DateTime.Now);
+                    appUsages[index].UsedSeconds += evaluationTime;
+                    if (appUsages[index].UsedSeconds >= 60)
+                    {
+                        appUsages[index].UsedMinutes += 1;
+                        appUsages[index].UsedSeconds = appUsages[index].UsedSeconds - 60;
+                    }
+
+                    bool allow = true;
+                    foreach (var item in appUsages[index].timeUsed)
+                    {
+                        if (item.Minute == DateTime.Now.Minute && item.Hour == DateTime.Now.Hour)
+                        {
+                            allow = false;
+                            break;
+                        }
+                    }
+
+                    if (allow)
+                    {
+                        appUsages[index].timeUsed.Add(DateTime.Now);
+                    }
                 }
-            }
-            else
-            {
-                appUsages.Insert(0, new AppUsage
+                else
                 {
-                    AppName = app,
-                    UsedSeconds = 1,
-                    UsedMinutes = 0,
-                    IconPath = icon,
-                });
+                    appUsages.Insert(0, new AppUsage
+                    {
+                        AppName = app,
+                        UsedSeconds = 1,
+                        UsedMinutes = 0,
+                        IconPath = icon,
+                    });
+                }
             }
         }
 

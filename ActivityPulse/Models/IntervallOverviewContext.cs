@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System.Windows;
+using System.Windows.Media;
 
 namespace ActivityPulse.Models
 {
@@ -12,13 +13,15 @@ namespace ActivityPulse.Models
         {
             get => DateTime.ToShortDateString();
         }
+        public Visibility Visibility { get; set; }
 
-        public IntervallOverviewContext(DateTime dateTime, string usedTime, double balkenWidth, Brush bdrBrush)
+        public IntervallOverviewContext(DateTime dateTime, string usedTime, double balkenWidth, Brush bdrBrush, Visibility visibility)
         {
             DateTime = dateTime;
             UsedTime = usedTime;
             BalkenWidth = balkenWidth;
             BdrBrush = bdrBrush;
+            Visibility = visibility;
         }
     }
 }

@@ -1,19 +1,16 @@
-﻿using ActivityPulse.Pages;
-using ActivityPulse.Windows;
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using ActivityPulse.Utils;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Threading;
 
-namespace ActivityPulse
+namespace ActivityPulse.Windows
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaktionslogik für ChangeLogWin.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ChangelogWindow : Window
     {
-
         private static IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (msg)
@@ -128,7 +125,8 @@ namespace ActivityPulse
         [DllImport("User32")]
         internal static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
 
-        public MainWindow()
+
+        public ChangelogWindow()
         {
             InitializeComponent();
             SourceInitialized += (s, e) =>
@@ -136,56 +134,42 @@ namespace ActivityPulse
                 IntPtr handle = (new WindowInteropHelper(this)).Handle;
                 HwndSource.FromHwnd(handle).AddHook(new HwndSourceHook(WindowProc));
             };
-            min_btn.Click += (s, e) =>
-            {
-                WindowStyle = WindowStyle.SingleBorderWindow;
-                WindowState = WindowState.Minimized;
-            };
-            max_btn.Click += (s, e) =>
-            {
-                WindowStyle = WindowStyle.SingleBorderWindow;
-                WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
-            };
             close_btn.Click += (s, e) =>
             {
                 WindowStyle = WindowStyle.SingleBorderWindow;
                 Close();
             };
-
-            frame.Content = new TodayPage(DateTime.Now);
-            TestIfHostActive();
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+        protected override void OnActivated(EventArgs e)
         {
-            base.OnClosing(e);
-            //e.Cancel = true;
-        }
-
-        void TestIfHostActive()
-        {
-            var process = Process.GetProcessesByName("ActivityHost");
-
-            if (process.Length == 0)
+            base.OnActivated(e);
+            if (WindowStyle != WindowStyle.None)
             {
-                TellBox tb = new TellBox("Activity Host ist nicht gestartet, stellen Sie sicher, dass Autostart für ActivityHost eingeschaltet ist um korrekte Zeiten zu bekommen", "Warnung");
-                tb.ShowDialog();
+                Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (DispatcherOperationCallback)delegate (object unused)
+                {
+                    WindowStyle = WindowStyle.None;
+                    return null;
+                }
+                , null);
             }
         }
 
-        private void homeBtn_Click(object sender, RoutedEventArgs e)
+        private void window_StateChanged(object sender, EventArgs e)
         {
-            frame.Content = new CalendarPage();
+            if (window.WindowState == WindowState.Normal)
+            {
+                Console.WriteLine("Hi, how are you? You found a secret");
+            }
+            else if (window.WindowState == WindowState.Maximized)
+            {
+                Console.WriteLine("Hi, how are you? You found a secret");
+            }
         }
 
-        public static void UpdateTitle(string title)
+        private async void web_Loaded(object sender, RoutedEventArgs e)
         {
-            Application.Current.Resources["WindowTitle"] = string.Format(title);
-        }
-
-        private void settingsBtn_Click(object sender, RoutedEventArgs e)
-        {
-            frame.Content = new SettingsPage();
+            web.Source = new Uri($"https://app-adeptstack.vercel.app/Changelog/Notivity/{AppUtils.apVersion.Replace(".", "")}");
         }
     }
 }

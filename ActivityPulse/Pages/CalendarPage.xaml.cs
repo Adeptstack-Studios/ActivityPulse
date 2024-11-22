@@ -1,4 +1,5 @@
 ﻿using ActivityPulse.Models;
+using ActivityPulse.Utils;
 using ActivityPulse.Windows;
 using System.Globalization;
 using System.Windows;

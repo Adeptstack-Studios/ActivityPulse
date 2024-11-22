@@ -1,0 +1,245 @@
+﻿<Page x:Class="ActivityPulse.Pages.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:prop="clr-namespace:ActivityPulse.Settings"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ActivityPulse" xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Settings">
+
+    <Page.Resources>
+        <Style TargetType="RadioButton" x:Key="pageButtons">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Grid>
+                            <Border Name="bdr_btn_cc" Background="Transparent" CornerRadius="5" />
+                            <Border Name="bdr_btn_th" Background="Transparent" CornerRadius="5" />
+                            <ContentPresenter x:Name="content" Content="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,10"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" TargetName="bdr_btn_cc" Value="#6a1b9a" />
+                                <Setter Property="Background" TargetName="bdr_btn_th" Value="{DynamicResource ThemeMenu}" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter Property="Background" TargetName="bdr_btn_cc" Value="Transparent" />
+                                <Setter Property="Background" TargetName="bdr_btn_th" Value="Transparent" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsChecked" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.EnterActions>
+                                    <BeginStoryboard x:Name="bsb_1_b">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.15" Storyboard.TargetName="bdr_btn_cc" Storyboard.TargetProperty="Background.Color" To="CadetBlue"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.EnterActions>
+                                <MultiTrigger.ExitActions>
+                                    <BeginStoryboard x:Name="bsb_1_e">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.15" Storyboard.TargetName="bdr_btn_cc" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.ExitActions>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="bdr_btn_cc" Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                <Setter Property="Visibility" TargetName="bdr_btn_th" Value="Collapsed" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                                <Setter Property="Visibility" TargetName="bdr_btn_th" Value="Collapsed" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                                <Setter Property="Visibility" TargetName="bdr_btn_th" Value="Visible" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid Margin="0,10,0,0">
+        <Grid Margin="0,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="205" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1" Width="205">
+                <RadioButton Padding="10,5"  Style="{StaticResource pageButtons}" FontWeight="Bold" Margin="0,0,0,0" x:Name="customi_btn" Click="customi_btn_Click"  >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="gear" FontFamily="{StaticResource FAsolid}" FontSize="24" />
+                        <TextBlock Text="General" FontSize="16" FontWeight="Medium" Margin="10,0" />
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton Padding="10,5" Style="{StaticResource pageButtons}" x:Name="lc_btn" FontWeight="Bold" Margin="0,0,0,0" Click="lc_btn_Click"  >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xe447;" FontFamily="{StaticResource FAsolid}" FontSize="24" Margin="5,0" />
+                        <TextBlock Text="Legal" FontSize="16" FontWeight="Medium" Margin="10,0" />
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton Padding="10,5" Style="{StaticResource pageButtons}" x:Name="ih_btn" FontWeight="Bold" Margin="0,0,0,0" Click="ih_btn_Click"  >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xf05a;" FontFamily="{StaticResource FAsolid}" FontSize="24" />
+                        <TextBlock Text="Feedback &amp; Support" FontSize="16" FontWeight="Medium" Margin="10,0" />
+                    </StackPanel>
+                </RadioButton>
+                        
+            </StackPanel>
+            <ScrollViewer Grid.Column="0" Style="{StaticResource LeftUpScroller}">
+                <Grid Margin="0,0">
+
+                    <StackPanel x:Name="SP_Custom" Visibility="Visible">
+                        <!--<Label Foreground="{Binding fgc}" x:Name="LBL_GS" Content="Allgemeine Einstellungen" FontSize="16" FontWeight="Bold" />-->
+                        <Border Style="{StaticResource Bar}" Margin="10,20,30,20" BorderThickness="0" Padding="20,30" CornerRadius="20" >
+                            <StackPanel>
+                                <TextBlock Text="Storage path" Style="{StaticResource ModeTextBlock}" FontWeight="Bold" Margin="0,0,0,0" FontSize="13" />
+                                <StackPanel Orientation="Horizontal" Margin="5,10,5,10">
+                                    <TextBox VerticalContentAlignment="Center" Text="" Tag="location of your user data" x:Name="tbStoragePath" Style="{StaticResource DefaultTB}" Height="25" Width="250" />
+                                    <Button Content="Search" x:Name="search_storagepath_btn" Click="search_storagepath_btn_Click" Style="{StaticResource CustomButton}" Margin="10,0" Padding="10,0" />
+                                    <Button Content="Set" x:Name="btnSetStoragePath" Click="btnSetStoragePath_Click" Style="{StaticResource CustomButton}" Margin="10,0" Padding="20,0" />
+                                </StackPanel>
+                                <ComboBox Tag="&#xf06e;" ToolTip="Theme" Style="{StaticResource ComboV2}" x:Name="CB_Mode" Width="200" SelectionChanged="CB_Mode_SelectionChanged" Height="30" HorizontalAlignment="Left" >
+                                    <ComboBoxItem Content="System" />
+                                    <ComboBoxItem Content="Light" />
+                                    <ComboBoxItem Content="Dark" />
+                                    <ComboBoxItem Content="Silent Storm" />
+                                    <ComboBoxItem Content="Tropical Sunset" />
+                                    <ComboBoxItem Content="Mossy Magic" />
+                                    <ComboBoxItem Content="Aqua Breeze" />
+                                    <ComboBoxItem Content="Sapphire Skies" />
+                                    <ComboBoxItem Content="Lavender Lullaby" />
+                                    <ComboBoxItem Content="Blossom Blush" />
+                                </ComboBox>
+                                <ComboBox Tag="&#xf2f1;" ToolTip="Update Channel" Style="{StaticResource ComboV2}" x:Name="CB_UpdateChannel" Width="200" SelectionChanged="CB_UpdateChannel_SelectionChanged" Height="30" HorizontalAlignment="Left" Margin="0,5" >
+                                    <ComboBoxItem Content="Main" />
+                                    <ComboBoxItem Content="Stable" />
+                                    <ComboBoxItem Content="Develop" />
+                                </ComboBox>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <Grid x:Name="SP_LC" Visibility="Collapsed">
+                        <Grid Margin="0,0,0,0">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0" Margin="0,20,0,0">
+                                <ListBox x:Name="LB_LC" Style="{StaticResource LB_vertical}" Background="Transparent" SelectionChanged="LB_LC_SelectionChanged">
+                                    <ListBox.Resources>
+                                        <Style x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
+                                            <Setter Property="SnapsToDevicePixels" Value="true" />
+                                            <Setter Property="OverridesDefaultStyle" Value="true" />
+                                            <Setter Property="Margin" Value="0"/>
+                                            <Setter Property="FontWeight" Value="Medium" />
+                                            <Setter Property="FontSize" Value="13" />
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ListBoxItem">
+                                                        <Border x:Name="Border" Height="35" Padding="2" Margin="0,0,10,0" SnapsToDevicePixels="true" CornerRadius="5" BorderThickness="2">
+                                                            <Grid>
+                                                                <Border x:Name="BorderTh" Background="Transparent" BorderThickness="3" CornerRadius="5" Margin="-2" />
+                                                                <ContentPresenter x:Name="content" VerticalAlignment="Center" Margin="10,0"/>
+                                                            </Grid>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource DarkMenu}" />
+                                                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource DarkMenu}" />
+                                                                <Setter Property="Visibility" TargetName="BorderTh" Value="Hidden" />
+                                                                <Setter Property="BorderThickness" TargetName="Border" Value="2" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                                                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource LightBackground}"/>
+                                                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource LightBackground}" />
+                                                                <Setter Property="Visibility" TargetName="BorderTh" Value="Hidden" />
+                                                                <Setter Property="BorderThickness" TargetName="Border" Value="2" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                                                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource ThemeBackground}" />
+                                                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource ThemeBackground}" />
+                                                                <Setter Property="Visibility" TargetName="BorderTh" Value="Visible" />
+                                                                <Setter Property="BorderThickness" TargetName="Border" Value="0" />
+                                                            </DataTrigger>
+                                                            <Trigger Property="IsSelected" Value="True">
+                                                                <Setter TargetName="BorderTh" Property="Background" Value="{DynamicResource ThemeMenu}" />
+                                                                <Setter TargetName="Border" Property="Background" Value="#6a1b9a" />
+                                                                <Setter TargetName="BorderTh" Property="BorderBrush" Value="{DynamicResource ThemeMenu}" />
+                                                                <Setter TargetName="Border" Property="BorderBrush" Value="#6a1b9a" />
+                                                            </Trigger>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter TargetName="BorderTh" Property="BorderBrush" Value="{DynamicResource ThemeMenu}" />
+                                                                <Setter TargetName="Border" Property="BorderBrush" Value="#6a1b9a" />
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ListBox.Resources>
+                                </ListBox>
+                            </Grid>
+
+                            <Grid Grid.Column="1">
+                                <TextBlock x:Name="TB_LC" Style="{StaticResource ModeTextBlock}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,40,30,0" FontFamily="Segoe UI" FontSize="14" />
+                            </Grid>
+                            
+                        </Grid>
+                    </Grid>
+
+                    <Grid x:Name="SP_IH" Visibility="Collapsed">
+                        <Grid Margin="0,0">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1.25*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" Style="{StaticResource Bar}" Margin="20,30,20,20" Height="400" VerticalAlignment="Top" CornerRadius="25">
+                                <StackPanel Grid.Column="0" Margin="30,10">
+                                    <TextBlock Margin="5, 20 , 0, 0" Style="{StaticResource ModeTextBlock}" Text="Product Overview" FontSize="20" FontWeight="Bold" FontFamily="Aptos"/>
+                                    <TextBlock x:Name="LBL_About_Text" Style="{StaticResource ModeTextBlock}" Text=" " FontWeight="Medium" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="5, 10, 0, 0" FontSize="13" FontFamily="Aptos" />
+                                    <TextBlock x:Name="LBL_Lizenz_Text" Style="{StaticResource ModeTextBlock}" Text=" " FontSize="11" TextWrapping="Wrap" Margin="5, 5, 0, 0" HorizontalAlignment="Left" FontFamily="Aptos" />
+                                    <TextBlock x:Name="LBL_Version" Style="{StaticResource ModeTextBlock}" Margin="0,10,0,0" FontFamily="Aptos" FontWeight="Medium" />
+                                    <TextBlock x:Name="LBL_OS_Name" Style="{StaticResource ModeTextBlock}" FontFamily="Aptos" FontWeight="Medium" />
+                                    <TextBlock x:Name="LBL_CPU_Name" Style="{StaticResource ModeTextBlock}" FontFamily="Aptos" FontWeight="Medium" />
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="1" Style="{StaticResource Bar}" Margin="70,30,70,20" Height="400" VerticalAlignment="Top" CornerRadius="25">
+                                <StackPanel Grid.Column="1" Margin="30,20,0,0" HorizontalAlignment="Center">
+                                    <TextBlock Text="You need help? " Style="{StaticResource ModeTextBlock}" x:Name="LBL_Links" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" Margin="0, 10, 0, 0" TextDecorations="Underline" TextAlignment="Center"/>
+                                    <Button Style="{StaticResource LinkButton}" x:Name="changelog" Content="> Changelog" Click="changelog_Click" IsEnabled="True" Margin="0, 5, 0, 0" HorizontalAlignment="Left" Height="25" FontSize="16" HorizontalContentAlignment="Left"/>
+                                    <Button Style="{StaticResource LinkButton}" x:Name="website" Content="> Webseite" Click="website_Click" IsEnabled="True" Margin="0, 5, 0, 0" HorizontalAlignment="Left" Height="25" FontSize="16" HorizontalContentAlignment="Left"/>
+                                    <Button Style="{StaticResource LinkButton}" x:Name="feedback" Content="> Feedback &amp; Support" Click="feedback_Click" Margin="0, 5, 0, 0" HorizontalAlignment="Left" Height="25" FontSize="16" HorizontalContentAlignment="Left"/>
+                                </StackPanel>
+                            </Border>
+
+                        </Grid>
+                    </Grid>
+                    
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+
+    </Grid>
+</Page>

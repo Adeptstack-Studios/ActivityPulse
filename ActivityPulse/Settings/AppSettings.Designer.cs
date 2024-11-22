@@ -46,5 +46,41 @@ namespace ActivityPulse.Settings {
                 this["ThemeID"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("en_En")]
+        public string UICulture {
+            get {
+                return ((string)(this["UICulture"]));
+            }
+            set {
+                this["UICulture"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int UpdateChannel {
+            get {
+                return ((int)(this["UpdateChannel"]));
+            }
+            set {
+                this["UpdateChannel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UserDataLocation {
+            get {
+                return ((string)(this["UserDataLocation"]));
+            }
+            set {
+                this["UserDataLocation"] = value;
+            }
+        }
     }
 }

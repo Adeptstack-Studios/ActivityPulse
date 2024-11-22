@@ -1,4 +1,4 @@
-﻿namespace ActivityPulse
+﻿namespace ActivityPulse.Utils
 {
     public enum AverageType
     {

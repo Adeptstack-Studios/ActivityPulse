@@ -117,7 +117,7 @@
                 <TextBlock Margin="15,0,0,0" Style="{StaticResource ModeTextBlock}" x:Name="TB_Title" Text="{DynamicResource WindowTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Medium" />
             </StackPanel>
             <Grid Grid.Column="2">
-                <Button x:Name="settingsBtn" Click="settingsBtn_Click" Style="{StaticResource LinkButton}" HorizontalAlignment="Right" FontFamily="{StaticResource FAsolid}" Content="gear" FontSize="20" Height="30" WindowChrome.IsHitTestVisibleInChrome="True" />
+                <Button x:Name="settingsBtn" Click="settingsBtn_Click" Style="{StaticResource LinkButton}" HorizontalAlignment="Right" FontFamily="{StaticResource FAsolid}" Content="gear" FontSize="20" Height="30" WindowChrome.IsHitTestVisibleInChrome="True" Margin="10,0"/>
             </Grid>
             <StackPanel Style="{StaticResource MenuSP}" Orientation="Horizontal" Grid.Column="3" Height="40" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right">
                 <Button IsTabStop="False" Width="45" x:Name="min_btn" ToolTip="Minimize" Content="&#xf2d1;" FontFamily="{StaticResource FAsolid}" FontSize="12" Padding="0,0,0,8" Style="{StaticResource WindowBTN}" />

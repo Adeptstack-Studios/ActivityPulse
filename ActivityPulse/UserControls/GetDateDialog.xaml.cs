@@ -1,4 +1,5 @@
-﻿using ActivityPulse.Windows;
+﻿using ActivityPulse.Utils;
+using ActivityPulse.Windows;
 using System.Windows;
 using System.Windows.Controls;
 

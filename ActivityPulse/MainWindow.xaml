@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:prop="clr-namespace:ActivityPulse.Settings"
+        xmlns:rs="clr-namespace:ActivityPulse.Lang"
         xmlns:local="clr-namespace:ActivityPulse"
         mc:Ignorable="d" Background="Black"
         Title="{DynamicResource WindowTitle}" MinHeight="600" MinWidth="1080" WindowStyle="None" WindowStartupLocation="CenterScreen">
@@ -120,9 +121,9 @@
                 <Button x:Name="settingsBtn" Click="settingsBtn_Click" Style="{StaticResource LinkButton}" HorizontalAlignment="Right" FontFamily="{StaticResource FAsolid}" Content="gear" FontSize="20" Height="30" WindowChrome.IsHitTestVisibleInChrome="True" Margin="10,0"/>
             </Grid>
             <StackPanel Style="{StaticResource MenuSP}" Orientation="Horizontal" Grid.Column="3" Height="40" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right">
-                <Button IsTabStop="False" Width="45" x:Name="min_btn" ToolTip="Minimize" Content="&#xf2d1;" FontFamily="{StaticResource FAsolid}" FontSize="12" Padding="0,0,0,8" Style="{StaticResource WindowBTN}" />
-                <Button IsTabStop="False" Width="45" x:Name="max_btn" ToolTip="Maximize" Content="&#xf065;" FontFamily="{StaticResource FAsolid}" FontSize="16" Style="{StaticResource WindowBTN}" />
-                <Button IsTabStop="False" Width="45" x:Name="close_btn" ToolTip="Close" Content="&#xf00d;" FontFamily="{StaticResource FAsolid}" FontSize="18" Style="{StaticResource WindowCloseBTN}" />
+                <Button IsTabStop="False" Width="45" x:Name="min_btn" ToolTip="{x:Static rs:Resources.tbMin}" Content="&#xf2d1;" FontFamily="{StaticResource FAsolid}" FontSize="12" Padding="0,0,0,8" Style="{StaticResource WindowBTN}" />
+                <Button IsTabStop="False" Width="45" x:Name="max_btn" ToolTip="{x:Static rs:Resources.tbMax}" Content="&#xf065;" FontFamily="{StaticResource FAsolid}" FontSize="16" Style="{StaticResource WindowBTN}" />
+                <Button IsTabStop="False" Width="45" x:Name="close_btn" ToolTip="{x:Static rs:Resources.tbClose}" Content="&#xf00d;" FontFamily="{StaticResource FAsolid}" FontSize="18" Style="{StaticResource WindowCloseBTN}" />
             </StackPanel>
         </Grid>
 

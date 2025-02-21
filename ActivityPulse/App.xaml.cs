@@ -10,6 +10,12 @@ namespace ActivityPulse
     /// </summary>
     public partial class App : Application
     {
+        App()
+        {
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("de-DE");
+            System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.CurrentUICulture;
+        }
+
         public static CalendarThemeContext GetCalendarThemeColors()
         {
             CalendarThemeContext calendarTheme = new CalendarThemeContext();

@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        xmlns:rs="clr-namespace:ActivityPulse.Lang"
         xmlns:local="clr-namespace:ActivityPulse"
         xmlns:prop="clr-namespace:ActivityPulse.Settings"
         mc:Ignorable="d"
-        Title="Changelog" StateChanged="window_StateChanged" Height="450" Width="400" MaxWidth="400" MinWidth="400" WindowStartupLocation="CenterScreen" WindowStyle="None" x:Name="window" >
+        Title="{x:Static rs:Resources.tbChangelogText}" StateChanged="window_StateChanged" Height="450" Width="400" MaxWidth="400" MinWidth="400" WindowStartupLocation="CenterScreen" WindowStyle="None" x:Name="window" >
 
 
     <Window.Resources>
@@ -74,10 +75,10 @@
                 <Image Source="Images/AppIcon/logo.ico" Margin="15,5.5" />
             </StackPanel>
             <Grid Grid.Column="1">
-                <TextBlock Style="{StaticResource ModeTextBlock}" x:Name="TB_Title" Text="Changelog" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Medium" />
+                <TextBlock Style="{StaticResource ModeTextBlock}" x:Name="TB_Title" Text="{x:Static rs:Resources.tbChangelogText}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Medium" />
             </Grid>
             <StackPanel Orientation="Horizontal" Grid.Column="2" Height="40" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right">
-                <Button Width="45" x:Name="close_btn" ToolTip="Close" Content="&#xf00d;" FontFamily="{StaticResource FAsolid}" FontSize="18" Style="{StaticResource WindowCloseBTN}" />
+                <Button Width="45" x:Name="close_btn" ToolTip="{x:Static rs:Resources.tbClose}" Content="&#xf00d;" FontFamily="{StaticResource FAsolid}" FontSize="18" Style="{StaticResource WindowCloseBTN}" />
             </StackPanel>
         </Grid>
 

@@ -13,8 +13,8 @@ namespace ActivityPulse.Pages
     /// </summary>
     public partial class SettingsPage : Page
     {
-        public string about = "ActivityPulse - Keep an eye on your digital rhythm! Record your app and system usage and discover exciting insights\nMore information can be found on the website.";
-        public string lizenz = "This product was provided by Adeptstack. Use only for private purposes, no rental or resale or similar! \nSee license information. \n© Adeptstack, All rights reserved!\n";
+        public string about = Lang.Resources.tbAbout;
+        public string lizenz = Lang.Resources.tbLicenseText;
 
         public SettingsPage()
         {
@@ -48,20 +48,32 @@ namespace ActivityPulse.Pages
 
             CB_UpdateChannel.SelectedIndex = AppSettings.Default.UpdateChannel;
 
-            var processor = ProcessorInfo.GetProcessors();
             LBL_About_Text.Text = about;
             LBL_Lizenz_Text.Text = lizenz;
-            LBL_Version.Text = $"App Version: {AppUtils.apVersion}\nHost Version: {AppUtils.ahVersion}\n";
-            LBL_OS_Name.Text = "Operatingsystem: " + OSInfo.GetOperatingSystemInfo();
-            LBL_CPU_Name.Text = "Processor: " + processor[0].Name + "\nThreads: " + processor[0].Threads + "\nRAM: " + RamInfo.GetInstalledRAMSize() + "GB";
+            LBL_Version.Text = $"{Lang.Resources.tbAppVersion}: {AppUtils.apVersion}\n{Lang.Resources.tbHostVersion}: {AppUtils.ahVersion}\n";
 
-            LB_LC.Items.Add("Imprint");
-            LB_LC.Items.Add("License");
-            LB_LC.Items.Add("Privacy");
+            LB_LC.Items.Add(Lang.Resources.tbImprint);
+            LB_LC.Items.Add(Lang.Resources.tbLicense);
+            LB_LC.Items.Add(Lang.Resources.tbPrivacy);
             LB_LC.Items.Add("Microsoft.Web.WebView2");
             LB_LC.Items.Add("Ookii.Dialogs");
             LB_LC.Items.Add("PLP-SystemInfo");
             LB_LC.SelectedIndex = 3;
+
+            Thread t = new Thread(ShowSystemInfos);
+            t.Start();
+        }
+
+        void ShowSystemInfos()
+        {
+            var processor = ProcessorInfo.GetProcessors();
+            var os = OSInfo.GetOperatingSystemInfo();
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                LBL_OS_Name.Text = $"{Lang.Resources.tbOS}: " + os;
+                LBL_CPU_Name.Text = $"{Lang.Resources.tbProcessor}: " + processor[0].Name + $"\n{Lang.Resources.tbThreads}: " + processor[0].Threads + $"\n{Lang.Resources.tbRAM}: " + RamInfo.GetInstalledRAMSize() + "GB";
+            });
         }
 
         private void customi_btn_Click(object sender, RoutedEventArgs e)

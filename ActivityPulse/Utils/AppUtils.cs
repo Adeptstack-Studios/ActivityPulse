@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using ActivityPulse.Models;
+using System.Diagnostics;
 using System.Windows;
 
 namespace ActivityPulse.Utils
@@ -10,6 +11,7 @@ namespace ActivityPulse.Utils
         public static string apServerVersion = "1.0.0";
         public static string ahServerVersion = "1.0.0";
 
+        public static VersionInformationContext latestVersion = new VersionInformationContext();
 
         public static void Restart()
         {

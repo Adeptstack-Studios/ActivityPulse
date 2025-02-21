@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ActivityPulse.Pages"
+      xmlns:rs="clr-namespace:ActivityPulse.Lang"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AveragePage">
@@ -55,7 +56,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        <TextBlock Text="Other" Style="{StaticResource ModeTextBlock}" Margin="30,20,30,0" FontWeight="Medium" FontSize="18" />
+                        <TextBlock Text="{x:Static rs:Resources.tbOther}" Style="{StaticResource ModeTextBlock}" Margin="30,20,30,0" FontWeight="Medium" FontSize="18" />
                         <ListBox x:Name="lbOther" Style="{StaticResource LB_verticalNoScroll}" Background="Transparent" Margin="30,0,30,20">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -98,7 +99,7 @@
 
                     <!--<TextBlock x:Name="tbCNVSWidth" Text="{Binding ElementName=cnvsIntervalls, Path=ActualWidth}" />
                 <TextBlock Text="{Binding ElementName=cnvsIntervalls, Path=ActualHeight}" />-->
-                    <TextBlock Text="List" Style="{StaticResource ModeTextBlock}" FontSize="20" FontWeight="Medium" Margin="0,0,0,0" Grid.Row="1" />
+                    <TextBlock Text="{x:Static rs:Resources.tbList}" Style="{StaticResource ModeTextBlock}" FontSize="20" FontWeight="Medium" Margin="0,0,0,0" Grid.Row="1" />
                     <ListBox x:Name="lbDayList" Style="{StaticResource LB_vertical}" Background="Transparent" SelectionMode="Multiple" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Hidden" >
                         <ListBox.Resources>
                             <Style x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">

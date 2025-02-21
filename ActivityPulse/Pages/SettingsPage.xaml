@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:prop="clr-namespace:ActivityPulse.Settings"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:rs="clr-namespace:ActivityPulse.Lang"
       xmlns:local="clr-namespace:ActivityPulse" xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -80,19 +81,19 @@
                 <RadioButton Padding="10,5"  Style="{StaticResource pageButtons}" FontWeight="Bold" Margin="0,0,0,0" x:Name="customi_btn" Click="customi_btn_Click"  >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="gear" FontFamily="{StaticResource FAsolid}" FontSize="24" />
-                        <TextBlock Text="General" FontSize="16" FontWeight="Medium" Margin="10,0" />
+                        <TextBlock Text="{x:Static rs:Resources.tbGeneral}" FontSize="16" FontWeight="Medium" Margin="10,0" />
                     </StackPanel>
                 </RadioButton>
                 <RadioButton Padding="10,5" Style="{StaticResource pageButtons}" x:Name="lc_btn" FontWeight="Bold" Margin="0,0,0,0" Click="lc_btn_Click"  >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xe447;" FontFamily="{StaticResource FAsolid}" FontSize="24" Margin="5,0" />
-                        <TextBlock Text="Legal" FontSize="16" FontWeight="Medium" Margin="10,0" />
+                        <TextBlock Text="{x:Static rs:Resources.tbLegal}" FontSize="16" FontWeight="Medium" Margin="10,0" />
                     </StackPanel>
                 </RadioButton>
                 <RadioButton Padding="10,5" Style="{StaticResource pageButtons}" x:Name="ih_btn" FontWeight="Bold" Margin="0,0,0,0" Click="ih_btn_Click"  >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xf05a;" FontFamily="{StaticResource FAsolid}" FontSize="24" />
-                        <TextBlock Text="Feedback &amp; Support" FontSize="16" FontWeight="Medium" Margin="10,0" />
+                        <TextBlock Text="{x:Static rs:Resources.tbFeedbackSupport}" FontSize="16" FontWeight="Medium" Margin="10,0" />
                     </StackPanel>
                 </RadioButton>
                         
@@ -110,22 +111,22 @@
                                     <Button Content="Search" x:Name="search_storagepath_btn" Click="search_storagepath_btn_Click" Style="{StaticResource CustomButton}" Margin="10,0" Padding="10,0" />
                                     <Button Content="Set" x:Name="btnSetStoragePath" Click="btnSetStoragePath_Click" Style="{StaticResource CustomButton}" Margin="10,0" Padding="20,0" />
                                 </StackPanel>-->
-                                <ComboBox Tag="&#xf06e;" ToolTip="Theme" Style="{StaticResource ComboV2}" x:Name="CB_Mode" Width="200" SelectionChanged="CB_Mode_SelectionChanged" Height="30" HorizontalAlignment="Left" >
-                                    <ComboBoxItem Content="System" />
-                                    <ComboBoxItem Content="Light" />
-                                    <ComboBoxItem Content="Dark" />
-                                    <ComboBoxItem Content="Silent Storm" />
-                                    <ComboBoxItem Content="Tropical Sunset" />
-                                    <ComboBoxItem Content="Mossy Magic" />
-                                    <ComboBoxItem Content="Aqua Breeze" />
-                                    <ComboBoxItem Content="Sapphire Skies" />
-                                    <ComboBoxItem Content="Lavender Lullaby" />
-                                    <ComboBoxItem Content="Blossom Blush" />
+                                <ComboBox Tag="&#xf06e;" ToolTip="{x:Static rs:Resources.cbTheme}" Style="{StaticResource ComboV2}" x:Name="CB_Mode" Width="200" SelectionChanged="CB_Mode_SelectionChanged" Height="30" HorizontalAlignment="Left" >
+                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiSystem}" />
+                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiLight}" />
+                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiDark}" />
+                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiSilentStorm}" />
+                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiTropicalSunset}" />
+                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiMossyMagic}" />
+                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiAquaBreeze}" />
+                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiSapphireSkies}" />
+                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiLavender_Lullaby}" />
+                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiBlossomBlush}" />
                                 </ComboBox>
-                                <ComboBox Tag="&#xf2f1;" ToolTip="Update Channel" Style="{StaticResource ComboV2}" x:Name="CB_UpdateChannel" Width="200" SelectionChanged="CB_UpdateChannel_SelectionChanged" Height="30" HorizontalAlignment="Left" Margin="0,5" >
-                                    <ComboBoxItem Content="Main" />
-                                    <ComboBoxItem Content="Stable" />
-                                    <ComboBoxItem Content="Develop" />
+                                <ComboBox Tag="&#xf2f1;" ToolTip="{x:Static rs:Resources.cbUpdateChannel}" Style="{StaticResource ComboV2}" x:Name="CB_UpdateChannel" Width="200" SelectionChanged="CB_UpdateChannel_SelectionChanged" Height="30" HorizontalAlignment="Left" Margin="0,5" >
+                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiMain}" />
+                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiStable}" />
+                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiDevelop}" />
                                 </ComboBox>
                             </StackPanel>
                         </Border>
@@ -215,21 +216,21 @@
 
                             <Border Grid.Column="0" Style="{StaticResource Bar}" Margin="20,30,20,20" Height="400" VerticalAlignment="Top" CornerRadius="25">
                                 <StackPanel Grid.Column="0" Margin="30,10">
-                                    <TextBlock Margin="5, 20 , 0, 0" Style="{StaticResource ModeTextBlock}" Text="Product Overview" FontSize="20" FontWeight="Bold" FontFamily="Aptos"/>
+                                    <TextBlock Margin="5, 20 , 0, 0" Style="{StaticResource ModeTextBlock}" Text="{x:Static rs:Resources.tbProductOverview}" FontSize="20" FontWeight="Bold" FontFamily="Aptos"/>
                                     <TextBlock x:Name="LBL_About_Text" Style="{StaticResource ModeTextBlock}" Text=" " FontWeight="Medium" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="5, 10, 0, 0" FontSize="13" FontFamily="Aptos" />
                                     <TextBlock x:Name="LBL_Lizenz_Text" Style="{StaticResource ModeTextBlock}" Text=" " FontSize="11" TextWrapping="Wrap" Margin="5, 5, 0, 0" HorizontalAlignment="Left" FontFamily="Aptos" />
-                                    <TextBlock x:Name="LBL_Version" Style="{StaticResource ModeTextBlock}" Margin="0,10,0,0" FontFamily="Aptos" FontWeight="Medium" />
-                                    <TextBlock x:Name="LBL_OS_Name" Style="{StaticResource ModeTextBlock}" FontFamily="Aptos" FontWeight="Medium" />
-                                    <TextBlock x:Name="LBL_CPU_Name" Style="{StaticResource ModeTextBlock}" FontFamily="Aptos" FontWeight="Medium" />
+                                    <TextBlock x:Name="LBL_Version" Style="{StaticResource ModeTextBlock}" Margin="5,10,0,0" FontFamily="Aptos" FontWeight="Medium" />
+                                    <TextBlock x:Name="LBL_OS_Name" Style="{StaticResource ModeTextBlock}" FontFamily="Aptos" FontWeight="Medium" Margin="5,0" />
+                                    <TextBlock x:Name="LBL_CPU_Name" Style="{StaticResource ModeTextBlock}" FontFamily="Aptos" FontWeight="Medium" Margin="5,0" />
                                 </StackPanel>
                             </Border>
 
                             <Border Grid.Column="1" Style="{StaticResource Bar}" Margin="70,30,70,20" Height="400" VerticalAlignment="Top" CornerRadius="25">
                                 <StackPanel Grid.Column="1" Margin="30,20,0,0" HorizontalAlignment="Center">
-                                    <TextBlock Text="You need help? " Style="{StaticResource ModeTextBlock}" x:Name="LBL_Links" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" Margin="0, 10, 0, 0" TextDecorations="Underline" TextAlignment="Center"/>
-                                    <Button Style="{StaticResource LinkButton}" x:Name="changelog" Content="> Changelog" Click="changelog_Click" IsEnabled="True" Margin="0, 5, 0, 0" HorizontalAlignment="Left" Height="25" FontSize="16" HorizontalContentAlignment="Left"/>
-                                    <Button Style="{StaticResource LinkButton}" x:Name="website" Content="> Webseite" Click="website_Click" IsEnabled="True" Margin="0, 5, 0, 0" HorizontalAlignment="Left" Height="25" FontSize="16" HorizontalContentAlignment="Left"/>
-                                    <Button Style="{StaticResource LinkButton}" x:Name="feedback" Content="> Feedback &amp; Support" Click="feedback_Click" Margin="0, 5, 0, 0" HorizontalAlignment="Left" Height="25" FontSize="16" HorizontalContentAlignment="Left"/>
+                                    <TextBlock Text="{x:Static rs:Resources.tbNeedHelp}" Style="{StaticResource ModeTextBlock}" x:Name="LBL_Links" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" Margin="0, 10, 0, 0" TextDecorations="Underline" TextAlignment="Center"/>
+                                    <Button Style="{StaticResource LinkButton}" x:Name="changelog" Content="{x:Static rs:Resources.tbChangelog}" Click="changelog_Click" IsEnabled="True" Margin="0, 5, 0, 0" HorizontalAlignment="Left" Height="25" FontSize="16" HorizontalContentAlignment="Left"/>
+                                    <Button Style="{StaticResource LinkButton}" x:Name="website" Content="{x:Static rs:Resources.tbWebsite}" Click="website_Click" IsEnabled="True" Margin="0, 5, 0, 0" HorizontalAlignment="Left" Height="25" FontSize="16" HorizontalContentAlignment="Left"/>
+                                    <Button Style="{StaticResource LinkButton}" x:Name="feedback" Content="{x:Static rs:Resources.tbFeedback}" Click="feedback_Click" Margin="0, 5, 0, 0" HorizontalAlignment="Left" Height="25" FontSize="16" HorizontalContentAlignment="Left"/>
                                 </StackPanel>
                             </Border>
 

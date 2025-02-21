@@ -168,7 +168,7 @@ namespace ActivityPulse
 
             if (process.Length == 0)
             {
-                TellBox tb = new TellBox("Activity Host ist nicht gestartet, stellen Sie sicher, dass Autostart für ActivityHost eingeschaltet ist um korrekte Zeiten zu bekommen", "Warnung");
+                TellBox tb = new TellBox(Lang.Resources.tbHostWarn, Lang.Resources.tbWarning);
                 tb.ShowDialog();
 
                 try

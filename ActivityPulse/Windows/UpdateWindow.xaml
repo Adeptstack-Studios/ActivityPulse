@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:rs="clr-namespace:ActivityPulse.Lang"
         xmlns:local="clr-namespace:ActivityPulse.Windows"
         mc:Ignorable="d"
             Title="New Update available!" SizeToContent="Height" Height="380" Width="300" WindowStartupLocation="CenterScreen" WindowStyle="None" x:Name="window" Topmost="True">
@@ -29,8 +30,8 @@
                 <TextBlock Text="New Update" Style="{StaticResource ModeTextBlock}" x:Name="TB_Title" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Medium" />
             </Grid>
             <StackPanel Orientation="Horizontal" Grid.Column="2" Height="40" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right">
-                <Button Width="45" x:Name="min_btn" ToolTip="Minimize" Content="&#xf2d1;" FontFamily="{StaticResource FAsolid}" FontSize="12" Padding="0,0,0,8" Style="{StaticResource WindowBTN}" />
-                <Button Width="45" x:Name="close_btn" ToolTip="Close" Content="&#xf00d;" FontFamily="{StaticResource FAsolid}" FontSize="18" Style="{StaticResource WindowCloseBTN}" />
+                <Button Width="45" x:Name="min_btn" ToolTip="{x:Static rs:Resources.tbMin}" Content="&#xf2d1;" FontFamily="{StaticResource FAsolid}" FontSize="12" Padding="0,0,0,8" Style="{StaticResource WindowBTN}" />
+                <Button Width="45" x:Name="close_btn" ToolTip="{x:Static rs:Resources.tbClose}" Content="&#xf00d;" FontFamily="{StaticResource FAsolid}" FontSize="18" Style="{StaticResource WindowCloseBTN}" />
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1" Style="{StaticResource Background}">
@@ -38,7 +39,7 @@
                 <Image x:Name="Title_Img" Height="168" Margin="0,-4" />
                 <TextBlock x:Name="TB_Heading" Text="One Version" Style="{StaticResource ModeTextBlock}" Margin="20,10,20,0" FontSize="18" TextWrapping="Wrap" FontWeight="Medium" />
                 <TextBlock x:Name="TB_Description" Text="a update" Style="{StaticResource ModeTextBlock}" Margin="20,0" FontSize="13.5" TextWrapping="Wrap" />
-                <Button Style="{StaticResource LinkButton}" x:Name="Changelog_Btn" Click="Changelog_Btn_Click" Content="Changelog" HorizontalAlignment="Left" Margin="20,0" Foreground="MediumBlue" />
+                <Button Style="{StaticResource LinkButton}" x:Name="Changelog_Btn" Click="Changelog_Btn_Click" Content="{x:Static rs:Resources.tbChangelogText}" HorizontalAlignment="Left" Margin="20,0" Foreground="MediumBlue" />
                 <StackPanel Orientation="Horizontal">
                     <!--<Border Style="{StaticResource Bar}" CornerRadius="5" Margin="20,10,0,0" VerticalAlignment="Top" Padding="5,1" >
                     <TextBlock x:Name="TB_v" Text="Notivity v2.0.0" Style="{StaticResource ModeTextBlock}" HorizontalAlignment="Left" Padding="5,2" />
@@ -49,8 +50,8 @@
                 </StackPanel>
 
                 <StackPanel x:Name="sp_btns" Orientation="Horizontal" Height="25" Margin="20,15,20,20" HorizontalAlignment="Right" >
-                    <Button x:Name="later_btn" Click="later_btn_Click" Content="Later" Background="Gray" Foreground="White" Padding="10,3" Style="{StaticResource CustomButton}" />
-                    <Button x:Name="install_btn" Click="install_btn_Click" Content="Install now" Background="Gray" Foreground="White" Padding="10,3" Margin="20,0,0,0" Style="{StaticResource CustomButton}" />
+                    <Button x:Name="later_btn" Click="later_btn_Click" Content="{x:Static rs:Resources.tbLater}" Background="Gray" Foreground="White" Padding="10,3" Style="{StaticResource CustomButton}" />
+                    <Button x:Name="install_btn" Click="install_btn_Click" Content="{x:Static rs:Resources.tbInstall}" Background="Gray" Foreground="White" Padding="10,3" Margin="20,0,0,0" Style="{StaticResource CustomButton}" />
                 </StackPanel>
             </StackPanel>
 

@@ -132,6 +132,10 @@ namespace ActivityUtilities
                     return true;
                 case "shellexperiencehost":
                     return true;
+                case "startmenuexperiencehost":
+                    return true;
+                case "searchhost":
+                    return true;
                 default:
                     return false;
             }

@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:ActivityPulse"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:prop="clr-namespace:ActivityPulse.Settings"
-             StartupUri="Windows.MainWindow.xaml">
+             StartupUri="MainWindow.xaml">
     
     <Application.Resources>
         <sys:String x:Key="WindowTitle">Activity Pulse</sys:String>

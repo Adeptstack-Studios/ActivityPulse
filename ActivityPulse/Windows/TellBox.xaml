@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ActivityPulse"
+        xmlns:rs="clr-namespace:ActivityPulse.Lang"
         xmlns:prop="clr-namespace:ActivityPulse.Settings"
         mc:Ignorable="d"
         Title="TellBox" Height="200" Width="300" MaxWidth="300" MinWidth="300" MinHeight="130" WindowState="Normal" Topmost="True" SizeToContent="Height" WindowStartupLocation="CenterScreen" WindowStyle="None" x:Name="window" StateChanged="window_StateChanged" >
@@ -76,7 +77,7 @@
                 <TextBlock Style="{StaticResource ModeTextBlock}" x:Name="TB_Title" Text="Changelog" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Medium" />
             </Grid>
             <StackPanel Orientation="Horizontal" Grid.Column="2" Height="32" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right">
-                <Button Width="45" x:Name="close_btn" ToolTip="Close" Content="&#xf00d;" FontFamily="{StaticResource FAsolid}" FontSize="18" Style="{StaticResource WindowCloseBTN}" />
+                <Button Width="45" x:Name="close_btn" ToolTip="{x:Static rs:Resources.tbClose}" Content="&#xf00d;" FontFamily="{StaticResource FAsolid}" FontSize="18" Style="{StaticResource WindowCloseBTN}" />
             </StackPanel>
         </Grid>
 

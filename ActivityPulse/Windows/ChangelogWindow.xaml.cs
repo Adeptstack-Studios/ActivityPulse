@@ -167,7 +167,7 @@ namespace ActivityPulse.Windows
             }
         }
 
-        private async void web_Loaded(object sender, RoutedEventArgs e)
+        private void web_Loaded(object sender, RoutedEventArgs e)
         {
             web.Source = new Uri($"https://app-adeptstack.vercel.app/Changelog/Notivity/{AppUtils.apVersion.Replace(".", "")}");
         }

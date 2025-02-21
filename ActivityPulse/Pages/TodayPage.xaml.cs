@@ -1,5 +1,6 @@
 ﻿using ActivityPulse.Models;
 using ActivityPulse.Utils;
+using ActivityPulse.Windows;
 using ActivityUtilities;
 using System.Windows;
 using System.Windows.Controls;

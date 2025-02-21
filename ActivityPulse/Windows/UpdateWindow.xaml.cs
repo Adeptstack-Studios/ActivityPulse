@@ -1,4 +1,4 @@
-﻿using ActivityUtilities;
+﻿using ActivityPulse.Utils;
 using System.Diagnostics;
 using System.Net;
 using System.Runtime.InteropServices;
@@ -148,10 +148,10 @@ namespace ActivityPulse.Windows
                 WindowStyle = WindowStyle.SingleBorderWindow;
                 Close();
             };
-            TB_cv.Text = "Installed " + Utilities.Version;
-            TB_Heading.Text = Utilities.latestVersion.title;
-            Title_Img.Source = new BitmapImage(new Uri($"https://adeptstack.vercel.app{Utilities.latestVersion.image}"));
-            TB_Description.Text = Utilities.latestVersion.description;
+            TB_cv.Text = $"{Lang.Resources.tbInstalled}: " + AppUtils.apVersion;
+            TB_Heading.Text = AppUtils.latestVersion.title;
+            Title_Img.Source = new BitmapImage(new Uri($"https://adeptstack.vercel.app{AppUtils.latestVersion.image}"));
+            TB_Description.Text = AppUtils.latestVersion.description;
         }
 
         protected override void OnActivated(EventArgs e)
@@ -207,7 +207,7 @@ namespace ActivityPulse.Windows
 
         private void Changelog_Btn_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(new ProcessStartInfo($"https://adeptstack.vercel.app{Utilities.latestVersion.link}") { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo($"https://adeptstack.vercel.app{AppUtils.latestVersion.link}") { UseShellExecute = true });
         }
     }
 }

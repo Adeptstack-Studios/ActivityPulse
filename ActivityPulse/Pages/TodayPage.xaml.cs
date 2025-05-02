@@ -1,7 +1,8 @@
 ﻿using ActivityPulse.Models;
 using ActivityPulse.Utils;
 using ActivityPulse.Windows;
-using ActivityUtilities;
+using ActivityUtilities.Data;
+using ActivityUtilities.Models;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -33,18 +34,18 @@ namespace ActivityPulse.Pages
 
         public static GeneralData GetGeneralData(DateTime day)
         {
-            string storeFolder = @$"{Data.path}{day.Year}/{day.Month}/{day.Day}";
-            string storeFileGeneral = @$"{Data.path}{day.Year}/{day.Month}/{day.Day}/General.json";
+            string storeFolder = @$"{DataTracker.path}{day.Year}/{day.Month}/{day.Day}";
+            string storeFileGeneral = @$"{DataTracker.path}{day.Year}/{day.Month}/{day.Day}/General.json";
 
-            return Data.LoadGeneralData(storeFileGeneral);
+            return DataTracker.LoadGeneralData(storeFileGeneral);
         }
 
         public static List<AppUsage> GetAppUsages(DateTime day)
         {
-            string storeFolder = $@"{Data.path}{day.Year}/{day.Month}/{day.Day}";
-            string storeFileApps = @$"{Data.path}{day.Year}/{day.Month}/{day.Day}/{day.Day}.json";
+            string storeFolder = $@"{DataTracker.path}{day.Year}/{day.Month}/{day.Day}";
+            string storeFileApps = @$"{DataTracker.path}{day.Year}/{day.Month}/{day.Day}/{day.Day}.json";
 
-            return Data.LoadList(storeFileApps);
+            return DataTracker.LoadList(storeFileApps);
         }
 
         public static string GetTimeString(long seconds)

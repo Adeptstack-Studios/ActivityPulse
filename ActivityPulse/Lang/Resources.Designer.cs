@@ -241,6 +241,15 @@ namespace ActivityPulse.Lang {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Choose a year ähnelt.
+        /// </summary>
+        public static string tbChoose {
+            get {
+                return ResourceManager.GetString("tbChoose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Choose a date ähnelt.
         /// </summary>
         public static string tbChooseD {
@@ -570,6 +579,33 @@ namespace ActivityPulse.Lang {
         public static string tbYearA {
             get {
                 return ResourceManager.GetString("tbYearA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Home ähnelt.
+        /// </summary>
+        public static string tpHome {
+            get {
+                return ResourceManager.GetString("tpHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reminders ähnelt.
+        /// </summary>
+        public static string tpReminder {
+            get {
+                return ResourceManager.GetString("tpReminder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Settings ähnelt.
+        /// </summary>
+        public static string tpSettings {
+            get {
+                return ResourceManager.GetString("tpSettings", resourceCulture);
             }
         }
     }

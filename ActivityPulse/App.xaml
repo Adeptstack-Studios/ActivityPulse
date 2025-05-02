@@ -1220,7 +1220,23 @@ TargetType="ListBoxItem">
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
+        <!--PATH-->
+        <!--========================================-->
+        <Style TargetType="Path" x:Key="DefaultPath">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                    <Setter Property="Fill" Value="{DynamicResource DarkBackground}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                    <Setter Property="Fill" Value="{DynamicResource LightMenu}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                    <Setter Property="Fill" Value="{DynamicResource ThemeMenu}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
         <!--TOOLTIP-->
         <!--========================================-->
         <Style x:Key="{x:Type ToolTip}" TargetType="ToolTip">

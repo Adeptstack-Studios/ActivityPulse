@@ -196,5 +196,10 @@ namespace ActivityPulse
         {
             frame.Content = new SettingsPage();
         }
+
+        private void remindersBtn_Click(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new RemindersPage();
+        }
     }
 }

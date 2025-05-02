@@ -114,11 +114,9 @@
             <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Height="40" HorizontalAlignment="Left">
                 <!--<Image Source="img/PLP-NoTas.ico" Margin="15,5.5" />-->
                 <!--<TextBlock Text="PLP-NoTas"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Medium" />-->
-                <Button x:Name="homeBtn" Click="homeBtn_Click" Margin="20,2,0,0" Style="{StaticResource LinkButton}" Content="home" FontFamily="{StaticResource FAsolid}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontWeight="Medium" WindowChrome.IsHitTestVisibleInChrome="True" />
                 <TextBlock Margin="15,0,0,0" Style="{StaticResource ModeTextBlock}" x:Name="TB_Title" Text="{DynamicResource WindowTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Medium" />
             </StackPanel>
             <Grid Grid.Column="2">
-                <Button x:Name="settingsBtn" Click="settingsBtn_Click" Style="{StaticResource LinkButton}" HorizontalAlignment="Right" FontFamily="{StaticResource FAsolid}" Content="gear" FontSize="20" Height="30" WindowChrome.IsHitTestVisibleInChrome="True" Margin="10,0"/>
             </Grid>
             <StackPanel Style="{StaticResource MenuSP}" Orientation="Horizontal" Grid.Column="3" Height="40" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right">
                 <Button IsTabStop="False" Width="45" x:Name="min_btn" ToolTip="{x:Static rs:Resources.tbMin}" Content="&#xf2d1;" FontFamily="{StaticResource FAsolid}" FontSize="12" Padding="0,0,0,8" Style="{StaticResource WindowBTN}" />
@@ -128,7 +126,77 @@
         </Grid>
 
         <Grid Grid.Row="1" Style="{StaticResource Background}" >
-            <Frame x:Name="frame" NavigationUIVisibility="Hidden" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="10" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource Menu}" />
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource Menu}" />
+
+            <Grid Grid.Column="0" Style="{StaticResource Menu}">
+                <StackPanel VerticalAlignment="Top" >
+                    <Button x:Name="homeBtn" Click="homeBtn_Click" Margin="5,20,5,0" Style="{StaticResource LinkButton}" Content="home" FontFamily="{StaticResource FAsolid}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Medium" ToolTip="{x:Static rs:Resources.tpHome}" />
+                    <Button x:Name="remindersBtn" Click="remindersBtn_Click" Margin="5,25,5,0" Style="{StaticResource LinkButton}" Content="bell" FontFamily="{StaticResource FAsolid}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Medium" ToolTip="{x:Static rs:Resources.tpReminder}" />
+                </StackPanel>
+
+                <StackPanel VerticalAlignment="Bottom" >
+                    <Button x:Name="settingsBtn" Click="settingsBtn_Click" Style="{StaticResource LinkButton}" HorizontalAlignment="Right" FontFamily="{StaticResource FAsolid}" Content="gear" FontSize="28" Width="40" Height="40" Margin="5,0,5,10" ToolTip="{x:Static rs:Resources.tpSettings}"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Column="1" Grid.Row="0">
+                <Frame x:Name="frame" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.Row="0" />
+                <Path Margin="-0.5,0,0,0" x:Name="Corner" Style="{StaticResource DefaultPath}" >
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure StartPoint="0,0">
+                                <LineSegment Point="20,0"/>
+                                <ArcSegment Point="0,20" Size="20,21" SweepDirection="Counterclockwise"/>
+                                <LineSegment Point="0,0"/>
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                <Path Margin="-0.5,0,0,0" x:Name="BottomCorner" Style="{StaticResource DefaultPath}" VerticalAlignment="Bottom">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure StartPoint="0,20">
+                                <LineSegment Point="20,20"/>
+                                <ArcSegment Point="0,0" Size="20,21" SweepDirection="Clockwise"/>
+                                <LineSegment Point="0,20"/>
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                <Path Margin="0.5,0,0,0" Style="{StaticResource DefaultPath}" HorizontalAlignment="Right" >
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure StartPoint="20,0">
+                                <LineSegment Point="0,0"/>
+                                <ArcSegment Point="20,20" Size="20,21" SweepDirection="Clockwise"/>
+                                <LineSegment Point="20,0"/>
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                <Path Margin="0.5,0,0,0" Style="{StaticResource DefaultPath}" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure StartPoint="20,20">
+                                <LineSegment Point="0,20"/>
+                                <ArcSegment Point="20,0" Size="20,21" SweepDirection="Counterclockwise"/>
+                                <LineSegment Point="20,20"/>
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+            </Grid>
         </Grid>
         
     </Grid>

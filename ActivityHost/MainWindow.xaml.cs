@@ -1,4 +1,6 @@
-﻿using ActivityUtilities;
+﻿using ActivityUtilities.Data;
+using ActivityUtilities.Models;
+using ActivityUtilities.Utils;
 using Microsoft.Win32;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -23,9 +25,9 @@ namespace ActivityHost
 
         List<AppUsage> appUsages = new List<AppUsage>();
         GeneralData generalData = new GeneralData();
-        string storeFolder = @$"{Data.path}{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}";
-        string storeFileApps = @$"{Data.path}{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/{DateTime.Now.Day}.json";
-        string storeFileGeneral = @$"{Data.path}{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/General.json";
+        string storeFolder = @$"{DataTracker.path}{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}";
+        string storeFileApps = @$"{DataTracker.path}{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/{DateTime.Now.Day}.json";
+        string storeFileGeneral = @$"{DataTracker.path}{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/General.json";
         DateTime currentDate = DateTime.Now;
         const int evaluationTime = 15;
 
@@ -34,12 +36,12 @@ namespace ActivityHost
             InitializeComponent();
             EnableAutostart();
             this.Hide();
-            Data.Create();
-            Data.CreateFolder(storeFolder);
-            Data.CreateFile(storeFileApps);
-            Data.CreateFile(storeFileGeneral);
-            appUsages = Data.LoadList(storeFileApps);
-            generalData = Data.LoadGeneralData(storeFileGeneral);
+            DataTracker.Create();
+            DataTracker.CreateFolder(storeFolder);
+            DataTracker.CreateFile(storeFileApps);
+            DataTracker.CreateFile(storeFileGeneral);
+            appUsages = DataTracker.LoadList(storeFileApps);
+            generalData = DataTracker.LoadGeneralData(storeFileGeneral);
             Timer();
         }
 
@@ -63,17 +65,17 @@ namespace ActivityHost
         {
             if (currentDate.Day != DateTime.Now.Day)
             {
-                Data.Save(storeFileApps, storeFileGeneral, appUsages, generalData);
+                DataTracker.Save(storeFileApps, storeFileGeneral, appUsages, generalData);
                 appUsages.Clear();
                 generalData = new GeneralData();
                 currentDate = DateTime.Now;
 
-                storeFolder = @$"{Data.path}{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}";
-                storeFileApps = @$"{Data.path}{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/{DateTime.Now.Day}.json";
-                storeFileGeneral = @$"{Data.path}{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/General.json";
-                Data.CreateFolder(storeFolder);
-                Data.CreateFile(storeFileApps);
-                Data.CreateFile(storeFileGeneral);
+                storeFolder = @$"{DataTracker.path}{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}";
+                storeFileApps = @$"{DataTracker.path}{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/{DateTime.Now.Day}.json";
+                storeFileGeneral = @$"{DataTracker.path}{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/General.json";
+                DataTracker.CreateFolder(storeFolder);
+                DataTracker.CreateFile(storeFileApps);
+                DataTracker.CreateFile(storeFileGeneral);
             }
 
         }
@@ -113,7 +115,7 @@ namespace ActivityHost
                     offTimer = evaluationTime;
                     CaptureGeneralData();
                     CaptureAppData();
-                    Data.Save(storeFileApps, storeFileGeneral, appUsages, generalData);
+                    DataTracker.Save(storeFileApps, storeFileGeneral, appUsages, generalData);
                 }
             });
             timer.Start();
@@ -198,7 +200,7 @@ namespace ActivityHost
 
         public string GetIcon(string fileName)
         {
-            string path = Path.Combine(Data.path, "AppIcons");
+            string path = Path.Combine(DataTracker.path, "AppIcons");
             string file = Path.Combine(path, Path.GetFileNameWithoutExtension(fileName) + ".png");
             if (!File.Exists(file))
             {

@@ -1,7 +1,6 @@
 ﻿using ActivityPulse.Models;
 using ActivityPulse.Utils;
-using ActivityPulse.Windows;
-using ActivityUtilities;
+using ActivityUtilities.Models;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;

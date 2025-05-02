@@ -1,4 +1,4 @@
-﻿using ActivityUtilities;
+﻿using ActivityUtilities.Data;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Net;
@@ -156,7 +156,7 @@ namespace ActivityPulse.Windows
             this.url = new Uri(url);
             this.app = app;
 
-            path = System.IO.Path.Combine(Data.path + "/Cache", app + ".exe");
+            path = System.IO.Path.Combine(DataTracker.path + "/Cache", app + ".exe");
 
             Update();
 

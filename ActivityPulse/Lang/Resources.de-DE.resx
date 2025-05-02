@@ -177,14 +177,14 @@
   <data name="tbChangelogText" xml:space="preserve">
     <value>Änderungsliste</value>
   </data>
-  <data name="tbChoose&gt;" xml:space="preserve">
-    <value>Wählen Sie ein Jahr</value>
-  </data>
   <data name="tbChooseD" xml:space="preserve">
     <value>Wählen Sie ein Datum</value>
   </data>
   <data name="tbChooseM" xml:space="preserve">
     <value>Wählen Sie einen Monat</value>
+  </data>
+  <data name="tbChooseY" xml:space="preserve">
+    <value>Wählen Sie ein Jahr</value>
   </data>
   <data name="tbClose" xml:space="preserve">
     <value>Schließen</value>
@@ -287,5 +287,17 @@
   </data>
   <data name="tbYearA" xml:space="preserve">
     <value>Jährliche Zusammenfassung</value>
+  </data>
+  <data name="tbChoose" xml:space="preserve">
+    <value>Wählen Sie ein Jahr</value>
+  </data>
+  <data name="tpHome" xml:space="preserve">
+    <value>Startseite</value>
+  </data>
+  <data name="tpReminder" xml:space="preserve">
+    <value>Errinnerungen</value>
+  </data>
+  <data name="tpSettings" xml:space="preserve">
+    <value>Einstellungen</value>
   </data>
 </root>

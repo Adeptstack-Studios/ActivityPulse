@@ -1,4 +1,4 @@
-﻿namespace ActivityUtilities
+﻿namespace ActivityUtilities.Models
 {
     public class AppUsage
     {

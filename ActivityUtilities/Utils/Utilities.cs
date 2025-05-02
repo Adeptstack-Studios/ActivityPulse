@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace ActivityUtilities
+namespace ActivityUtilities.Utils
 {
     public class Utilities
     {

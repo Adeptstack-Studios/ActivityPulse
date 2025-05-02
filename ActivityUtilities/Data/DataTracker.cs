@@ -1,8 +1,9 @@
-﻿using System.Text.Json;
+﻿using ActivityUtilities.Models;
+using System.Text.Json;
 
-namespace ActivityUtilities
+namespace ActivityUtilities.Data
 {
-    public class Data
+    public class DataTracker
     {
         public static string path = @$"C://Users/{Environment.UserName}/Documents/ActivityPulse/";
 
@@ -23,6 +24,12 @@ namespace ActivityUtilities
             if (!Directory.Exists(cache))
             {
                 Directory.CreateDirectory(cache);
+            }
+
+            string reminder = Path.Combine(path, "Reminder");
+            if (!Directory.Exists(reminder))
+            {
+                Directory.CreateDirectory(reminder);
             }
         }
 

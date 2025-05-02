@@ -129,7 +129,7 @@ namespace ActivityPulse.Pages
         //Jump To
         private void jumpToMonthBtn_Click(object sender, RoutedEventArgs e)
         {
-            dateControl.Visibility = Visibility.Visible;
+            dateControl.Open();
         }
 
         private void dateControl_OnDateDialogClick(DateTime date)
@@ -149,17 +149,17 @@ namespace ActivityPulse.Pages
         //Summary Pages
         private void avgWeekBtn_Click(object sender, RoutedEventArgs e)
         {
-            summaryDateWeek.Visibility = Visibility.Visible;
+            summaryDateWeek.Open();
         }
 
         private void avgMonthBtn_Click(object sender, RoutedEventArgs e)
         {
-            summaryDateMonth.Visibility = Visibility.Visible;
+            summaryDateMonth.Open();
         }
 
         private void avgYearBtn_Click(object sender, RoutedEventArgs e)
         {
-            summaryDateYear.Visibility = Visibility.Visible;
+            summaryDateYear.Open();
         }
 
         List<DateTime> GetWeekInterval(DateTime d)

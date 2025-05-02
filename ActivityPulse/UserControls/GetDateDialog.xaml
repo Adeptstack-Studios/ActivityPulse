@@ -7,14 +7,70 @@
              xmlns:local="clr-namespace:ActivityPulse.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Visibility="Collapsed">
+    <UserControl.Resources>
+        <BeginStoryboard x:Name="DWOPEN" x:Key="DWOPEN">
+            <Storyboard>
+                <DoubleAnimation Duration="0:0:0.4" Storyboard.TargetName="dbdr" Storyboard.TargetProperty="Width" From="0" To="350" >
+                    <DoubleAnimation.EasingFunction>
+                        <BackEase EasingMode="EaseInOut" Amplitude="0.75" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+        </BeginStoryboard>
+
+        <BeginStoryboard x:Name="DWCLOSE" x:Key="DWCLOSE">
+            <Storyboard>
+                <DoubleAnimation Duration="0:0:0.4" Storyboard.TargetName="dbdr" Storyboard.TargetProperty="Width" From="350" To="0" >
+                    <DoubleAnimation.EasingFunction>
+                        <BackEase EasingMode="EaseInOut" Amplitude="0.75" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+        </BeginStoryboard>
+
+
+        <BeginStoryboard x:Name="DHOPEN" x:Key="DHOPEN">
+            <Storyboard>
+                <DoubleAnimation Duration="0:0:0.4" Storyboard.TargetName="dbdr" Storyboard.TargetProperty="Height" From="0" To="150" >
+                    <DoubleAnimation.EasingFunction>
+                        <BackEase EasingMode="EaseInOut" Amplitude="0.75" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+        </BeginStoryboard>
+
+        <BeginStoryboard x:Name="DHCLOSE" x:Key="DHCLOSE">
+            <Storyboard>
+                <DoubleAnimation Duration="0:0:0.4" Storyboard.TargetName="dbdr" Storyboard.TargetProperty="Height" From="150" To="0" >
+                    <DoubleAnimation.EasingFunction>
+                        <BackEase EasingMode="EaseInOut" Amplitude="0.75" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+        </BeginStoryboard>
+
+
+        <BeginStoryboard x:Name="BGOPEN" x:Key="BGOPEN">
+            <Storyboard>
+                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="dateDialog" Storyboard.TargetProperty="Opacity" To="1" />
+            </Storyboard>
+        </BeginStoryboard>
+
+        <BeginStoryboard x:Name="BGCLOSE" x:Key="BGCLOSE">
+            <Storyboard>
+                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="dateDialog" Storyboard.TargetProperty="Opacity" To="0" />
+            </Storyboard>
+        </BeginStoryboard>
+    </UserControl.Resources>
+
     <Grid Grid.RowSpan="4" Grid.ColumnSpan="2" Background="#70000000" x:Name="dateDialog">
-        <Border HorizontalAlignment="Center" MinWidth="250" Height="150" Style="{StaticResource BdrBackground}" CornerRadius="20" >
+        <Border x:Name="dbdr" HorizontalAlignment="Center" MinWidth="350" Height="150" Style="{StaticResource BdrBackground}" CornerRadius="20" >
             <Grid>
                 <TextBlock x:Name="tbTitle" Text="{x:Static rs:Resources.tbJumpTo}" Style="{StaticResource ModeTextBlock}" TextAlignment="Center" FontSize="24" FontWeight="Medium" Margin="0,5" />
                 <StackPanel Margin="20,0,20,0" Orientation="Horizontal" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" >
-                    <TextBox VerticalContentAlignment="Center" InputMethod.InputScope="NumberFullWidth" MaxLength="2" Width="100" Margin="0,0,10,0" x:Name="TBDay" Style="{StaticResource DefaultTB}" Tag="{x:Static rs:Resources.tbDay}" />
-                    <TextBox VerticalContentAlignment="Center" InputMethod.InputScope="NumberFullWidth" MaxLength="2" Width="100" Margin="0,0,10,0" x:Name="TBMonth" Style="{StaticResource DefaultTB}" Tag="{x:Static rs:Resources.tbMonth}" />
-                    <TextBox VerticalContentAlignment="Center" InputMethod.InputScope="NumberFullWidth" MaxLength="4" Width="100" Margin="10,0,0,0" x:Name="TBYear" Style="{StaticResource DefaultTB}" Tag="{x:Static rs:Resources.tbYear}" />
+                    <TextBox VerticalContentAlignment="Center" InputMethod.InputScope="NumberFullWidth" MaxLength="2" Width="97" Margin="0,0,10,0" x:Name="TBDay" Style="{StaticResource DefaultTB}" Tag="{x:Static rs:Resources.tbDay}" />
+                    <TextBox VerticalContentAlignment="Center" InputMethod.InputScope="NumberFullWidth" MaxLength="2" Width="97" Margin="0,0,10,0" x:Name="TBMonth" Style="{StaticResource DefaultTB}" Tag="{x:Static rs:Resources.tbMonth}" />
+                    <TextBox VerticalContentAlignment="Center" InputMethod.InputScope="NumberFullWidth" MaxLength="4" Width="97" Margin="0,0,0,0" x:Name="TBYear" Style="{StaticResource DefaultTB}" Tag="{x:Static rs:Resources.tbYear}" />
                 </StackPanel>
                 <Button Style="{StaticResource CustomButton}" VerticalAlignment="Bottom" Content="Submit" Height="25" Margin="20,15" x:Name="submitBtn" Click="submitBtn_Click" />
                 <Button x:Name="closeDialog" Click="closeDialog_Click" Style="{StaticResource LinkButton}" FontFamily="{StaticResource FAsolid}" Content="xmark" Margin="15" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Right" />

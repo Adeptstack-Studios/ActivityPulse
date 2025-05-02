@@ -2,6 +2,7 @@
 using ActivityPulse.Windows;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
 
 namespace ActivityPulse.UserControls
 {
@@ -54,7 +55,7 @@ namespace ActivityPulse.UserControls
 
         private void closeDialog_Click(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Collapsed;
+            Close();
         }
 
         private void submitBtn_Click(object sender, RoutedEventArgs e)
@@ -71,7 +72,7 @@ namespace ActivityPulse.UserControls
                     TBMonth.Text = string.Empty;
                     TBYear.Text = string.Empty;
                     OnDateDialogClick(date);
-                    this.Visibility = Visibility.Collapsed;
+                    Close();
                 }
                 else
                 {
@@ -82,6 +83,36 @@ namespace ActivityPulse.UserControls
             {
                 TellBox tellBox = new TellBox(ex.Message, "Error");
             }
+        }
+
+        public void Open()
+        {
+            //größer
+            Visibility = Visibility.Visible;
+            BeginStoryboard bg1 = this.FindResource("BGOPEN") as BeginStoryboard;
+            bg1.Storyboard.Begin();
+
+            BeginStoryboard db250 = this.FindResource("DWOPEN") as BeginStoryboard;
+            db250.Storyboard.Begin();
+
+            BeginStoryboard dh300 = this.FindResource("DHOPEN") as BeginStoryboard;
+            dh300.Storyboard.Begin();
+        }
+
+        public void Close()
+        {
+            BeginStoryboard db0 = this.FindResource("DWCLOSE") as BeginStoryboard;
+            db0.Storyboard.Begin();
+
+            BeginStoryboard dh0 = this.FindResource("DHCLOSE") as BeginStoryboard;
+            dh0.Storyboard.Begin();
+
+            BeginStoryboard bg0 = this.FindResource("BGCLOSE") as BeginStoryboard;
+            bg0.Storyboard.Completed += new EventHandler(delegate (object sender, EventArgs e)
+            {
+                Visibility = Visibility.Collapsed;
+            });
+            bg0.Storyboard.Begin();
         }
     }
 }

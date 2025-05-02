@@ -196,7 +196,8 @@ namespace ActivityPulse.Lang {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die ActivityPulse - Keep an eye on your digital rhythm! Record your app and system usage and discover exciting insights\nMore information can be found on the website. ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die ActivityPulse - Keep an eye on your digital rhythm! Record your app and system usage and discover exciting insights
+        ///More information can be found on the website. ähnelt.
         /// </summary>
         public static string tbAbout {
             get {
@@ -403,7 +404,9 @@ namespace ActivityPulse.Lang {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die This product was provided by Adeptstack. Use only for private purposes, no rental or resale or similar! \nSee license information. \n© Adeptstack, All rights reserved!\n ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die This product was provided by Adeptstack. Use only for private purposes, no rental or resale or similar! 
+        ///See license information.
+        ///© Adeptstack, All rights reserved! ähnelt.
         /// </summary>
         public static string tbLicenseText {
             get {

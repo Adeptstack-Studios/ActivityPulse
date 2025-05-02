@@ -428,6 +428,74 @@
             </Setter>
         </Style>
 
+        <Style TargetType="Button" x:Key="RoundButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="bdr_btn_cc" CornerRadius="25" BorderThickness="0" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="content" Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard x:Name="bsb_2_b">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="bdr_btn_cc" Storyboard.TargetProperty="Background.Color" To="CadetBlue"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard x:Name="bsb_2_e">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="bdr_btn_cc" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsPressed" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.EnterActions>
+                                    <BeginStoryboard x:Name="bsb_1_b">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.15" Storyboard.TargetName="bdr_btn_cc" Storyboard.TargetProperty="Background.Color" To="#7f8c8d"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.EnterActions>
+                                <MultiTrigger.ExitActions>
+                                    <BeginStoryboard x:Name="bsb_1_e">
+                                        <Storyboard>
+                                            <ColorAnimation Duration="0:0:0.15" Storyboard.TargetName="bdr_btn_cc" Storyboard.TargetProperty="Background.Color"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.ExitActions>
+                            </MultiTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                <Setter Property="Background" TargetName="bdr_btn_cc" Value="{DynamicResource SystemColor}" />
+                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                <Setter Property="BorderBrush" TargetName="bdr_btn_cc" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                <Setter Property="Background" TargetName="bdr_btn_cc" Value="{DynamicResource SystemColor}" />
+                                <Setter Property="BorderBrush" TargetName="bdr_btn_cc" Value="{DynamicResource LightForeground}" />
+                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                                <Setter Property="Background" TargetName="bdr_btn_cc" Value="{DynamicResource ThemeMenu}" />
+                                <Setter Property="BorderBrush" TargetName="bdr_btn_cc" Value="{DynamicResource ThemeForeground}" />
+                            </DataTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="bdr_btn_cc" Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style TargetType="Button" x:Key="ModernButton">
             <Setter Property="Template">
                 <Setter.Value>
@@ -1235,6 +1303,61 @@ TargetType="ListBoxItem">
                     <Setter Property="Fill" Value="{DynamicResource ThemeMenu}" />
                 </DataTrigger>
             </Style.Triggers>
+        </Style>
+
+        <!--RADIOBUTTONS-->
+        <!--========================================-->
+        <Style TargetType="RadioButton" x:Key="CheckRB" >
+            <Setter Property="FontFamily" Value="{StaticResource Nunito}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Padding" Value="10,6" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Border Name="bdr_btn_cc" CornerRadius="15" BorderThickness="0" BorderBrush="{TemplateBinding BorderBrush}" Background="Transparent">
+                            <Grid>
+                                <Border x:Name="bg" Opacity="0.2" CornerRadius="15" />
+                                <ContentPresenter x:Name="content" Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                                <Path Margin="1,1,15,0" Width="9" Height="10" HorizontalAlignment="Right" x:Name="CheckMark" SnapsToDevicePixels="False" StrokeThickness="2" Data="M -0.5 4 L 3 8 8 0" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="false">
+                                <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="bg" Value="#7f8c8d" />
+                                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" TargetName="bg" Value="{DynamicResource AccentBrush}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource AccentBrush}" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                <Setter Property="Background" TargetName="bdr_btn_cc" Value="Transparent" />
+                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                <Setter Property="BorderBrush" TargetName="bdr_btn_cc" Value="{DynamicResource LightForeground}" />
+                                <Setter Property="Stroke" TargetName="CheckMark" Value="{DynamicResource DarkForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                <Setter Property="Background" TargetName="bdr_btn_cc" Value="Transparent" />
+                                <Setter Property="BorderBrush" TargetName="bdr_btn_cc" Value="{DynamicResource LightForeground}" />
+                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                                <Setter Property="Stroke" TargetName="CheckMark" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                                <Setter Property="Background" TargetName="bdr_btn_cc" Value="{DynamicResource ThemeMenu}" />
+                                <Setter Property="BorderBrush" TargetName="bdr_btn_cc" Value="{DynamicResource ThemeForeground}" />
+                                <Setter Property="Stroke" TargetName="CheckMark" Value="{DynamicResource ThemeForeground}" />
+                            </DataTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="bdr_btn_cc" Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <!--TOOLTIP-->

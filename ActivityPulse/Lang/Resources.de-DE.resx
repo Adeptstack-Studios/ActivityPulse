@@ -163,7 +163,8 @@
     <value>Update Kanal</value>
   </data>
   <data name="tbAbout" xml:space="preserve">
-    <value>ActivityPulse - Behalten Sie Ihren digitalen Rhythmus im Auge! Zeichnen Sie Ihre App- und Systemnutzung auf und entdecken Sie spannende Erkenntnisse\Mehr Informationen finden Sie auf der Website.</value>
+    <value>ActivityPulse - Behalten Sie Ihren digitalen Rhythmus im Auge! Zeichnen Sie Ihre App- und Systemnutzung auf und entdecken Sie spannende Erkenntnisse
+Mehr Informationen finden Sie auf der Website.</value>
   </data>
   <data name="tbApps" xml:space="preserve">
     <value>Apps</value>
@@ -229,7 +230,9 @@
     <value>Lizenz</value>
   </data>
   <data name="tbLicenseText" xml:space="preserve">
-    <value>Dieses Produkt wurde von Adeptstack zur Verfügung gestellt. Verwendung nur für private Zwecke, kein Verleih oder Weiterverkauf o.ä.! \nSiehe Lizenzinformationen. \n© Adeptstack, Alle Rechte vorbehalten!\n</value>
+    <value>Dieses Produkt wurde von Adeptstack zur Verfügung gestellt. Verwendung nur für private Zwecke, kein Verleih oder Weiterverkauf o.ä.! 
+Siehe Lizenzinformationen. 
+© Adeptstack, Alle Rechte vorbehalten!</value>
   </data>
   <data name="tbList" xml:space="preserve">
     <value>Liste</value>

@@ -12,6 +12,8 @@ namespace ActivityUtilities.Models
         public Guid CategoryId { get; set; } = Guid.Empty;
         public bool IsCompleted { get; set; } = false;
         public DateTime NextRemind { get; set; } = DateTime.Now.AddDays(1);
+        public bool IsForced { get; set; } = false;
+        public bool IsImportant { get; set; } = false;
 
         public ReminderContext(string name, DateTime reminderDateTime, RepeatingContext repeating, EReminderTypes reminderTypes, Guid categoryId)
         {

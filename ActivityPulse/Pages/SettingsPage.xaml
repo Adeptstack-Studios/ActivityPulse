@@ -16,18 +16,15 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type RadioButton}">
                         <Grid>
-                            <Border Name="bdr_btn_cc" Background="Transparent" CornerRadius="5" />
-                            <Border Name="bdr_btn_th" Background="Transparent" CornerRadius="5" />
+                            <Border Name="bdr_btn_cc" Background="Transparent" CornerRadius="5" Opacity="0.5" />
                             <ContentPresenter x:Name="content" Content="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,10"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter Property="Background" TargetName="bdr_btn_cc" Value="#6a1b9a" />
-                                <Setter Property="Background" TargetName="bdr_btn_th" Value="{DynamicResource ThemeMenu}" />
+                                <Setter Property="Background" TargetName="bdr_btn_cc" Value="{DynamicResource AccentBrush}" />
                             </Trigger>
                             <Trigger Property="IsChecked" Value="False">
                                 <Setter Property="Background" TargetName="bdr_btn_cc" Value="Transparent" />
-                                <Setter Property="Background" TargetName="bdr_btn_th" Value="Transparent" />
                             </Trigger>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
@@ -54,15 +51,12 @@
                             </Trigger>
                             <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
                                 <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
-                                <Setter Property="Visibility" TargetName="bdr_btn_th" Value="Collapsed" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
                                 <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
-                                <Setter Property="Visibility" TargetName="bdr_btn_th" Value="Collapsed" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
                                 <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
-                                <Setter Property="Visibility" TargetName="bdr_btn_th" Value="Visible" />
                             </DataTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -115,13 +109,6 @@
                                     <ComboBoxItem Content="{x:Static rs:Resources.cbiSystem}" />
                                     <ComboBoxItem Content="{x:Static rs:Resources.cbiLight}" />
                                     <ComboBoxItem Content="{x:Static rs:Resources.cbiDark}" />
-                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiSilentStorm}" />
-                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiTropicalSunset}" />
-                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiMossyMagic}" />
-                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiAquaBreeze}" />
-                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiSapphireSkies}" />
-                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiLavender_Lullaby}" />
-                                    <ComboBoxItem Content="{x:Static rs:Resources.cbiBlossomBlush}" />
                                 </ComboBox>
                                 <ComboBox Tag="&#xf2f1;" ToolTip="{x:Static rs:Resources.cbUpdateChannel}" Style="{StaticResource ComboV2}" x:Name="CB_UpdateChannel" Width="200" SelectionChanged="CB_UpdateChannel_SelectionChanged" Height="30" HorizontalAlignment="Left" Margin="0,5" >
                                     <ComboBoxItem Content="{x:Static rs:Resources.cbiMain}" />
@@ -154,7 +141,7 @@
                                                     <ControlTemplate TargetType="ListBoxItem">
                                                         <Border x:Name="Border" Height="35" Padding="2" Margin="0,0,10,0" SnapsToDevicePixels="true" CornerRadius="5" BorderThickness="2">
                                                             <Grid>
-                                                                <Border x:Name="BorderTh" Background="Transparent" BorderThickness="3" CornerRadius="5" Margin="-2" />
+                                                                <Border x:Name="BorderTh" Background="Transparent" BorderThickness="3" CornerRadius="5" Margin="-2" Opacity="0.5" />
                                                                 <ContentPresenter x:Name="content" VerticalAlignment="Center" Margin="10,0"/>
                                                             </Grid>
                                                         </Border>
@@ -163,32 +150,23 @@
                                                                 <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
                                                                 <Setter Property="Background" TargetName="Border" Value="{DynamicResource DarkMenu}" />
                                                                 <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource DarkMenu}" />
-                                                                <Setter Property="Visibility" TargetName="BorderTh" Value="Hidden" />
-                                                                <Setter Property="BorderThickness" TargetName="Border" Value="2" />
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
                                                                 <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
                                                                 <Setter Property="Background" TargetName="Border" Value="{DynamicResource LightBackground}"/>
                                                                 <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource LightBackground}" />
-                                                                <Setter Property="Visibility" TargetName="BorderTh" Value="Hidden" />
-                                                                <Setter Property="BorderThickness" TargetName="Border" Value="2" />
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
                                                                 <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
                                                                 <Setter Property="Background" TargetName="Border" Value="{DynamicResource ThemeBackground}" />
                                                                 <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource ThemeBackground}" />
-                                                                <Setter Property="Visibility" TargetName="BorderTh" Value="Visible" />
-                                                                <Setter Property="BorderThickness" TargetName="Border" Value="0" />
                                                             </DataTrigger>
                                                             <Trigger Property="IsSelected" Value="True">
-                                                                <Setter TargetName="BorderTh" Property="Background" Value="{DynamicResource ThemeMenu}" />
-                                                                <Setter TargetName="Border" Property="Background" Value="#6a1b9a" />
-                                                                <Setter TargetName="BorderTh" Property="BorderBrush" Value="{DynamicResource ThemeMenu}" />
-                                                                <Setter TargetName="Border" Property="BorderBrush" Value="#6a1b9a" />
+                                                                <Setter TargetName="BorderTh" Property="Background" Value="{DynamicResource AccentBrush}" />
+                                                                <Setter TargetName="BorderTh" Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
                                                             </Trigger>
                                                             <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter TargetName="BorderTh" Property="BorderBrush" Value="{DynamicResource ThemeMenu}" />
-                                                                <Setter TargetName="Border" Property="BorderBrush" Value="#6a1b9a" />
+                                                                <Setter TargetName="BorderTh" Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
                                                             </Trigger>
                                                         </ControlTemplate.Triggers>
                                                     </ControlTemplate>

@@ -20,12 +20,15 @@
 
         <Grid Grid.Row="0" Grid.Column="0">
             <StackPanel Orientation="Horizontal">
-                <Button Width="180" Height="100" x:Name="addCategoryBtn" Click="addCategoryBtn_Click" Margin="20,0" Style="{StaticResource ModernButton}" Background="#50000000" Content="plus" FontSize="32" FontFamily="{StaticResource FAsolid}" />
+                <Button Width="180" Height="100" x:Name="addCategoryBtn" Click="addCategoryBtn_Click" Margin="20,0" Style="{StaticResource ModernButton}" Content="plus" FontSize="32" FontFamily="{StaticResource FAsolid}" />
                 <Button Width="180" Height="100" x:Name="allCategoriesBtn" Click="allCategoriesBtn_Click" Margin="0,0,20,0" Style="{StaticResource ModernButton}" Background="#50000000" >
                     <Button.Content>
                         <Grid Width="180" Height="100">
-                            <Border Background="Blue" Margin="10" Padding="7" CornerRadius="15" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                <TextBlock FontSize="15" FontFamily="{StaticResource FAsolid}" Text="bell" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <Border Margin="10" CornerRadius="15" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Grid>
+                                    <Border Style="{StaticResource AccentBorder}" Opacity="0.5" CornerRadius="15" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                    <TextBlock FontSize="15" FontFamily="{StaticResource FAsolid}" Text="bell" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                </Grid>
                             </Border>
                             <TextBlock Text="All Categories" VerticalAlignment="Bottom" Margin="13,0,0,20" FontSize="15" FontWeight="Medium" />
                         </Grid>
@@ -43,20 +46,20 @@
             </ListBox>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20">
                 <TextBox Style="{StaticResource DefaultTB}" Height="35" Width="250" Tag="Add a reminder" Margin="0,0,20,0" VerticalContentAlignment="Center" />
-                <Button Style="{StaticResource RoundButton}" Width="50" Height="50" Content="plus" Background="Blue" FontFamily="{StaticResource FAsolid}" FontSize="16" />
+                <Button Style="{StaticResource RoundBtn}" Width="50" Height="50" Content="plus" Background="Blue" FontFamily="{StaticResource FAsolid}" FontSize="16" />
             </StackPanel>
         </Grid>
 
         <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" >
             <StackPanel>
                 <TextBlock Text="Reminders" Style="{StaticResource ModeTextBlock}" FontSize="20" Margin="10" FontWeight="Medium" />
-                <RadioButton Content="All" Style="{StaticResource CheckRB}" Margin="10,5" />
-                <RadioButton Content="Today" Style="{StaticResource CheckRB}" Margin="10,5" />
-                <RadioButton Content="Important" Style="{StaticResource CheckRB}" Margin="10,5" />
-                <Border Height="1" Background="Gray" Margin="0, 5" />
-                <RadioButton Content="Completed" Style="{StaticResource CheckRB}" Margin="10,5" />
+                <RadioButton Content="All" Style="{StaticResource CheckableRB}" Margin="10,5" FontWeight="Medium" IsChecked="True" />
+                <RadioButton Content="Today" Style="{StaticResource CheckableRB}" Margin="10,5" FontWeight="Medium" />
+                <RadioButton Content="Important" Style="{StaticResource CheckableRB}" Margin="10,5" FontWeight="Medium" />
+                <Border Height="1" Style="{StaticResource Stroke}" Margin="0, 5" />
+                <RadioButton Content="Completed" Style="{StaticResource CheckableRB}" Margin="10,5" FontWeight="Medium" />
             </StackPanel>
-            <Border Width="1" Background="Gray" HorizontalAlignment="Left" />
+            <Border Width="1" Style="{StaticResource Stroke}" HorizontalAlignment="Left" />
         </Grid>
     </Grid>
 </Page>

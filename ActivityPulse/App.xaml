@@ -12,25 +12,32 @@
         <FontFamily x:Key="FAsolid">/Fonts/FAsolid900.otf#Font Awesome 6 Free Solid</FontFamily>
         <FontFamily x:Key="FAbrands">/Fonts/FAbrands.otf#Font Awesome 6 Brands Regular</FontFamily>
         <FontFamily x:Key="FAregular">/Fonts/FAregular.otf#Font Awesome 6 Free Regular</FontFamily>
+        <FontFamily x:Key="Nunito">/Resources/Fonts/Nunito.ttf#Nunito</FontFamily>
 
         <Color x:Key="DisabledControlLightColor">#FFE8EDF9</Color>
         <Color x:Key="DisabledBorderLightColor">#FFAAAAAA</Color>
 
-        <SolidColorBrush x:Key="DarkBackground" Color="#ff222222"/>
-        <SolidColorBrush x:Key="DarkMenu" Color="#ff303030" />
+        <SolidColorBrush x:Key="DarkBackground" Color="#ff121212"/>
+        <SolidColorBrush x:Key="DarkMenu" Color="#1e1e1e" />
+        <SolidColorBrush x:Key="DarkSecondMenu" Color="#1a1a1a" />
+        <SolidColorBrush x:Key="DarkMiddleground" Color="#282828"/>
         <SolidColorBrush x:Key="DarkForeground" Color="White"/>
 
         <SolidColorBrush x:Key="LightBackground" Color="White"/>
-        <SolidColorBrush x:Key="LightMenu" Color="#d1dfe6" />
+        <SolidColorBrush x:Key="LightMenu" Color="#f2f2f2" />
+        <SolidColorBrush x:Key="LightSecondMenu" Color="#eeeeee" />
+        <SolidColorBrush x:Key="LightMiddleground" Color="#e5e5e5"/>
         <SolidColorBrush x:Key="LightForeground" Color="#ff373737"/>
 
-        <SolidColorBrush x:Key="SystemColor" Color="{x:Static SystemParameters.WindowGlassColor}" />
-        <Color x:Key="SystemColorColor">DeepSkyBlue</Color>
+        <Color x:Key="AccentColor">Lime</Color>
+        <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource AccentColor}" />
 
         <Color x:Key="ThemeAccentColorL" >#000</Color>
         <Color x:Key="ThemeAccentColorD" >#000</Color>
         <SolidColorBrush x:Key="ThemeBackground" Color="#000" />
         <SolidColorBrush x:Key="ThemeMenu" Color="#000" />
+        <SolidColorBrush x:Key="ThemeSecondMenu" Color="#000" />
+        <SolidColorBrush x:Key="ThemeMiddleground" Color="#000" />
         <SolidColorBrush x:Key="ThemeForeground" Color="#000" />
         <SolidColorBrush x:Key="ThemeAccentD" Color="#000" />
         <SolidColorBrush x:Key="ThemeAccentL" Color="#000" />

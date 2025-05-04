@@ -2276,7 +2276,6 @@
                                 <Setter Property="Background" Value="{DynamicResource DarkBackground}" />
                                 <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
                                 <Setter Property="BorderBrush" Value="{DynamicResource DarkForeground}" />
-
                             </DataTrigger>
                             <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
                                 <Setter Property="Background" Value="{DynamicResource LightBackground}" />
@@ -2317,12 +2316,9 @@
                 </Grid>
             </Border>
             <ControlTemplate.Triggers>
-                <Trigger Property="IsHighlighted" Value="true">
-                    <Setter Property="Background" TargetName="Border">
-                        <Setter.Value>
-                            <SolidColorBrush Color="LightBlue"/>
-                        </Setter.Value>
-                    </Setter>
+                <Trigger Property="IsHighlighted" Value="True">
+                    <Setter Property="Background" TargetName="Border" Value="{DynamicResource AccentBrush}" />
+                    <Setter Property="Opacity" TargetName="Border" Value="0.5" />
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
                     <Setter Property="Foreground">
@@ -2343,8 +2339,9 @@
                         <ColumnDefinition Width="Auto" SharedSizeGroup="Shortcut" />
                         <ColumnDefinition Width="13" />
                     </Grid.ColumnDefinitions>
+                    <Border CornerRadius="3" x:Name="clrB" Grid.ColumnSpan="4" />
                     <ContentPresenter x:Name="Icon" Margin="6,0" VerticalAlignment="Center" ContentSource="Icon" />
-                    <Border x:Name="Check" Width="13" Height="13" Visibility="Collapsed" Margin="6,0,6,0" BorderThickness="1">
+                    <Border x:Name="Check" Width="13" Height="13" Visibility="Collapsed" Margin="6,0,6,0" BorderThickness="1" Background="{DynamicResource AccentBrush}">
                         <Border.BorderBrush>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                 <LinearGradientBrush.GradientStops>
@@ -2355,16 +2352,13 @@
                                 </LinearGradientBrush.GradientStops>
                             </LinearGradientBrush>
                         </Border.BorderBrush>
-                        <Border.Background>
-                            <SolidColorBrush Color="LightBlue"/>
-                        </Border.Background>
                         <Path x:Name="CheckMark" Width="7" Height="7" Visibility="Hidden" SnapsToDevicePixels="False" StrokeThickness="2" Data="M 0 0 L 7 7 M 0 7 L 7 0">
                             <Path.Stroke>
                                 <SolidColorBrush Color="{DynamicResource GlyphColor}" />
                             </Path.Stroke>
                         </Path>
                     </Border>
-                    <ContentPresenter x:Name="HeaderHost" Grid.Column="1" ContentSource="Header" RecognizesAccessKey="True" />
+                    <ContentPresenter x:Name="HeaderHost" VerticalAlignment="Center" Grid.Column="1" ContentSource="Header" RecognizesAccessKey="True" />
                     <TextBlock x:Name="InputGestureText" Grid.Column="2" Text="{TemplateBinding InputGestureText}" Margin="5,2,0,2" DockPanel.Dock="Right" />
                 </Grid>
             </Border>
@@ -2381,11 +2375,8 @@
                     <Setter TargetName="Icon" Property="Visibility" Value="Hidden" />
                 </Trigger>
                 <Trigger Property="IsHighlighted" Value="true">
-                    <Setter Property="Background" TargetName="Border">
-                        <Setter.Value>
-                            <SolidColorBrush Color="LightSteelBlue"/>
-                        </Setter.Value>
-                    </Setter>
+                    <Setter Property="Background" TargetName="clrB" Value="{DynamicResource AccentBrush}" />
+                    <Setter Property="Opacity" TargetName="clrB" Value="0.5" />
                     <Setter Property="BorderBrush" TargetName="Border">
                         <Setter.Value>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

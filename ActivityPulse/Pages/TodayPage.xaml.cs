@@ -1,8 +1,8 @@
 ﻿using ActivityPulse.Models;
 using ActivityPulse.Utils;
 using ActivityPulse.Windows;
-using ActivityUtilities.Data;
-using ActivityUtilities.Models;
+using ActivityUtils.Data;
+using ActivityUtils.Models;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;

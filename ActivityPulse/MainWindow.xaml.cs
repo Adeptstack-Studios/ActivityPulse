@@ -1,5 +1,6 @@
 ﻿using ActivityPulse.Pages;
 using ActivityPulse.Windows;
+using ActivityUtils.Data;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -131,6 +132,7 @@ namespace ActivityPulse
         public MainWindow()
         {
             InitializeComponent();
+            DataTracker.Create();
             SourceInitialized += (s, e) =>
             {
                 IntPtr handle = (new WindowInteropHelper(this)).Handle;

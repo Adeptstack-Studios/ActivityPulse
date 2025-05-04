@@ -1,6 +1,6 @@
-﻿using ActivityUtilities.Data;
-using ActivityUtilities.Models;
-using ActivityUtilities.Utils;
+﻿using ActivityUtils.Data;
+using ActivityUtils.Models;
+using ActivityUtils.Utils;
 using Microsoft.Win32;
 using System.ComponentModel;
 using System.Diagnostics;

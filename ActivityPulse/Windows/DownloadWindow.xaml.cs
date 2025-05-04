@@ -1,4 +1,4 @@
-﻿using ActivityUtilities.Data;
+﻿using ActivityUtils.Data;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Net;

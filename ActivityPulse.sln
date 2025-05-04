@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActivityHost", "ActivityHos
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActivityPulse", "ActivityPulse\ActivityPulse.csproj", "{ED7EA841-0CDC-428F-A856-0AA7468CDE3A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActivityUtilities", "ActivityUtilities\ActivityUtilities.csproj", "{C08BA6AE-3CF0-45F9-BFB2-C1B9D45E3B23}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivityUtils", "ActivityUtils\ActivityUtils.csproj", "{5B984BCA-5B89-4F06-AE28-B5F724F87B90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,14 +33,14 @@ Global
 		{ED7EA841-0CDC-428F-A856-0AA7468CDE3A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED7EA841-0CDC-428F-A856-0AA7468CDE3A}.Release|x64.ActiveCfg = Release|Any CPU
 		{ED7EA841-0CDC-428F-A856-0AA7468CDE3A}.Release|x64.Build.0 = Release|Any CPU
-		{C08BA6AE-3CF0-45F9-BFB2-C1B9D45E3B23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C08BA6AE-3CF0-45F9-BFB2-C1B9D45E3B23}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C08BA6AE-3CF0-45F9-BFB2-C1B9D45E3B23}.Debug|x64.ActiveCfg = Debug|x64
-		{C08BA6AE-3CF0-45F9-BFB2-C1B9D45E3B23}.Debug|x64.Build.0 = Debug|x64
-		{C08BA6AE-3CF0-45F9-BFB2-C1B9D45E3B23}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C08BA6AE-3CF0-45F9-BFB2-C1B9D45E3B23}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C08BA6AE-3CF0-45F9-BFB2-C1B9D45E3B23}.Release|x64.ActiveCfg = Release|Any CPU
-		{C08BA6AE-3CF0-45F9-BFB2-C1B9D45E3B23}.Release|x64.Build.0 = Release|Any CPU
+		{5B984BCA-5B89-4F06-AE28-B5F724F87B90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B984BCA-5B89-4F06-AE28-B5F724F87B90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B984BCA-5B89-4F06-AE28-B5F724F87B90}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5B984BCA-5B89-4F06-AE28-B5F724F87B90}.Debug|x64.Build.0 = Debug|Any CPU
+		{5B984BCA-5B89-4F06-AE28-B5F724F87B90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B984BCA-5B89-4F06-AE28-B5F724F87B90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B984BCA-5B89-4F06-AE28-B5F724F87B90}.Release|x64.ActiveCfg = Release|Any CPU
+		{5B984BCA-5B89-4F06-AE28-B5F724F87B90}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,118 @@
+﻿<UserControl x:Class="ActivityPulse.UserControls.ManageReminderControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:rs="clr-namespace:ActivityPulse.Lang"
+             xmlns:local="clr-namespace:ActivityPulse.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"> <!--="Collapsed"-->
+    
+    <UserControl.Resources>
+        <BeginStoryboard x:Name="DWOPEN" x:Key="DWOPEN">
+            <Storyboard>
+                <DoubleAnimation Duration="0:0:0.4" Storyboard.TargetName="dbdr" Storyboard.TargetProperty="Width" From="0" To="350" >
+                    <DoubleAnimation.EasingFunction>
+                        <BackEase EasingMode="EaseInOut" Amplitude="0.75" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+        </BeginStoryboard>
+
+        <BeginStoryboard x:Name="DWCLOSE" x:Key="DWCLOSE">
+            <Storyboard>
+                <DoubleAnimation Duration="0:0:0.4" Storyboard.TargetName="dbdr" Storyboard.TargetProperty="Width" From="350" To="0" >
+                    <DoubleAnimation.EasingFunction>
+                        <BackEase EasingMode="EaseInOut" Amplitude="0.75" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+        </BeginStoryboard>
+
+
+        <BeginStoryboard x:Name="DHOPEN" x:Key="DHOPEN">
+            <Storyboard>
+                <DoubleAnimation Duration="0:0:0.4" Storyboard.TargetName="dbdr" Storyboard.TargetProperty="Height" From="0" To="600" >
+                    <DoubleAnimation.EasingFunction>
+                        <BackEase EasingMode="EaseInOut" Amplitude="0.75" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+        </BeginStoryboard>
+
+        <BeginStoryboard x:Name="DHCLOSE" x:Key="DHCLOSE">
+            <Storyboard>
+                <DoubleAnimation Duration="0:0:0.4" Storyboard.TargetName="dbdr" Storyboard.TargetProperty="Height" From="600" To="0" >
+                    <DoubleAnimation.EasingFunction>
+                        <BackEase EasingMode="EaseInOut" Amplitude="0.75" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+        </BeginStoryboard>
+
+
+        <BeginStoryboard x:Name="BGOPEN" x:Key="BGOPEN">
+            <Storyboard>
+                <DoubleAnimation Duration="0:0:0.4" Storyboard.TargetName="dateDialog" Storyboard.TargetProperty="Opacity" To="1" />
+            </Storyboard>
+        </BeginStoryboard>
+
+        <BeginStoryboard x:Name="BGCLOSE" x:Key="BGCLOSE">
+            <Storyboard>
+                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="dateDialog" Storyboard.TargetProperty="Opacity" To="0" />
+            </Storyboard>
+        </BeginStoryboard>
+    </UserControl.Resources>
+
+    <Grid Grid.RowSpan="4" Grid.ColumnSpan="2" Background="#70000000" x:Name="dateDialog">
+        <Border x:Name="dbdr" HorizontalAlignment="Center" MinWidth="350" Height="600" Style="{StaticResource BdrBackground}" CornerRadius="20" >
+            <Grid>
+                <TextBlock x:Name="tbTitle" Text="Add Category" Style="{StaticResource ModeTextBlock}" TextAlignment="Center" FontSize="24" FontWeight="Medium" Margin="0,5" />
+                <StackPanel Margin="20,50,20,0" >
+                    <TextBox VerticalContentAlignment="Center" Height="30" MaxLength="100" Margin="0,0,0,0" x:Name="tbName" Style="{StaticResource DefaultTB}" Tag="Category name" />
+                    <StackPanel  Margin="0,15,0,0">
+                        <TextBlock Text="Reminder Type" Margin="0,0,0,4" Style="{StaticResource ModeTextBlock}" />
+                        <ComboBox x:Name="cbReminderType" Style="{StaticResource v4}" Height="35">
+                            <ComboBoxItem Content="Normal" />
+                            <ComboBoxItem Content="Do a Break" />
+                            <ComboBoxItem Content="Power Off" />
+                        </ComboBox>
+                    </StackPanel>
+                    <DatePickerTextBox x:Name="dpTB" Height="30" Margin="0,15,0,0" Style="{StaticResource DefaultTB}" />
+                    <StackPanel Margin="0,15,0,0">
+                        <TextBlock Text="Category" Style="{StaticResource ModeTextBlock}" Margin="0,0,0,3" />
+                        <ComboBox x:Name="cbCategory" Style="{StaticResource v4}" Height="35" >
+                            <ComboBoxItem Content="None" />
+                        </ComboBox>
+                    </StackPanel>
+                    <CheckBox Content="Important" Margin="0,15,0,0" />
+                    <CheckBox Content="Force Break/Power Off" Margin="0,15,0,0" />
+                    <CheckBox Content="Repeat" Margin="0,15,0,0" />
+                    <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Left" >
+                        <TextBlock Text="Repeat every" Style="{StaticResource ModeTextBlock}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBox Text="1" FontSize="14" InputMethod.InputScope="NumberFullWidth" Margin="30,0,0,0" Height="30" Width="50" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Style="{StaticResource DefaultTB}" VerticalAlignment="Center" />
+                        <ComboBox x:Name="cbRepeat" Width="120" Margin="30,0,0,0" Height="35" Style="{StaticResource v4}" >
+                            <ComboBoxItem Content="Hour" />
+                            <ComboBoxItem Content="Day" />
+                            <ComboBoxItem Content="Week" />
+                            <ComboBoxItem Content="Month" />
+                            <ComboBoxItem Content="Year" />
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Margin="0,15,0,0">
+                        <TextBlock Text="Repeat Duration" Style="{StaticResource ModeTextBlock}" Margin="0,0,0,3" />
+                        <ComboBox x:Name="cbDuration" Style="{StaticResource v4}" Height="35" >
+                            <ComboBoxItem Content="Forever" />
+                            <ComboBoxItem Content="Quantity" />
+                            <ComboBoxItem Content="Until" />
+                        </ComboBox>
+                        <TextBox x:Name="tbQuantity" Tag="Quantitysss" InputMethod.InputScope="NumberFullWidth" Margin="0,15,0,0" Height="30" Style="{StaticResource DefaultTB}" />
+                        <DatePickerTextBox x:Name="dpUntil" Height="30" Margin="0,15,0,0" Style="{StaticResource DefaultTB}" />
+                    </StackPanel>
+                </StackPanel>
+                <Button Style="{StaticResource CustomButton}" VerticalAlignment="Bottom" Content="submit" Height="25" Margin="20,15" x:Name="submitBtn" Click="submitBtn_Click" />
+                <Button x:Name="closeDialog" Click="closeDialog_Click" Style="{StaticResource LinkButton}" FontFamily="{StaticResource FAsolid}" Content="xmark" Margin="15" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Right" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -94,7 +94,7 @@
             </ListBox>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20">
                 <TextBox Style="{StaticResource DefaultTB}" Height="35" Width="250" Tag="Add a reminder" Margin="0,0,20,0" VerticalContentAlignment="Center" />
-                <Button Style="{StaticResource RoundBtn}" Width="50" Height="50" Content="plus" Background="Blue" FontFamily="{StaticResource FAsolid}" FontSize="16" />
+                <Button x:Name="addReminderBtn" Click="addReminderBtn_Click" Style="{StaticResource RoundBtn}" Width="50" Height="50" Content="plus" FontFamily="{StaticResource FAsolid}" FontSize="16" />
             </StackPanel>
         </Grid>
 
@@ -111,5 +111,6 @@
         </Grid>
 
         <controls:ManageCategoryControl x:Name="categoryDialog" OnCategoryDialogClick="categoryDialog_OnCategoryDialogClick" Grid.RowSpan="2" Grid.ColumnSpan="2" />
+        <controls:ManageReminderControl x:Name="reminderDialog" OnReminderDialogClick="reminderDialog_OnReminderDialogClick" Grid.RowSpan="2" Grid.ColumnSpan="2" />
     </Grid>
 </Page>

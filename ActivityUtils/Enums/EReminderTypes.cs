@@ -2,8 +2,8 @@
 {
     public enum EReminderTypes
     {
-        POWEROFF,
-        BREAK,
         NORMAL,
+        BREAK,
+        POWEROFF,
     }
 }

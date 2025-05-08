@@ -2396,63 +2396,6 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
 
-        <!--DATEPICKER-->
-        <!--========================================-->
-        <Style TargetType="{x:Type DatePicker}">
-            <Setter Property="Foreground" Value="#FF333333" />
-            <Setter Property="IsTodayHighlighted" Value="True" />
-            <Setter Property="SelectedDateFormat" Value="Short" />
-            <Setter Property="Padding" Value="2" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            <Setter Property="CalendarStyle" Value="{DynamicResource DatePickerCalendarStyle}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type DatePicker}">
-                        <Border x:Name="Border" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="5" Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}">
-                            <Grid x:Name="PART_Root" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Button x:Name="PART_Button" Grid.Column="1" VerticalAlignment="Center" Focusable="False" HorizontalAlignment="Left" Margin="3,0,3,0" Grid.Row="0" Style="{StaticResource DropDownButtonStyle}" />
-                                <DatePickerTextBox Style="{StaticResource DefaultTB}" Tag="{TemplateBinding Tag}" x:Name="PART_TextBox" Grid.Column="0" Foreground="{TemplateBinding Foreground}" Focusable="{TemplateBinding Focusable}" HorizontalContentAlignment="Stretch" Grid.Row="0" VerticalContentAlignment="Stretch" />
-                                <Grid x:Name="PART_DisabledVisual" Grid.ColumnSpan="2" Grid.Column="0" VerticalAlignment="Center" IsHitTestVisible="False" Opacity="0" Grid.Row="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Rectangle Grid.Column="0" Fill="#A5FFFFFF" VerticalAlignment="Center" RadiusY="1" Grid.Row="0" RadiusX="1" />
-                                    <Rectangle Grid.Column="1" Fill="#A5FFFFFF" Height="18" VerticalAlignment="Center" Margin="3,0,3,0" RadiusY="1" Grid.Row="0" RadiusX="1" Width="19" />
-                                    <Popup x:Name="PART_Popup" AllowsTransparency="True" Placement="Bottom" PlacementTarget="{Binding ElementName=PART_TextBox}" StaysOpen="False" />
-                                </Grid>
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
-                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource DarkBackground}" />
-                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource LightForeground}" />
-                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
-                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource LightBackground}" />
-                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource LightForeground}" />
-                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
-                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
-                                <Setter Property="Background" Value="{DynamicResource ThemeBackground}" />
-                                <Setter Property="BorderBrush" Value="{DynamicResource ThemeForeground}" />
-                            </DataTrigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="Border" Property="Opacity" Value="0.5"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
         <!--GRIDS-->
         <!--========================================-->
         <Style x:Key="Menu" TargetType="Grid">
@@ -3963,6 +3906,61 @@
                                     </BeginStoryboard>
                                 </Trigger.ExitActions>
                             </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border" Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--DATEPICKER-->
+        <!--========================================-->
+        <Style TargetType="{x:Type DatePicker}">
+            <Setter Property="Foreground" Value="#FF333333" />
+            <Setter Property="IsTodayHighlighted" Value="True" />
+            <Setter Property="SelectedDateFormat" Value="Short" />
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="CalendarStyle" Value="{DynamicResource DatePickerCalendarStyle}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DatePicker}">
+                        <Border x:Name="Border" BorderThickness="0" Background="{TemplateBinding Background}" CornerRadius="5" Padding="0" BorderBrush="{TemplateBinding BorderBrush}">
+                            <Grid x:Name="PART_Root" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="PART_Button" Grid.Column="1" VerticalAlignment="Center" Focusable="False" HorizontalAlignment="Left" Margin="10,0" Grid.Row="0" Style="{StaticResource DropDownButtonStyle}" />
+                                <DatePickerTextBox Style="{StaticResource DefaultTB}" Height="30" Tag="{TemplateBinding Tag}" x:Name="PART_TextBox" Grid.Column="0" Foreground="{TemplateBinding Foreground}" Focusable="{TemplateBinding Focusable}" HorizontalContentAlignment="Stretch" Grid.Row="0" VerticalContentAlignment="Center" />
+                                <Grid x:Name="PART_DisabledVisual" Grid.ColumnSpan="2" Grid.Column="0" VerticalAlignment="Center" IsHitTestVisible="False" Opacity="0" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Grid.Column="0" Fill="#A5FFFFFF" VerticalAlignment="Center" RadiusY="1" Grid.Row="0" RadiusX="1" />
+                                    <Rectangle Grid.Column="1" Fill="#A5FFFFFF" Height="18" VerticalAlignment="Center" Margin="3,0,3,0" RadiusY="1" Grid.Row="0" RadiusX="1" Width="19" />
+                                    <Popup x:Name="PART_Popup" AllowsTransparency="True" Placement="Bottom" PlacementTarget="{Binding ElementName=PART_TextBox}" StaysOpen="False" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource LightBackground}" />
+                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource LightForeground}" />
+                                <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                                <Setter Property="Background" Value="{DynamicResource ThemeBackground}" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource ThemeForeground}" />
+                            </DataTrigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="Border" Property="Opacity" Value="0.5"/>
                             </Trigger>

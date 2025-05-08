@@ -81,6 +81,7 @@ namespace ActivityPulse.Pages
         private void addReminderBtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             reminderDialog.Title = "Add reminder";
+            reminderDialog.Categories = categories;
             reminderDialog.Open();
         }
     }

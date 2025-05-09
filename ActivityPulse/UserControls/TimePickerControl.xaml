@@ -14,10 +14,11 @@
         </Grid.ColumnDefinitions>
         <TextBox x:Name="tbTime" Style="{StaticResource DefaultTB}" Grid.Column="0" TextChanged="tbTime_TextChanged" Tag="Time (HH:mm)" />
         <Button x:Name="btnPopup" Grid.Column="1" Width="30" Content="clock" Click="btnPopup_Click" FontSize="20" Style="{StaticResource LinkButton}" FontFamily="{StaticResource FAregular}" />
-        <Popup PlacementTarget="{Binding ElementName=tbTime}" AllowsTransparency="True" x:Name="popup" Width="300" Height="300" StaysOpen="False" PopupAnimation="Fade" >
-            <Border Style="{StaticResource Bar}" CornerRadius="10" >
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    
+        <Popup PlacementTarget="{Binding ElementName=tbTime}" AllowsTransparency="True" x:Name="popup" Width="200" Height="225" StaysOpen="False" PopupAnimation="Fade" >
+            <Border Style="{StaticResource BorderSecondMenu}" CornerRadius="10" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20">
+                    <local:CountBoxControl Width="70" Margin="10,0" />
+                    <local:CountBoxControl Width="70" Margin="10,0" MinValue="0" MaxValue="59" />
                 </StackPanel>
             </Border>
         </Popup>

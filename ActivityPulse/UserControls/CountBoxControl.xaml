@@ -6,7 +6,9 @@
              xmlns:local="clr-namespace:ActivityPulse.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <StackPanel>
+        <Button x:Name="upBtn" Click="upBtn_Click" Style="{StaticResource OnTopButton}" Content="&#xf077;" FontFamily="{StaticResource FAsolid}" Height="35" />
+        <TextBox x:Name="countTb" TextChanged="countTb_TextChanged" Style="{StaticResource CountBox}" Height="50" Margin="0,3" FontSize="32" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Medium" InputScope="NumberFullWidth" />
+        <Button x:Name="downBtn" Click="downBtn_Click" Style="{StaticResource BelowBottomButton}" Content="&#xf078;" FontFamily="{StaticResource FAsolid}" Height="35" />
+    </StackPanel>
 </UserControl>

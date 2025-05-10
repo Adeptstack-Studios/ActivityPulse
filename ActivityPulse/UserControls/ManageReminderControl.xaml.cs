@@ -68,11 +68,9 @@ namespace ActivityPulse.UserControls
                 {
                     string name = tbName.Text;
                     DateTime date = dpTB.DisplayDate;
-                    if (Utilities.TryParseTimeToDateTime(tpTB.Text, date, out DateTime result))
+                    if (TimeUtils.TryParseTimeToDateTime(tpTB.Text, date, out DateTime result))
                     {
                         date = result;
-                        TellBox tellBox = new TellBox(date.ToString(), "Error");
-                        tellBox.ShowDialog();
                     }
                     EReminderTypes rType = (EReminderTypes)cbReminderType.SelectedIndex;
                     Guid categoryID = cbCategory.SelectedIndex > 0 ? categories[cbCategory.SelectedIndex - 1].Id : Guid.Empty;

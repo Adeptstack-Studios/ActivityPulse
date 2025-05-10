@@ -18,7 +18,7 @@ namespace ActivityPulse.UserControls
         public TimePickerControl()
         {
             InitializeComponent();
-            if (Utilities.Is24HForamt())
+            if (TimeUtils.Is24HForamt())
             {
                 tbTime.Tag = "HH:mm";
                 cbAMPM.Visibility = Visibility.Collapsed;
@@ -37,7 +37,7 @@ namespace ActivityPulse.UserControls
 
         private void tbTime_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!Utilities.IsValidTime(Text))
+            if (!TimeUtils.IsValidTime(Text))
             {
                 Text = "";
             }
@@ -50,7 +50,7 @@ namespace ActivityPulse.UserControls
 
         private void submitBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (Utilities.Is24HForamt())
+            if (TimeUtils.Is24HForamt())
             {
                 int h = cbcH.Value;
                 string m = cbcM.Value >= 10 ? cbcM.Value.ToString() : "0" + cbcM.Value;

@@ -29,5 +29,17 @@ namespace ActivityUtils.Models
             IsImportant = isImportant;
             DoRepeat = repeat;
         }
+
+        public ReminderContext(string name, DateTime reminderDateTime, EReminderTypes reminderTypes, Guid categoryId, bool repeat, bool isForced, bool isImportant)
+        {
+            Id = Guid.NewGuid();
+            Name = name;
+            ReminderDateTime = reminderDateTime;
+            ReminderTypes = reminderTypes;
+            CategoryId = categoryId;
+            IsForced = isForced;
+            IsImportant = isImportant;
+            DoRepeat = repeat;
+        }
     }
 }

@@ -10,12 +10,16 @@ namespace ActivityPulse.UserControls
     {
         public int Value { get; set; } = 0;
         public int MaxValue { get; set; } = 0;
-        public int MinValue { get; set; } = 0;
+        private int minValue = 0;
+        public int MinValue
+        {
+            get { return minValue; }
+            set { minValue = value; countTb.Text = Value.ToString(); }
+        }
 
         public CountBoxControl()
         {
             InitializeComponent();
-            countTb.Text = Value.ToString();
         }
 
         private void downBtn_Click(object sender, RoutedEventArgs e)
@@ -52,7 +56,7 @@ namespace ActivityPulse.UserControls
                 Value = int.Parse(countTb.Text);
                 if (Value > MaxValue || Value < MinValue)
                 {
-                    Value = 0;
+                    Value = MinValue;
                     countTb.Text = Value.ToString();
                 }
             }

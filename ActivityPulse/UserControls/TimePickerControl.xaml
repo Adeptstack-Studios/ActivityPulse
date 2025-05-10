@@ -12,13 +12,21 @@
             <ColumnDefinition />
             <ColumnDefinition Width="40" />
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="tbTime" Style="{StaticResource DefaultTB}" Grid.Column="0" TextChanged="tbTime_TextChanged" Tag="Time (HH:mm)" />
+        <TextBox x:Name="tbTime" Style="{StaticResource DefaultTB}" Grid.Column="0" VerticalContentAlignment="Center" TextChanged="tbTime_TextChanged" Tag="Time (HH:mm)" />
         <Button x:Name="btnPopup" Grid.Column="1" Width="30" Content="clock" Click="btnPopup_Click" FontSize="20" Style="{StaticResource LinkButton}" FontFamily="{StaticResource FAregular}" />
-        <Popup PlacementTarget="{Binding ElementName=tbTime}" AllowsTransparency="True" x:Name="popup" Width="200" Height="225" StaysOpen="False" PopupAnimation="Fade" >
+        <Popup PlacementTarget="{Binding ElementName=tbTime}" AllowsTransparency="True" x:Name="popup" Height="225" StaysOpen="False" PopupAnimation="Fade" >
             <Border Style="{StaticResource BorderSecondMenu}" CornerRadius="10" >
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20">
-                    <local:CountBoxControl Width="70" Margin="10,0" />
-                    <local:CountBoxControl Width="70" Margin="10,0" MinValue="0" MaxValue="59" />
+                <StackPanel>
+                    <TextBlock Text="Select Time" FontSize="20" HorizontalAlignment="Center" Margin="0,10,0,0" Style="{StaticResource ModeTextBlock}" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                        <local:CountBoxControl x:Name="cbcH" Width="70" Margin="10,0" />
+                        <local:CountBoxControl x:Name="cbcM" Width="70" Margin="10,0" MinValue="0" MaxValue="59" />
+                        <ComboBox x:Name="cbAMPM" Width="70" Margin="10,0" Style="{StaticResource v4}" >
+                            <ComboBoxItem Content="AM" />
+                            <ComboBoxItem Content="PM" />
+                        </ComboBox>
+                    </StackPanel>
+                    <Button Style="{StaticResource AccentColorButton}" Content="Submit" Click="submitBtn_Click" x:Name="submitBtn" Margin="20,0" Height="30" />
                 </StackPanel>
             </Border>
         </Popup>

@@ -85,7 +85,7 @@
             <TextBlock Style="{StaticResource ModeTextBlock}" x:Name="TBk_msg" Margin="20" TextWrapping="Wrap"/>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button x:Name="cancel_btn" Content="Cancel" Visibility="Collapsed" Click="cancel_btn_Click" Style="{StaticResource CustomButton}" Width="75" Margin="0,5,20,20"/>
-                <Button x:Name="ok_btn" Content="OK" Click="ok_btn_Click" Style="{StaticResource CustomButton}" Width="75" Margin="0,5,20,20"/>
+                <Button x:Name="ok_btn" Content="OK" Click="ok_btn_Click" Style="{StaticResource AccentColorButton}" Width="75" Margin="0,5,20,20"/>
             </StackPanel>
         </StackPanel>
 

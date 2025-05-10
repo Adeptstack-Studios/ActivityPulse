@@ -1,6 +1,7 @@
 ﻿using ActivityPulse.Windows;
 using ActivityUtils.Enums;
 using ActivityUtils.Models;
+using ActivityUtils.Utils;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -63,27 +64,56 @@ namespace ActivityPulse.UserControls
         {
             try
             {
-                string name = tbName.Text;
-                DateTime date = dpTB.DisplayDate;
-                EReminderTypes rType = (EReminderTypes)cbReminderType.SelectedIndex;
-                Guid categoryID = categories[cbCategory.SelectedIndex + 1].Id;
-                bool important = (bool)chImportant.IsChecked;
-                bool force = (bool)chForce.IsChecked;
-                bool repeat = (bool)chRepeat.IsChecked;
+                if (tbName.Text.Length > 0 && dpTB.Text.Length > 0 && tpTB.Text.Length > 0)
+                {
+                    string name = tbName.Text;
+                    DateTime date = dpTB.DisplayDate;
+                    if (Utilities.TryParseTimeToDateTime(tpTB.Text, date, out DateTime result))
+                    {
+                        date = result;
+                        TellBox tellBox = new TellBox(date.ToString(), "Error");
+                        tellBox.ShowDialog();
+                    }
+                    EReminderTypes rType = (EReminderTypes)cbReminderType.SelectedIndex;
+                    Guid categoryID = cbCategory.SelectedIndex > 0 ? categories[cbCategory.SelectedIndex - 1].Id : Guid.Empty;
 
-                int rIntervall = int.Parse(tbIntervall.Text);
-                ERepeatTypes rpType = (ERepeatTypes)cbRepeat.SelectedIndex;
-                ERepeatDuration rDuration = (ERepeatDuration)cbDuration.SelectedIndex;
-                int quantity = int.Parse(tbQuantity.Text);
-                DateTime dtUntil = dpUntil.DisplayDate;
+                    bool important = (bool)chImportant.IsChecked;
+                    bool force = (bool)chForce.IsChecked;
+                    bool repeat = (bool)chRepeat.IsChecked;
 
-                RepeatingContext repeatingContext = new RepeatingContext(rpType, rIntervall, rDuration, quantity, dtUntil);
-                ReminderContext reminder = new ReminderContext(name, date, repeatingContext, rType, categoryID, repeat, force, important);
-                reminder.NextRemind = date;
+                    if (tbIntervall.Text.Length > 0)
+                    {
+                        tbIntervall.Text = "1";
+                    }
+                    if (tbQuantity.Text.Length > 0)
+                    {
+                        tbQuantity.Text = "1";
+                    }
+                    if (dpUntil.Text.Length > 0)
+                    {
+                        dpUntil.Text = DateTime.Now.AddDays(100).ToShortDateString();
+                    }
+
+                    int rIntervall = int.Parse(tbIntervall.Text);
+                    ERepeatTypes rpType = (ERepeatTypes)cbRepeat.SelectedIndex;
+                    ERepeatDuration rDuration = (ERepeatDuration)cbDuration.SelectedIndex;
+                    int quantity = int.Parse(tbQuantity.Text);
+                    DateTime dtUntil = dpUntil.DisplayDate;
+
+                    RepeatingContext repeatingContext = new RepeatingContext(rpType, rIntervall, rDuration, quantity, dtUntil);
+                    ReminderContext reminder = new ReminderContext(name, date, repeatingContext, rType, categoryID, repeat, force, important);
+                    reminder.NextRemind = date;
+                }
+                else
+                {
+                    TellBox tellBox = new TellBox("You may forgot some inputs", "Error");
+                    tellBox.ShowDialog();
+                }
             }
             catch (Exception ex)
             {
-                TellBox tellBox = new TellBox(ex.Message, "Error");
+                TellBox tellBox = new TellBox(ex.ToString(), "Error");
+                tellBox.ShowDialog();
             }
         }
 

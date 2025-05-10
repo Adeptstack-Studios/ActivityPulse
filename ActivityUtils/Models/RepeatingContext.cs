@@ -18,5 +18,7 @@ namespace ActivityUtils.Models
             RepeatCount = repeatCount;
             RepeatUntil = repeatUntil;
         }
+
+        public RepeatingContext() { }
     }
 }

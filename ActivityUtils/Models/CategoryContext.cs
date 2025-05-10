@@ -1,14 +1,19 @@
-﻿namespace ActivityUtils.Models
+﻿using ActivityUtils.Data;
+using ActivityUtils.Utils;
+
+namespace ActivityUtils.Models
 {
     public class CategoryContext
     {
-        public Guid Id { get; }
+        public int Id { get; set; }
         public string Name { get; set; } = "";
 
         public CategoryContext(string name)
         {
-            Id = Guid.NewGuid();
+            Id = ReminderUtils.GetUniqueCategoryID(DataReminders.LoadCategories());
             Name = name;
         }
+
+        public CategoryContext() { }
     }
 }

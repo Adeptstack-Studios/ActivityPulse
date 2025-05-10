@@ -17,6 +17,9 @@ namespace ActivityPulse.Pages
             InitializeComponent();
             MainWindow.UpdateTitle("ActivityPulse - Reminders");
             categories = DataReminders.LoadCategories();
+            reminders = DataReminders.LoadReminders();
+            lbCategories.ItemsSource = null;
+            lbReminders.ItemsSource = null;
             lbCategories.ItemsSource = categories;
             lbReminders.ItemsSource = reminders;
         }
@@ -63,9 +66,12 @@ namespace ActivityPulse.Pages
 
         private void miEdit_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            categoryDialog.Title = "Edit category";
-            categoryDialog.EditCategory = (CategoryContext)lbCategories.SelectedItem;
-            categoryDialog.Open();
+            if (lbCategories.SelectedIndex >= 0)
+            {
+                categoryDialog.Title = "Edit category";
+                categoryDialog.EditCategory = categories[lbCategories.SelectedIndex];
+                categoryDialog.Open();
+            }
         }
 
         private void miDelete_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -75,7 +81,21 @@ namespace ActivityPulse.Pages
 
         private void reminderDialog_OnReminderDialogClick(ReminderContext reminder)
         {
-
+            if (!reminderDialog.IsEditMode)
+            {
+                reminders.Insert(0, reminder);
+            }
+            else
+            {
+                if (i >= 0)
+                {
+                    reminders[i] = reminder;
+                }
+            }
+            OrderList();
+            lbReminders.ItemsSource = null;
+            lbReminders.ItemsSource = reminders;
+            DataReminders.SaveReminder(reminders);
         }
 
         private void addReminderBtn_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -83,6 +103,32 @@ namespace ActivityPulse.Pages
             reminderDialog.Title = "Add reminder";
             reminderDialog.Categories = categories;
             reminderDialog.Open();
+        }
+
+        private void CHB_Done_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (lbReminders.SelectedIndex >= 0)
+            {
+
+            }
+        }
+
+        int i = -1;
+        private void Click_Btn_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (lbReminders.SelectedIndex >= 0)
+            {
+                i = lbReminders.SelectedIndex;
+                reminderDialog.Title = "Edit reminder";
+                reminderDialog.Categories = categories;
+                reminderDialog.EditReminder = reminders[i];
+                reminderDialog.Open();
+            }
+        }
+
+        void OrderList()
+        {
+            reminders = reminders.OrderBy(o => o.NextRemind).ToList();
         }
     }
 }

@@ -90,7 +90,46 @@
 
         <Grid Grid.Row="1" Grid.Column="0">
             <ListBox Grid.Row="1" x:Name="lbReminders" Style="{StaticResource LB_vertical}" Background="Transparent" >
-
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Height="60" CornerRadius="10" Style="{StaticResource Border}">
+                            <Grid>
+                                <Button Background="Transparent" Style="{StaticResource LinkButton}" Content="{Binding Name}" VerticalContentAlignment="Top" Padding="100,10" HorizontalContentAlignment="Left" FontSize="14" FontWeight="SemiBold" BorderThickness="0" x:Name="Click_Btn" Click="Click_Btn_Click" />
+                                <StackPanel VerticalAlignment="Center" Margin="115,20,0,0" HorizontalAlignment="Left" Orientation="Horizontal" Opacity="0.5" >
+                                    <TextBlock Style="{StaticResource ModeTextBlock}" Text="clock" Margin="0,0,5,0" FontFamily="{StaticResource FAregular}" FontSize="11" />
+                                    <TextBlock Style="{StaticResource ModeTextBlock}" Text="{Binding ReminderDateString}" FontSize="11" />
+                                </StackPanel>
+                                <CheckBox IsHitTestVisible="True" Click="CHB_Done_Click" IsChecked="{Binding IsCompleted}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="45,0" x:Name="CHB_Done" />
+                                <TextBlock VerticalAlignment="Top" Margin="10" Visibility="{Binding ImportantVisibility}" HorizontalAlignment="Right" Text="star" FontFamily="{StaticResource FAsolid}" FontSize="14" Foreground="Gold" />
+                                <StackPanel Orientation="Horizontal" Opacity="0.7" VerticalAlignment="Bottom" Margin="10" HorizontalAlignment="Right">
+                                    <TextBlock Text="&#xf3c5;" FontFamily="{StaticResource FAsolid}" VerticalAlignment="Center" FontSize="11" Style="{StaticResource ModeTextBlock}" />
+                                    <TextBlock Text="{Binding Source}" FontSize="11" Style="{StaticResource ModeTextBlock}" Margin="5,0,0,0" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.Resources>
+                    <Style x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
+                        <Setter Property="SnapsToDevicePixels" Value="true" />
+                        <Setter Property="OverridesDefaultStyle" Value="true" />
+                        <Setter Property="Margin" Value="50,10,50,0"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border x:Name="Border" Margin="0" Height="64" SnapsToDevicePixels="true" CornerRadius="12" BorderThickness="2" BorderBrush="Transparent" Style="{StaticResource BdrBackground}">
+                                        <ContentPresenter x:Name="content"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="IsSelected" Value="True"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
             </ListBox>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20">
                 <TextBox Style="{StaticResource DefaultTB}" Height="35" Width="250" Tag="Add a reminder" Margin="0,0,20,0" VerticalContentAlignment="Center" />

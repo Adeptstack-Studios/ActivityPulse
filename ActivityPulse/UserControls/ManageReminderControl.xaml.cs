@@ -42,6 +42,19 @@ namespace ActivityPulse.UserControls
                 editReminder = value;
                 isEditMode = true;
                 tbName.Text = value.Name;
+                dpTB.Text = value.ReminderDateTime.ToShortDateString();
+                tpTB.Text = value.ReminderDateTime.ToShortTimeString();
+                cbReminderType.SelectedIndex = (int)value.ReminderTypes;
+                cbCategory.SelectedIndex = categories.FindIndex(p => p.Id == editReminder.CategoryId) + 1;
+                chImportant.IsChecked = value.IsImportant;
+                chForce.IsChecked = value.IsForced;
+                chRepeat.IsChecked = value.DoRepeat;
+                tbIntervall.Text = value.Repeating.RepeatInterval.ToString();
+                cbRepeat.SelectedIndex = (int)value.Repeating.RepeatType;
+                cbDuration.SelectedIndex = (int)value.Repeating.RepeatDuration;
+                tbQuantity.Text = value.Repeating.RepeatCount.ToString();
+                dpUntil.Text = value.Repeating.RepeatUntil.ToShortDateString();
+                repeatSP.Visibility = value.DoRepeat ? Visibility.Visible : Visibility.Collapsed;
             }
             get { return editReminder; }
         }
@@ -67,27 +80,27 @@ namespace ActivityPulse.UserControls
                 if (tbName.Text.Length > 0 && dpTB.Text.Length > 0 && tpTB.Text.Length > 0)
                 {
                     string name = tbName.Text;
-                    DateTime date = dpTB.DisplayDate;
+                    DateTime date = (DateTime)dpTB.SelectedDate;
                     if (TimeUtils.TryParseTimeToDateTime(tpTB.Text, date, out DateTime result))
                     {
                         date = result;
                     }
                     EReminderTypes rType = (EReminderTypes)cbReminderType.SelectedIndex;
-                    Guid categoryID = cbCategory.SelectedIndex > 0 ? categories[cbCategory.SelectedIndex - 1].Id : Guid.Empty;
+                    int categoryID = cbCategory.SelectedIndex > 0 ? categories[cbCategory.SelectedIndex - 1].Id : 0;
 
                     bool important = (bool)chImportant.IsChecked;
                     bool force = (bool)chForce.IsChecked;
                     bool repeat = (bool)chRepeat.IsChecked;
 
-                    if (tbIntervall.Text.Length > 0)
+                    if (tbIntervall.Text.Length == 0)
                     {
                         tbIntervall.Text = "1";
                     }
-                    if (tbQuantity.Text.Length > 0)
+                    if (tbQuantity.Text.Length == 0)
                     {
                         tbQuantity.Text = "1";
                     }
-                    if (dpUntil.Text.Length > 0)
+                    if (dpUntil.Text.Length == 0)
                     {
                         dpUntil.Text = DateTime.Now.AddDays(100).ToShortDateString();
                     }
@@ -96,11 +109,33 @@ namespace ActivityPulse.UserControls
                     ERepeatTypes rpType = (ERepeatTypes)cbRepeat.SelectedIndex;
                     ERepeatDuration rDuration = (ERepeatDuration)cbDuration.SelectedIndex;
                     int quantity = int.Parse(tbQuantity.Text);
-                    DateTime dtUntil = dpUntil.DisplayDate;
+                    DateTime dtUntil = (DateTime)dpUntil.SelectedDate;
 
-                    RepeatingContext repeatingContext = new RepeatingContext(rpType, rIntervall, rDuration, quantity, dtUntil);
-                    ReminderContext reminder = new ReminderContext(name, date, repeatingContext, rType, categoryID, repeat, force, important);
-                    reminder.NextRemind = date;
+                    if (!isEditMode)
+                    {
+                        RepeatingContext repeatingContext = new RepeatingContext(rpType, rIntervall, rDuration, quantity, dtUntil);
+                        ReminderContext reminder = new ReminderContext(name, date, repeatingContext, rType, categoryID, repeat, force, important);
+                        reminder.NextRemind = date;
+                        reminder.Source = "ActivityPulse";
+                        OnReminderDialogClick(reminder);
+                    }
+                    else
+                    {
+                        editReminder.Name = name;
+                        editReminder.ReminderDateTime = date;
+                        editReminder.ReminderTypes = rType;
+                        editReminder.CategoryId = categoryID;
+                        editReminder.IsImportant = important;
+                        editReminder.IsForced = force;
+                        editReminder.DoRepeat = repeat;
+                        editReminder.Repeating.RepeatInterval = rIntervall;
+                        editReminder.Repeating.RepeatType = rpType;
+                        editReminder.Repeating.RepeatDuration = rDuration;
+                        editReminder.Repeating.RepeatCount = quantity;
+                        editReminder.Repeating.RepeatUntil = dtUntil;
+                        OnReminderDialogClick(editReminder);
+                    }
+                    Close();
                 }
                 else
                 {
@@ -141,8 +176,27 @@ namespace ActivityPulse.UserControls
             bg0.Storyboard.Completed += new EventHandler(delegate (object sender, EventArgs e)
             {
                 Visibility = Visibility.Collapsed;
+                Clear();
             });
             bg0.Storyboard.Begin();
+        }
+
+        private void Clear()
+        {
+            tbName.Text = "";
+            dpTB.Text = "";
+            tpTB.Text = "";
+            chImportant.IsChecked = false;
+            chForce.IsChecked = false;
+            chRepeat.IsChecked = false;
+            tbIntervall.Text = "1";
+            tbQuantity.Text = "1";
+            dpUntil.Text = "";
+            isEditMode = false;
+            cbReminderType.SelectedIndex = 0;
+            cbCategory.SelectedIndex = 0;
+            cbRepeat.SelectedIndex = 1;
+            cbDuration.SelectedIndex = 0;
         }
 
         private void chRepeat_Click(object sender, RoutedEventArgs e)

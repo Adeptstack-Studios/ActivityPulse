@@ -1,6 +1,7 @@
 ﻿using ActivityUtils.Models;
 using System.IO;
 using System.Text.Json;
+using System.Windows;
 
 namespace ActivityUtils.Data
 {
@@ -9,7 +10,7 @@ namespace ActivityUtils.Data
         static string categoriesPath = $"{DataTracker.path}/Reminder/categories.json";
         static string reminderPath = $"{DataTracker.path}/Reminder/reminder.json";
 
-        public static void Save(List<CategoryContext> categories, List<ReminderContext> reminder)
+        public static void SaveReminder(List<ReminderContext> reminder)
         {
             if (!File.Exists(reminderPath))
             {
@@ -51,7 +52,8 @@ namespace ActivityUtils.Data
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e.ToString());
+                MessageBox.Show(e.ToString());
             }
             return new();
         }

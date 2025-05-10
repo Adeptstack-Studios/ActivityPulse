@@ -29,5 +29,55 @@ namespace ActivityUtils.Utils
             }
             return dt;
         }
+
+        public static int GetUniqueReminderID(List<ReminderContext> list)
+        {
+            int id;
+            do
+            {
+                id = GenerateUniqueID();
+            } while (!CheckUniqueReminderID(id, list));
+            return id;
+        }
+
+        public static bool CheckUniqueReminderID(int id, List<ReminderContext> list)
+        {
+            foreach (var item in list)
+            {
+                if (item.Id == id)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private static int GenerateUniqueID()
+        {
+            int id = new Random().Next(100000, 1000000);
+            return id;
+        }
+
+        public static int GetUniqueCategoryID(List<CategoryContext> list)
+        {
+            int id;
+            do
+            {
+                id = GenerateUniqueID();
+            } while (!CheckUniqueCategoryID(id, list));
+            return id;
+        }
+
+        public static bool CheckUniqueCategoryID(int id, List<CategoryContext> list)
+        {
+            foreach (var item in list)
+            {
+                if (item.Id == id)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

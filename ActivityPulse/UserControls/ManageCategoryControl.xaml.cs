@@ -55,7 +55,6 @@ namespace ActivityPulse.UserControls
                         OnCategoryDialogClick(editCategory);
                         isEditMode = false;
                     }
-                    tbName.Text = "";
                     Close();
                 }
                 else
@@ -96,6 +95,7 @@ namespace ActivityPulse.UserControls
             bg0.Storyboard.Completed += new EventHandler(delegate (object sender, EventArgs e)
             {
                 Visibility = Visibility.Collapsed;
+                tbName.Text = "";
             });
             bg0.Storyboard.Begin();
         }

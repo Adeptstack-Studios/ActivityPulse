@@ -76,7 +76,21 @@ namespace ActivityPulse.Pages
 
         private void miDelete_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-
+            if (lbCategories.SelectedIndex >= 0)
+            {
+                int id = categories[lbCategories.SelectedIndex].Id;
+                foreach (var item in reminders)
+                {
+                    if (item.CategoryId == id)
+                    {
+                        item.CategoryId = 0;
+                    }
+                }
+                categories.RemoveAt(lbCategories.SelectedIndex);
+                lbCategories.ItemsSource = null;
+                lbCategories.ItemsSource = categories;
+                DataReminders.SaveCategories(categories);
+            }
         }
 
         private void reminderDialog_OnReminderDialogClick(ReminderContext reminder)
@@ -105,11 +119,27 @@ namespace ActivityPulse.Pages
             reminderDialog.Open();
         }
 
+        private void tbAddReminder_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                reminderDialog.Title = "Add reminder";
+                reminderDialog.tbName.Text = tbAddReminder.Text;
+                reminderDialog.Categories = categories;
+                reminderDialog.Open();
+                tbAddReminder.Text = "";
+            }
+        }
+
         private void CHB_Done_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             if (lbReminders.SelectedIndex >= 0)
             {
-
+                CheckBox ch = sender as CheckBox;
+                if (ch.IsChecked == true)
+                    reminders[lbReminders.SelectedIndex].IsCompleted = true;
+                else
+                    reminders[lbReminders.SelectedIndex].IsCompleted = false;
             }
         }
 

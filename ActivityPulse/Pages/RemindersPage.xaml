@@ -132,7 +132,7 @@
                 </ListBox.Resources>
             </ListBox>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20">
-                <TextBox Style="{StaticResource DefaultTB}" Height="35" Width="250" Tag="Add a reminder" Margin="0,0,20,0" VerticalContentAlignment="Center" />
+                <TextBox Style="{StaticResource DefaultTB}" Height="35" Width="250" Tag="Add a reminder" Margin="0,0,20,0" VerticalContentAlignment="Center" KeyDown="tbAddReminder_KeyDown" x:Name="tbAddReminder" />
                 <Button x:Name="addReminderBtn" Click="addReminderBtn_Click" Style="{StaticResource RoundBtn}" Width="50" Height="50" Content="plus" FontFamily="{StaticResource FAsolid}" FontSize="16" />
             </StackPanel>
         </Grid>

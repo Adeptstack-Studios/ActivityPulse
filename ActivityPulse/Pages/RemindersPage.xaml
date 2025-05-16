@@ -149,7 +149,7 @@
             <Border Width="1" Style="{StaticResource Stroke}" HorizontalAlignment="Left" />
         </Grid>
 
-        <controls:ManageCategoryControl x:Name="categoryDialog" OnCategoryDialogClick="categoryDialog_OnCategoryDialogClick" Grid.RowSpan="2" Grid.ColumnSpan="2" />
-        <controls:ManageReminderControl x:Name="reminderDialog" OnReminderDialogClick="reminderDialog_OnReminderDialogClick" Grid.RowSpan="2" Grid.ColumnSpan="2" />
+        <controls:ManageCategoryControl x:Name="categoryDialog" Grid.RowSpan="2" Grid.ColumnSpan="2" OnCategoryDialogClick="categoryDialog_OnCategoryDialogClick" />
+        <controls:ManageReminderControl x:Name="reminderDialog" Grid.RowSpan="2" Grid.ColumnSpan="2" OnReminderDialogClick="reminderDialog_OnReminderDialogClick" OnReminderDeleteClick="reminderDialog_OnReminderDeleteClick" />
     </Grid>
 </Page>

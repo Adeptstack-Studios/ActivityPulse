@@ -7,7 +7,7 @@
              StartupUri="MainWindow.xaml">
     
     <Application.Resources>
-        <sys:String x:Key="WindowTitle">Activity Pulse</sys:String>
+        <sys:String x:Key="WindowTitle">ActivityPulse</sys:String>
         
         <FontFamily x:Key="FAsolid">/Fonts/FAsolid900.otf#Font Awesome 6 Free Solid</FontFamily>
         <FontFamily x:Key="FAbrands">/Fonts/FAbrands.otf#Font Awesome 6 Brands Regular</FontFamily>
@@ -29,7 +29,7 @@
         <SolidColorBrush x:Key="LightMiddleground" Color="#e5e5e5"/>
         <SolidColorBrush x:Key="LightForeground" Color="#ff373737"/>
 
-        <Color x:Key="AccentColor">Lime</Color>
+        <Color x:Key="AccentColor">DeepSkyBlue</Color>
         <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource AccentColor}" />
 
         <Color x:Key="ThemeAccentColorL" >#000</Color>
@@ -423,6 +423,44 @@
                             <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
                                 <Setter Property="Foreground" Value="{DynamicResource AccentBrush}" />
                                 <Setter Property="BorderBrush" TargetName="bdr_btn_cc" Value="{DynamicResource AccentBrush}" />
+                            </DataTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="bdr_btn_cc" Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Button" x:Key="NegativeAccentColorButton">
+            <Setter Property="FontFamily" Value="{StaticResource Nunito}" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="bdr_btn_cc" CornerRadius="8" BorderThickness="2" Background="Transparent">
+                            <Grid>
+                                <Border x:Name="bg" Opacity="0.2" CornerRadius="5" BorderThickness="0" />
+                                <ContentPresenter x:Name="content" Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="bg" Value="Red" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="1">
+                                <Setter Property="BorderBrush" TargetName="bdr_btn_cc" Value="Red" />
+                                <Setter Property="Foreground" Value="Red" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
+                                <Setter Property="BorderBrush" TargetName="bdr_btn_cc" Value="Red" />
+                                <Setter Property="Foreground" Value="Red" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
+                                <Setter Property="Foreground" Value="Red" />
+                                <Setter Property="BorderBrush" TargetName="bdr_btn_cc" Value="Red" />
                             </DataTrigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="bdr_btn_cc" Property="Opacity" Value="0.5"/>

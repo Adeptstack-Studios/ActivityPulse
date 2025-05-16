@@ -118,7 +118,14 @@
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
-                <Button Style="{StaticResource AccentColorButton}" VerticalAlignment="Bottom" Content="submit" Height="30" Margin="20,15" x:Name="submitBtn" Click="submitBtn_Click" />
+                <Grid VerticalAlignment="Bottom" Margin="20,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition x:Name="delete" Width="0" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{StaticResource AccentColorButton}" Grid.Column="1" Content="submit" Height="30" Margin="10,15" x:Name="submitBtn" Click="submitBtn_Click" />
+                    <Button Style="{StaticResource NegativeAccentColorButton}" Grid.Column="0" Content="delete" Height="30" Margin="10,15" x:Name="deleteBtn" Click="deleteBtn_Click" />
+                </Grid>
                 <Button x:Name="closeDialog" Click="closeDialog_Click" Style="{StaticResource LinkButton}" FontFamily="{StaticResource FAsolid}" Content="xmark" Margin="15" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Right" />
             </Grid>
         </Border>

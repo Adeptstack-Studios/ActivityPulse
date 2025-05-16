@@ -31,6 +31,7 @@ namespace ActivityPulse.UserControls
             }
         }
         public event ReminderDialogClick OnReminderDialogClick;
+        public event ReminderDialogClick OnReminderDeleteClick;
         public string Title { get => tbTitle.Text; set => tbTitle.Text = value; }
         bool isEditMode;
         public bool IsEditMode { get => isEditMode; }
@@ -55,6 +56,7 @@ namespace ActivityPulse.UserControls
                 tbQuantity.Text = value.Repeating.RepeatCount.ToString();
                 dpUntil.Text = value.Repeating.RepeatUntil.ToShortDateString();
                 repeatSP.Visibility = value.DoRepeat ? Visibility.Visible : Visibility.Collapsed;
+                delete.Width = new GridLength(1, GridUnitType.Star);
             }
             get { return editReminder; }
         }
@@ -197,6 +199,7 @@ namespace ActivityPulse.UserControls
             cbCategory.SelectedIndex = 0;
             cbRepeat.SelectedIndex = 1;
             cbDuration.SelectedIndex = 0;
+            delete.Width = new GridLength(0, GridUnitType.Pixel);
         }
 
         private void chRepeat_Click(object sender, RoutedEventArgs e)
@@ -213,6 +216,12 @@ namespace ActivityPulse.UserControls
         {
             tbQuantity.Visibility = cbDuration.SelectedIndex == 1 ? Visibility.Visible : Visibility.Collapsed;
             dpUntil.Visibility = cbDuration.SelectedIndex == 2 ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void deleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OnReminderDeleteClick(editReminder);
+            Close();
         }
     }
 }

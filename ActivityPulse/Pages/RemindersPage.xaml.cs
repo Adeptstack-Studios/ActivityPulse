@@ -97,7 +97,7 @@ namespace ActivityPulse.Pages
         {
             if (!reminderDialog.IsEditMode)
             {
-                reminders.Insert(0, reminder);
+                reminders.Add(reminder);
             }
             else
             {
@@ -110,6 +110,17 @@ namespace ActivityPulse.Pages
             lbReminders.ItemsSource = null;
             lbReminders.ItemsSource = reminders;
             DataReminders.SaveReminder(reminders);
+        }
+
+        private void reminderDialog_OnReminderDeleteClick(ReminderContext reminder)
+        {
+            if (reminders.Count > 0)
+            {
+                reminders.Remove(reminder);
+                lbReminders.ItemsSource = null;
+                lbReminders.ItemsSource = reminders;
+                DataReminders.SaveReminder(reminders);
+            }
         }
 
         private void addReminderBtn_Click(object sender, System.Windows.RoutedEventArgs e)

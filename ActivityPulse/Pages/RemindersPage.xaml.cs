@@ -1,6 +1,8 @@
 ﻿using ActivityUtils.Data;
 using ActivityUtils.Models;
+using ActivityUtils.Utils;
 using System.Windows.Controls;
+using CheckBox = System.Windows.Controls.CheckBox;
 
 namespace ActivityPulse.Pages
 {
@@ -10,6 +12,7 @@ namespace ActivityPulse.Pages
     public partial class RemindersPage : Page
     {
         List<ReminderContext> reminders;
+        List<ReminderContext> completedReminders;
         List<CategoryContext> categories;
 
         public RemindersPage()
@@ -18,6 +21,7 @@ namespace ActivityPulse.Pages
             MainWindow.UpdateTitle("ActivityPulse - Reminders");
             categories = DataReminders.LoadCategories();
             reminders = DataReminders.LoadReminders();
+            completedReminders = DataReminders.LoadCompletedReminders();
             lbCategories.ItemsSource = null;
             lbReminders.ItemsSource = null;
             lbCategories.ItemsSource = categories;
@@ -147,10 +151,21 @@ namespace ActivityPulse.Pages
             if (lbReminders.SelectedIndex >= 0)
             {
                 CheckBox ch = sender as CheckBox;
-                if (ch.IsChecked == true)
-                    reminders[lbReminders.SelectedIndex].IsCompleted = true;
+                if (reminders[lbReminders.SelectedIndex].DoRepeat)
+                {
+                    reminders[lbReminders.SelectedIndex] = ReminderUtils.CalcRepeat(reminders[lbReminders.SelectedIndex]);
+                    //reminders[lbReminders.SelectedIndex].IsCompleted = false;
+                }
                 else
-                    reminders[lbReminders.SelectedIndex].IsCompleted = false;
+                {
+                    if (ch.IsChecked == true)
+                        reminders[lbReminders.SelectedIndex].IsCompleted = true;
+                    else
+                        reminders[lbReminders.SelectedIndex].IsCompleted = false;
+                }
+                lbReminders.ItemsSource = null;
+                lbReminders.ItemsSource = reminders;
+                DataReminders.SaveReminder(reminders);
             }
         }
 

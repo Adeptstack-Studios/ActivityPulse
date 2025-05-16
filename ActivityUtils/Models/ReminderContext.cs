@@ -11,7 +11,7 @@ namespace ActivityUtils.Models
         public string Name { get; set; } = "";
         public DateTime ReminderDateTime { get; set; } = DateTime.Now.AddDays(1);
         public bool DoRepeat { get; set; } = false;
-        public RepeatingContext Repeating { get; set; } = new RepeatingContext(ERepeatTypes.NONE, 0, ERepeatDuration.FOREVER, 1, DateTime.Now.AddDays(7));
+        public RepeatingContext Repeating { get; set; } = new RepeatingContext(ERepeatTypes.DAILY, 0, ERepeatDuration.FOREVER, 1, DateTime.Now.AddDays(7));
         public EReminderTypes ReminderTypes { get; set; } = EReminderTypes.NORMAL;
         public int CategoryId { get; set; } = 0;
         public bool IsForced { get; set; } = false;

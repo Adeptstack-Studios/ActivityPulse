@@ -15,10 +15,6 @@
             <RowDefinition Height="130" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="225" />
-        </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0">
             <StackPanel Orientation="Horizontal">
@@ -135,18 +131,6 @@
                 <TextBox Style="{StaticResource DefaultTB}" Height="35" Width="250" Tag="Add a reminder" Margin="0,0,20,0" VerticalContentAlignment="Center" KeyDown="tbAddReminder_KeyDown" x:Name="tbAddReminder" />
                 <Button x:Name="addReminderBtn" Click="addReminderBtn_Click" Style="{StaticResource RoundBtn}" Width="50" Height="50" Content="plus" FontFamily="{StaticResource FAsolid}" FontSize="16" />
             </StackPanel>
-        </Grid>
-
-        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" >
-            <StackPanel>
-                <TextBlock Text="Reminders" Style="{StaticResource ModeTextBlock}" FontSize="20" Margin="10" FontWeight="Medium" />
-                <RadioButton Content="All" Style="{StaticResource CheckableRB}" Margin="10,5" FontWeight="Medium" IsChecked="True" />
-                <RadioButton Content="Today" Style="{StaticResource CheckableRB}" Margin="10,5" FontWeight="Medium" />
-                <RadioButton Content="Important" Style="{StaticResource CheckableRB}" Margin="10,5" FontWeight="Medium" />
-                <Border Height="1" Style="{StaticResource Stroke}" Margin="0, 5" />
-                <RadioButton Content="Completed" Style="{StaticResource CheckableRB}" Margin="10,5" FontWeight="Medium" />
-            </StackPanel>
-            <Border Width="1" Style="{StaticResource Stroke}" HorizontalAlignment="Left" />
         </Grid>
 
         <controls:ManageCategoryControl x:Name="categoryDialog" Grid.RowSpan="2" Grid.ColumnSpan="2" OnCategoryDialogClick="categoryDialog_OnCategoryDialogClick" />

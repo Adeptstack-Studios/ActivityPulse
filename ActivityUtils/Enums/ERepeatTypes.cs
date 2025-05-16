@@ -2,7 +2,6 @@
 {
     public enum ERepeatTypes
     {
-        NONE,
         HOURLY,
         DAILY,
         WEEKLY,

@@ -135,6 +135,7 @@ namespace ActivityPulse.UserControls
                         editReminder.Repeating.RepeatDuration = rDuration;
                         editReminder.Repeating.RepeatCount = quantity;
                         editReminder.Repeating.RepeatUntil = dtUntil;
+                        editReminder.NextRemind = date;
                         OnReminderDialogClick(editReminder);
                     }
                     Close();
@@ -200,6 +201,7 @@ namespace ActivityPulse.UserControls
             cbRepeat.SelectedIndex = 1;
             cbDuration.SelectedIndex = 0;
             delete.Width = new GridLength(0, GridUnitType.Pixel);
+            repeatSP.Visibility = Visibility.Collapsed;
         }
 
         private void chRepeat_Click(object sender, RoutedEventArgs e)

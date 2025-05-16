@@ -1531,7 +1531,7 @@
                             <BulletDecorator.Bullet>
                                 <Border x:Name="Border" Width="22" Height="22" CornerRadius="4" BorderThickness="2">
                                     <Grid>
-                                        <Border x:Name="BorderTh" Background="Transparent" CornerRadius="4" />
+                                        <Border x:Name="BorderTh" CornerRadius="3" Opacity="0.6" />
                                         <Path Margin="1,1,0,0" Width="9" Height="10" x:Name="CheckMark" SnapsToDevicePixels="False" StrokeThickness="2" Data="M -0.5 4 L 3 8 8 0" />
                                     </Grid>
                                 </Border>
@@ -1544,28 +1544,25 @@
                                 <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
                                 <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource LightForeground}" />
                                 <Setter Property="Stroke" TargetName="CheckMark" Value="{DynamicResource DarkForeground}" />
-                                <Setter TargetName="BorderTh" Property="Visibility" Value="Hidden" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="0">
                                 <Setter Property="Background"  TargetName="Border" Value="{DynamicResource LightMenu}" />
                                 <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource LightForeground}" />
                                 <Setter Property="Foreground" Value="{DynamicResource LightForeground}" />
                                 <Setter Property="Stroke" TargetName="CheckMark" Value="{DynamicResource LightForeground}" />
-                                <Setter TargetName="BorderTh" Property="Visibility" Value="Hidden" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding Source={x:Static prop:AppSettings.Default}, Path=ThemeMode}" Value="2">
                                 <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
                                 <Setter Property="Background" TargetName="Border" Value="{DynamicResource ThemeBackground}" />
                                 <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource ThemeForeground}" />
                                 <Setter Property="Stroke" TargetName="CheckMark" Value="{DynamicResource ThemeForeground}" />
-                                <Setter TargetName="BorderTh" Property="Visibility" Value="Visible" />
                             </DataTrigger>
                             <Trigger Property="IsChecked" Value="false">
                                 <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>
                             </Trigger>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource SystemColor}" />
-                                <Setter TargetName="BorderTh" Property="Background" Value="{DynamicResource ThemeAccentL}" />
+                                <Setter TargetName="Border" Property="Background" Value="Transparent" />
+                                <Setter TargetName="BorderTh" Property="Background" Value="{DynamicResource AccentBrush}" />
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
                                 <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />

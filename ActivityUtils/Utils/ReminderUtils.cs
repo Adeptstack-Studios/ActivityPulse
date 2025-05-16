@@ -6,7 +6,7 @@ namespace ActivityUtils.Utils
     {
         public static DateTime CalcNextRemindDateTime(ReminderContext context)
         {
-            DateTime dt = context.ReminderDateTime;
+            DateTime dt = context.NextRemind;
             if (context.Repeating.RepeatType == Enums.ERepeatTypes.HOURLY)
             {
                 dt = dt.AddHours(context.Repeating.RepeatInterval);
@@ -28,6 +28,53 @@ namespace ActivityUtils.Utils
                 dt = dt.AddYears(context.Repeating.RepeatInterval);
             }
             return dt;
+        }
+
+        public static ReminderContext CalcRepeat(ReminderContext context)
+        {
+            DateTime dt = CalcNextRemindDateTime(context);
+            if (context.Repeating.RepeatDuration == Enums.ERepeatDuration.FOREVER)
+            {
+                context.NextRemind = dt;
+                context.IsCompleted = false;
+                return context;
+            }
+            else if (context.Repeating.RepeatDuration == Enums.ERepeatDuration.QUANTITY)
+            {
+                if (context.Repeating.RepeatCount > 1)
+                {
+                    context.NextRemind = dt;
+                    context.Repeating.RepeatCount--;
+                    context.IsCompleted = false;
+                    return context;
+                }
+                else if (context.Repeating.RepeatCount == 1)
+                {
+                    context.Repeating.RepeatCount--;
+                    context.IsCompleted = true;
+                    return context;
+                }
+                else
+                {
+                    context.IsCompleted = true;
+                    return context;
+                }
+            }
+            else if (context.Repeating.RepeatDuration == Enums.ERepeatDuration.UNTIL)
+            {
+                if (dt <= context.Repeating.RepeatUntil)
+                {
+                    context.NextRemind = dt;
+                    context.IsCompleted = false;
+                    return context;
+                }
+                else
+                {
+                    context.IsCompleted = true;
+                    return context;
+                }
+            }
+            return context;
         }
 
         public static int GetUniqueReminderID(List<ReminderContext> list)

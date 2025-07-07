@@ -23,6 +23,8 @@ namespace ActivityHost
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
 
+        List<ReminderContext> reminders = new List<ReminderContext>();
+
         List<AppUsage> appUsages = new List<AppUsage>();
         GeneralData generalData = new GeneralData();
         string storeFolder = @$"{DataTracker.path}{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}";
@@ -80,6 +82,21 @@ namespace ActivityHost
 
         }
 
+        void CheckReminder()
+        {
+            reminders.Clear();
+            reminders = DataReminders.LoadReminders();
+
+            foreach (var reminder in reminders)
+            {
+                if (reminder.NextRemind.Date == DateTime.Now.Date && reminder.NextRemind.ToShortTimeString() == DateTime.Now.ToShortTimeString() && !reminder.IsCompleted)
+                {
+                    ReminderWindow rw = new ReminderWindow(reminder);
+                    rw.ShowDialog();
+                }
+            }
+        }
+
         (string name, string icon) GetActiveProcessData()
         {
             IntPtr hwnd = GetForegroundWindow();
@@ -112,6 +129,7 @@ namespace ActivityHost
                 offTimer--;
                 if (offTimer == 0)
                 {
+                    CheckReminder();
                     offTimer = evaluationTime;
                     CaptureGeneralData();
                     CaptureAppData();

@@ -19,6 +19,7 @@ namespace ActivityUtils.Models
         public bool IsCompleted { get; set; } = false;
         public DateTime NextRemind { get; set; } = DateTime.Now.AddDays(1);
         public string Source { get; set; } = "";
+        public int DayRepeatCount = 0;
         public string ReminderDateString
         {
             get

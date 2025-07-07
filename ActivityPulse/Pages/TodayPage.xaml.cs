@@ -1,6 +1,5 @@
 ﻿using ActivityPulse.Models;
 using ActivityPulse.Utils;
-using ActivityPulse.Windows;
 using ActivityUtils.Data;
 using ActivityUtils.Models;
 using System.Windows;
@@ -329,7 +328,14 @@ namespace ActivityPulse.Pages
 
         private void cnvsIntervalls_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            CreateUsageIntervalChart(gData, appUsages);
+            try
+            {
+                CreateUsageIntervalChart(gData, appUsages);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         private void canvasMostUsedApps_SizeChanged(object sender, SizeChangedEventArgs e)

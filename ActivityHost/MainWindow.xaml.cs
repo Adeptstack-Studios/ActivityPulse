@@ -82,19 +82,62 @@ namespace ActivityHost
 
         }
 
-        void CheckReminder()
+        public void CheckReminder()
         {
             reminders.Clear();
             reminders = DataReminders.LoadReminders();
 
-            foreach (var reminder in reminders)
+            for (int i = 0; i < reminders.Count; i++)
             {
-                if (reminder.NextRemind.Date == DateTime.Now.Date && reminder.NextRemind.ToShortTimeString() == DateTime.Now.ToShortTimeString() && !reminder.IsCompleted)
+                if (i < reminders.Count)
                 {
-                    ReminderWindow rw = new ReminderWindow(reminder);
-                    rw.ShowDialog();
+                    if (reminders[i].NextRemind.Date == DateTime.Now.Date && reminders[i].NextRemind.ToShortTimeString() == DateTime.Now.ToShortTimeString() && !reminders[i].IsCompleted)
+                    {
+                        ReminderContext r = reminders[i];
+                        Thread t = new Thread(() => AnnounceReminder(r));
+                        t.Start();
+                    }
+                    //MessageBox.Show(i.ToString());
                 }
             }
+        }
+
+        public void AnnounceReminder(ReminderContext r)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                ReminderWindow rw = new ReminderWindow(r);
+                Nullable<bool> result = rw.ShowDialog();
+                MessageBox.Show(result.ToString());
+                if (result == true)
+                {
+                    if (r.DoRepeat)
+                    {
+                        r.DayRepeatCount = 0;
+                        ReminderContext rc = ReminderUtils.CalcRepeat(r);
+                        r.Repeating = rc.Repeating;
+                        r.NextRemind = rc.NextRemind;
+                        r.IsCompleted = rc.IsCompleted;
+                    }
+                    else
+                    {
+                        r.IsCompleted = true;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(r.DayRepeatCount + " 1");
+                    r.DayRepeatCount += 1;
+                    MessageBox.Show(r.DayRepeatCount + " 2");
+                    MessageBox.Show(r.NextRemind + " 1.1");
+                    r.NextRemind = r.NextRemind.AddMinutes(15);
+                    MessageBox.Show(r.NextRemind + " 2.1");
+                }
+                List<ReminderContext> rmd = DataReminders.LoadReminders();
+                int i = rmd.FindIndex(o => o.Id == r.Id);
+                rmd[i] = r;
+                DataReminders.SaveReminder(rmd);
+            });
         }
 
         (string name, string icon) GetActiveProcessData()

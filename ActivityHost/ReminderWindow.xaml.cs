@@ -1,7 +1,7 @@
 ﻿using ActivityUtils.Models;
 using System.ComponentModel;
+using System.Media;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace ActivityHost
 {
@@ -14,28 +14,27 @@ namespace ActivityHost
         {
             InitializeComponent();
             tbReminder.Text = reminder.Name;
-            me.LoadedBehavior = MediaState.Manual;
-            me.Source = "pack://application:,,,/ActivityHost;component/sounds/1-3.mp3";
-            me.Volume = 1;
-            me.Stop();
-            me.Play();
+
+            SoundPlayer p = new SoundPlayer();
+            p.SoundLocation = Utils.GetSound(reminder.ReminderTypes, reminder.DayRepeatCount);
+            p.Play();
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
-            DialogResult = false;
+            this.DialogResult = false;
         }
 
         private void dismissBTN_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = false;
+            this.DialogResult = false;
             this.Close();
         }
 
         private void completeBTN_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            this.DialogResult = true;
             this.Close();
         }
     }

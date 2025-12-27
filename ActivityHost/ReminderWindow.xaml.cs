@@ -10,20 +10,18 @@ namespace ActivityHost
     /// </summary>
     public partial class ReminderWindow : Window
     {
+        ReminderContext rc;
+
+        bool isCompleted = false;
         public ReminderWindow(ReminderContext reminder)
         {
             InitializeComponent();
+            rc = reminder;
             tbReminder.Text = reminder.Name;
 
             SoundPlayer p = new SoundPlayer();
             p.SoundLocation = Utils.GetSound(reminder.ReminderTypes, reminder.DayRepeatCount);
             p.Play();
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            base.OnClosing(e);
-            this.DialogResult = false;
         }
 
         private void dismissBTN_Click(object sender, RoutedEventArgs e)
@@ -35,6 +33,7 @@ namespace ActivityHost
         private void completeBTN_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
+            this.isCompleted = true;
             this.Close();
         }
     }

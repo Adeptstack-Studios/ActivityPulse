@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Runtime.Intrinsics.Arm;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -91,15 +92,19 @@ namespace ActivityHost
             {
                 if (i < reminders.Count)
                 {
-                    if (reminders[i].NextRemind.Date == DateTime.Now.Date && reminders[i].NextRemind.ToShortTimeString() == DateTime.Now.ToShortTimeString() && !reminders[i].IsCompleted)
+                    Console.WriteLine(reminders[i].Name);
+                    if (reminders[i].NextRemind.Date == DateTime.Now.Date && reminders[i].NextRemind.ToShortTimeString() == DateTime.Now.ToShortTimeString() && !reminders[i].IsCompleted && !reminders[i].IsAnnouncing)
                     {
                         ReminderContext r = reminders[i];
+                        r.IsAnnouncing = true;
+                        MessageBox.Show(reminders[i].IsAnnouncing.ToString());
                         Thread t = new Thread(() => AnnounceReminder(r));
                         t.Start();
                     }
                     //MessageBox.Show(i.ToString());
                 }
             }
+            DataReminders.SaveReminder(reminders);
         }
 
         public void AnnounceReminder(ReminderContext r)
@@ -123,6 +128,7 @@ namespace ActivityHost
                     {
                         r.IsCompleted = true;
                     }
+                    r.IsAnnouncing = false;
                 }
                 else
                 {
@@ -130,12 +136,15 @@ namespace ActivityHost
                     r.DayRepeatCount += 1;
                     MessageBox.Show(r.DayRepeatCount + " 2");
                     MessageBox.Show(r.NextRemind + " 1.1");
-                    r.NextRemind = r.NextRemind.AddMinutes(15);
+                    r.NextRemind = r.NextRemind.AddMinutes(5);
                     MessageBox.Show(r.NextRemind + " 2.1");
+                    r.IsAnnouncing = false;
                 }
                 List<ReminderContext> rmd = DataReminders.LoadReminders();
                 int i = rmd.FindIndex(o => o.Id == r.Id);
                 rmd[i] = r;
+                MessageBox.Show(rmd[i].IsAnnouncing + " isAnnouncing");
+                MessageBox.Show(rmd[i].DayRepeatCount + " dayRepeatCount");
                 DataReminders.SaveReminder(rmd);
             });
         }

@@ -17,9 +17,10 @@ namespace ActivityUtils.Models
         public bool IsForced { get; set; } = false;
         public bool IsImportant { get; set; } = false;
         public bool IsCompleted { get; set; } = false;
+        public bool IsAnnouncing { get; set; } = false;
         public DateTime NextRemind { get; set; } = DateTime.Now.AddDays(1);
         public string Source { get; set; } = "";
-        public int DayRepeatCount = 0;
+        public int DayRepeatCount { get; set; } = 0;
         public string ReminderDateString
         {
             get

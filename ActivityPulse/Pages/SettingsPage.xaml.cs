@@ -132,15 +132,15 @@ namespace ActivityPulse.Pages
         {
             if (LB_LC.SelectedIndex == 0)
             {
-                Process.Start(new ProcessStartInfo("https://adeptstack.vercel.app/imprint") { UseShellExecute = true });
+                Process.Start(new ProcessStartInfo("https://adeptstack.net/imprint") { UseShellExecute = true });
             }
             else if (LB_LC.SelectedIndex == 1)
             {
-                Process.Start(new ProcessStartInfo("https://adeptstack.vercel.app/license") { UseShellExecute = true });
+                Process.Start(new ProcessStartInfo("https://adeptstack.net/license") { UseShellExecute = true });
             }
             else if (LB_LC.SelectedIndex == 2)
             {
-                Process.Start(new ProcessStartInfo("https://adeptstack.vercel.app/privacy") { UseShellExecute = true });
+                Process.Start(new ProcessStartInfo("https://adeptstack.net/privacy") { UseShellExecute = true });
             }
             else if (LB_LC.SelectedIndex == 3)
             {

@@ -18,6 +18,10 @@ namespace ActivityPulse.Pages
         List<DateTime> days;
         AverageType avgType;
 
+        //MostUsedApps
+        GeneralData g = new GeneralData();
+        List<AppUsage> appUsage = new List<AppUsage>();
+
         public AveragePage(List<DateTime> days, AverageType type)
         {
             InitializeComponent();
@@ -28,6 +32,7 @@ namespace ActivityPulse.Pages
             tbkTitle.Text = days[0].ToShortDateString() + " - " + days[days.Count - 1].ToShortDateString();
             GetData();
             DisplayScreenTime();
+            MostUsedApps();
         }
 
         void DisplayScreenTime()
@@ -47,6 +52,50 @@ namespace ActivityPulse.Pages
             {
                 gDatas.Add(TodayPage.GetGeneralData(day));
                 appDayUsages.Add(TodayPage.GetAppUsages(day));
+            }
+        }
+
+        void MostUsedApps()
+        {
+            long totalSeconds = 0;
+
+            foreach (GeneralData data in gDatas)
+            {
+                totalSeconds += data.gesSecondsUsed;
+                foreach (var item in data.timeUsed)
+                {
+                    g.timeUsed.Add(item);
+                }
+            }
+            g.gesSecondsUsed = totalSeconds;
+
+            foreach (var item in appDayUsages)
+            {
+                foreach (var day in item)
+                {
+                    //addieren der Zeiten bereits hinzugefügter Apps
+                    bool success = true;
+                    int index = 0;
+                    for (int i = 0; i < appUsage.Count; i++)
+                    {
+                        if (appUsage[i].AppName == day.AppName)
+                        {
+                            success = false;
+                            index = i;
+                        }
+                    }
+
+                    if (success)
+                    {
+                        appUsage.Add(day);
+                    }
+                    else
+                    {
+                        int seconds = appUsage[index].UsedSeconds + day.UsedSeconds;
+                        appUsage[index].UsedMinutes += day.UsedMinutes + (seconds / 60);
+                        appUsage[index].UsedSeconds = seconds % 60;
+                    }
+                }
             }
         }
 
@@ -95,6 +144,7 @@ namespace ActivityPulse.Pages
                 Canvas.SetTop(rect, 0);
                 marginLeft += rect.Width - 1;
             }
+            MessageBox.Show("Hallo");
             LastRect();
             ListApps();
             ListOther();
@@ -104,7 +154,7 @@ namespace ActivityPulse.Pages
                 Rectangle otherRect = new Rectangle
                 {
                     Height = 40,
-                    Width = canavsWidth - marginLeft,
+                    Width = canavsWidth - marginLeft >= 0 ? canavsWidth - marginLeft : 0,
                     Fill = Brushes.DarkGray,
                     StrokeThickness = 0,
                     RadiusX = 10,
@@ -307,49 +357,6 @@ namespace ActivityPulse.Pages
 
         private void canvasMostUsedApps_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            GeneralData g = new GeneralData();
-            List<AppUsage> appUsage = new List<AppUsage>();
-            long totalSeconds = 0;
-
-            foreach (GeneralData data in gDatas)
-            {
-                totalSeconds += data.gesSecondsUsed;
-                foreach (var item in data.timeUsed)
-                {
-                    g.timeUsed.Add(item);
-                }
-            }
-            g.gesSecondsUsed = totalSeconds;
-
-            foreach (var item in appDayUsages)
-            {
-                foreach (var day in item)
-                {
-                    //addieren der Zeiten bereits hinzugefügter Apps
-                    bool success = true;
-                    int index = 0;
-                    for (int i = 0; i < appUsage.Count; i++)
-                    {
-                        if (appUsage[i].AppName == day.AppName)
-                        {
-                            success = false;
-                            index = i;
-                        }
-                    }
-
-                    if (success)
-                    {
-                        appUsage.Add(day);
-                    }
-                    else
-                    {
-                        int seconds = appUsage[index].UsedSeconds + day.UsedSeconds;
-                        appUsage[index].UsedMinutes += day.UsedMinutes + (seconds / 60);
-                        appUsage[index].UsedSeconds = seconds % 60;
-                    }
-                }
-            }
-
             CreateLineDiagramMostUsedApps(g, appUsage);
         }
 

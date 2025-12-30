@@ -35,6 +35,26 @@ namespace ActivityPulse.UserControls
             }
         }
 
+        public void SetTime(int hours, int minutes)
+        {
+            if (TimeUtils.Is24HForamt())
+            {
+                Text = $"{hours}:{(minutes >= 10 ? minutes.ToString() : "0" + minutes)}";
+                cbcH.Value = hours;
+                cbcM.Value = minutes;
+                cbAMPM.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                string ampm = hours >= 12 ? "PM" : "AM";
+                Text = $"{hours}:{(minutes >= 10 ? minutes.ToString() : "0" + minutes)} {ampm}";
+                cbcH.Value = hours;
+                cbcM.Value = minutes;
+                cbAMPM.Text = ampm;
+                cbAMPM.Visibility = Visibility.Visible;
+            }
+        }
+
         private void tbTime_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!TimeUtils.IsValidTime(Text))

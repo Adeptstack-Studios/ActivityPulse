@@ -8,7 +8,8 @@ namespace ActivityPulse.UserControls
     /// </summary>
     public partial class CountBoxControl : UserControl
     {
-        public int Value { get; set; } = 0;
+        private int value = 0;
+        public int Value { get => value; set { this.value = value; countTb.Text = value.ToString(); } }
         public int MaxValue { get; set; } = 0;
         private int minValue = 0;
         public int MinValue

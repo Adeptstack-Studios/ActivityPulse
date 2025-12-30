@@ -45,6 +45,7 @@ namespace ActivityPulse.UserControls
                 tbName.Text = value.Name;
                 dpTB.Text = value.ReminderDateTime.ToShortDateString();
                 tpTB.Text = value.ReminderDateTime.ToShortTimeString();
+                tpTB.SetTime(value.ReminderDateTime.Hour, value.ReminderDateTime.Minute);
                 cbReminderType.SelectedIndex = (int)value.ReminderTypes;
                 cbCategory.SelectedIndex = categories.FindIndex(p => p.Id == editReminder.CategoryId) + 1;
                 chImportant.IsChecked = value.IsImportant;

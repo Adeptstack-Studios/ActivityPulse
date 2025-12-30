@@ -61,6 +61,7 @@
         </Border>
 
         <TextBlock x:Name="tbReminder" Text="Reminder" FontSize="24" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,30,20,0" Foreground="White"/>
+        <TextBlock x:Name="tbWarning" Text="Warning" FontSize="16" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,80,20,0" Foreground="White"/>
 
         <Grid Height="60" Width="300" VerticalAlignment="Bottom" Margin="0,0,0,20">
             

@@ -13,11 +13,12 @@ namespace ActivityHost
         ReminderContext rc;
 
         bool isCompleted = false;
-        public ReminderWindow(ReminderContext reminder)
+        public ReminderWindow(ReminderContext reminder, string warnMSG)
         {
             InitializeComponent();
             rc = reminder;
             tbReminder.Text = reminder.Name;
+            tbWarning.Text = warnMSG;
 
             SoundPlayer p = new SoundPlayer();
             p.SoundLocation = Utils.GetSound(reminder.ReminderTypes, reminder.DayRepeatCount);

@@ -97,7 +97,6 @@ namespace ActivityHost
                     {
                         ReminderContext r = reminders[i];
                         r.IsAnnouncing = true;
-                        MessageBox.Show(reminders[i].IsAnnouncing.ToString());
                         Thread t = new Thread(() => AnnounceReminder(r));
                         t.Start();
                     }
@@ -111,41 +110,82 @@ namespace ActivityHost
         {
             Dispatcher.Invoke(() =>
             {
-                ReminderWindow rw = new ReminderWindow(r);
-                Nullable<bool> result = rw.ShowDialog();
-                MessageBox.Show(result.ToString());
-                if (result == true)
+                if (r.IsForced && r.DayRepeatCount >= 2)
                 {
-                    if (r.DoRepeat)
-                    {
-                        r.DayRepeatCount = 0;
-                        ReminderContext rc = ReminderUtils.CalcRepeat(r);
-                        r.Repeating = rc.Repeating;
-                        r.NextRemind = rc.NextRemind;
-                        r.IsCompleted = rc.IsCompleted;
-                    }
-                    else
-                    {
-                        r.IsCompleted = true;
-                    }
+                    ExecuteForcedReminders(r);
+                }
+
+                ReminderWindow rw = new ReminderWindow(r, GetWarningMessage(r)); //TODO: forcable Reminders completable??? //TODO: DayRepeatCount == 2 => disable buttons
+                Nullable<bool> result = rw.ShowDialog();
+                CompleteOrDissmissReminder(r, result);
+            });
+        }
+
+        void CompleteOrDissmissReminder(ReminderContext r, bool? result)
+        {
+            if (result == true)
+            {
+                if (r.DoRepeat)
+                {
+                    r.DayRepeatCount = 0;
+                    ReminderContext rc = ReminderUtils.CalcRepeat(r);
+                    r.Repeating = rc.Repeating;
+                    r.NextRemind = rc.NextRemind;
+                    r.IsCompleted = rc.IsCompleted;
                 }
                 else
                 {
-                    MessageBox.Show(r.DayRepeatCount + " 1");
-                    r.DayRepeatCount += 1;
-                    MessageBox.Show(r.DayRepeatCount + " 2");
-                    MessageBox.Show(r.NextRemind + " 1.1");
-                    r.NextRemind = r.NextRemind.AddMinutes(5);
-                    MessageBox.Show(r.NextRemind + " 2.1");
+                    r.IsCompleted = true;
                 }
-                r.IsAnnouncing = false;
-                List<ReminderContext> rmd = DataReminders.LoadReminders();
-                int i = rmd.FindIndex(o => o.Id == r.Id);
-                rmd[i] = r;
-                MessageBox.Show(rmd[i].IsAnnouncing + " isAnnouncing");
-                MessageBox.Show(rmd[i].DayRepeatCount + " dayRepeatCount");
-                DataReminders.SaveReminder(rmd);
-            });
+            }
+            else
+            {
+                r.DayRepeatCount += 1;
+                r.NextRemind = r.NextRemind.AddMinutes(5);
+            }
+            r.IsAnnouncing = false;
+            List<ReminderContext> rmd = DataReminders.LoadReminders();
+            int i = rmd.FindIndex(o => o.Id == r.Id);
+            rmd[i] = r;
+            DataReminders.SaveReminder(rmd);
+        }
+
+        string GetWarningMessage(ReminderContext r)
+        {
+            string result = "";
+
+            if (!r.IsForced)
+                return result;
+
+            bool isPowerOff = r.ReminderTypes == ActivityUtils.Enums.EReminderTypes.POWEROFF;
+
+            if (r.DayRepeatCount == 1)
+            {
+                result = isPowerOff ? "2. Erinnerung:\r\nWenn Sie nicht reagieren, wird Ihr Gerät bei der 3. Erinnerung (in 5 Minuten) zwangsweise heruntergefahren.\r\nBitte speichern Sie Ihre Arbeit." : "2. Erinnerung:\r\nWenn Sie nicht reagieren, wird Ihr Gerät bei der 3. Erinnerung (in 5 Minuten) zwangsweise in den Energiesparmodus versetzt.";
+            }
+            else if (r.DayRepeatCount == 2)
+            {
+                result = isPowerOff ? "3. Erinnerung:\r\nIhr Gerät wird in 30 Sekunden zwangsweise heruntergefahren.\r\nBitte speichern Sie jetzt Ihre Arbeit." : "3. Erinnerung:\r\nIhr Gerät wird jetzt zwangsweise in den Energiesparmodus versetzt.";
+            }
+
+            return result;
+        }
+
+        void ExecuteForcedReminders(ReminderContext reminder)
+        {
+            CompleteOrDissmissReminder(reminder, true);
+            if (reminder.ReminderTypes == ActivityUtils.Enums.EReminderTypes.POWEROFF)
+            {
+                ProcessStartInfo psi = new ProcessStartInfo("shutdown", "/s /f /t 30");
+                psi.CreateNoWindow = true;
+                psi.UseShellExecute = false;
+                Process.Start(psi);
+            }
+            else if (reminder.ReminderTypes == ActivityUtils.Enums.EReminderTypes.BREAK)
+            {
+                Process.Start("rundll32.exe", "powrprof.dll,SetSuspendState 0,1,0");
+
+            }
         }
 
         (string name, string icon) GetActiveProcessData()

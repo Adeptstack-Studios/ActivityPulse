@@ -20,6 +20,12 @@ namespace ActivityHost
             tbReminder.Text = reminder.Name;
             tbWarning.Text = warnMSG;
 
+            if (reminder.IsForced)
+            {
+                completeBTN.Visibility = Visibility.Collapsed;
+                dismissBTN.Content = "OK";
+            }
+
             SoundPlayer p = new SoundPlayer();
             p.SoundLocation = Utils.GetSound(reminder.ReminderTypes, reminder.DayRepeatCount);
             p.Play();

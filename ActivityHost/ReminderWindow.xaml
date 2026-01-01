@@ -61,9 +61,9 @@
         </Border>
 
         <TextBlock x:Name="tbReminder" Text="Reminder" FontSize="24" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,30,20,0" Foreground="White"/>
-        <TextBlock x:Name="tbWarning" Text="Warning" FontSize="16" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,80,20,0" Foreground="White"/>
+        <TextBlock x:Name="tbWarning" Text="2. Reminder: If you do not respond, your device will be forcibly shut down after the 3. reminder (in 5 minutes). Please save your work." FontSize="12" FontWeight="Normal" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,70,10,0" Foreground="White"/>
 
-        <Grid Height="60" Width="300" VerticalAlignment="Bottom" Margin="0,0,0,20">
+        <Grid Height="60" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,50,20">
             
             <Button Style="{StaticResource RoundBtn}" x:Name="dismissBTN" Content="Dismiss" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" Click="dismissBTN_Click"/>
             <Button Style="{StaticResource RoundBtn}" x:Name="completeBTN" Content="Complete" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Click="completeBTN_Click"/>

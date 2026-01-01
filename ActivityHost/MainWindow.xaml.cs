@@ -83,7 +83,7 @@ namespace ActivityHost
 
         }
 
-        public void CheckReminder()
+        public void CheckReminder() //Check if Reminder.NextReminder is < DateTime.Now & doRepeat, if yes calc new NextRemind (maybe do IsCompleted = false, if repeated forever)
         {
             reminders.Clear();
             reminders = DataReminders.LoadReminders();
@@ -100,7 +100,6 @@ namespace ActivityHost
                         Thread t = new Thread(() => AnnounceReminder(r));
                         t.Start();
                     }
-                    //MessageBox.Show(i.ToString());
                 }
             }
             DataReminders.SaveReminder(reminders);
@@ -115,7 +114,7 @@ namespace ActivityHost
                     ExecuteForcedReminders(r);
                 }
 
-                ReminderWindow rw = new ReminderWindow(r, GetWarningMessage(r)); //TODO: forcable Reminders completable??? //TODO: DayRepeatCount == 2 => disable buttons
+                ReminderWindow rw = new ReminderWindow(r, GetWarningMessage(r));
                 Nullable<bool> result = rw.ShowDialog();
                 CompleteOrDissmissReminder(r, result);
             });
@@ -140,8 +139,11 @@ namespace ActivityHost
             }
             else
             {
-                r.DayRepeatCount += 1;
-                r.NextRemind = r.NextRemind.AddMinutes(5);
+                if (!r.IsCompleted)
+                {
+                    r.DayRepeatCount += 1;
+                    r.NextRemind = r.NextRemind.AddMinutes(5); 
+                }
             }
             r.IsAnnouncing = false;
             List<ReminderContext> rmd = DataReminders.LoadReminders();
@@ -161,11 +163,11 @@ namespace ActivityHost
 
             if (r.DayRepeatCount == 1)
             {
-                result = isPowerOff ? "2. Erinnerung:\r\nWenn Sie nicht reagieren, wird Ihr Gerät bei der 3. Erinnerung (in 5 Minuten) zwangsweise heruntergefahren.\r\nBitte speichern Sie Ihre Arbeit." : "2. Erinnerung:\r\nWenn Sie nicht reagieren, wird Ihr Gerät bei der 3. Erinnerung (in 5 Minuten) zwangsweise in den Energiesparmodus versetzt.";
+                result = isPowerOff ? "2. Reminder: If you do not respond, your device will be forcibly shut down after the third reminder (in 5 minutes). Please save your work." : "2. Reminder: If you do not respond, your device will be forced into energy-saving mode after the third reminder (in 5 minutes).";
             }
             else if (r.DayRepeatCount == 2)
             {
-                result = isPowerOff ? "3. Erinnerung:\r\nIhr Gerät wird in 30 Sekunden zwangsweise heruntergefahren.\r\nBitte speichern Sie jetzt Ihre Arbeit." : "3. Erinnerung:\r\nIhr Gerät wird jetzt zwangsweise in den Energiesparmodus versetzt.";
+                result = isPowerOff ? "3. Reminder: Your device will be shut down in 30 seconds. Please save your work now." : "3. Reminder: Your device will now be forced into energy-saving mode.";
             }
 
             return result;

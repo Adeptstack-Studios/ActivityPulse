@@ -180,21 +180,21 @@ namespace ActivityPulse.Windows
             if (channel == 0)
             {
                 //Main
-                DownloadWindow dl = new DownloadWindow("https://adeptstack.vercel.app/Downloads/ActivityPulseSetup.exe", "ActivityPulse");
+                DownloadWindow dl = new DownloadWindow("https://adeptstack.net/Downloads/ActivityPulseSetup.exe", "ActivityPulse");
                 dl.Closed += dl_close;
                 dl.Show();
             }
             else if (channel == 1)
             {
                 //Stable
-                DownloadWindow dl = new DownloadWindow("https://adeptstack.vercel.app/Downloads/Stable/ActivityPulseSetup.exe", "ActivityPulse Stable");
+                DownloadWindow dl = new DownloadWindow("https://adeptstack.net/Downloads/Stable/ActivityPulseSetup.exe", "ActivityPulse Stable");
                 dl.Closed += dl_close;
                 dl.Show();
             }
             else if (channel == 2)
             {
                 //Develop
-                DownloadWindow dl = new DownloadWindow("https://adeptstack.vercel.app/Downloads/Develop/ActivityPulseSetup.exe", "ActivityPulse Develop");
+                DownloadWindow dl = new DownloadWindow("https://adeptstack.net/Downloads/Develop/ActivityPulseSetup.exe", "ActivityPulse Develop");
                 dl.Closed += dl_close;
                 dl.Show();
             }
@@ -207,7 +207,7 @@ namespace ActivityPulse.Windows
 
         private void Changelog_Btn_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(new ProcessStartInfo($"https://adeptstack.vercel.app{AppUtils.latestVersion.link}") { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo($"https://adeptstack.net{AppUtils.latestVersion.link}") { UseShellExecute = true });
         }
     }
 }

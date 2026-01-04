@@ -164,11 +164,14 @@ namespace ActivityPulse.Pages
 
         List<DateTime> GetWeekInterval(DateTime d)
         {
+            DayOfWeek firstDayOfWeek = CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek;
             List<DateTime> dates = new List<DateTime>();
-            DayOfWeek doW = d.DayOfWeek;
-            int di = (int)doW;
+            DayOfWeek dayOfWeek = d.DayOfWeek;
+            int firstDayIndex = (int)firstDayOfWeek;
+            int chosenDayIndex = (int)dayOfWeek;
+            int dayIndex = (chosenDayIndex - firstDayIndex + 7) % 7;
 
-            d = d.AddDays(1 - di).Date;
+            d = d.AddDays(-dayIndex).Date;
 
             for (int i = 0; i < 7; i++)
             {

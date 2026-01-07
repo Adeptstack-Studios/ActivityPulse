@@ -178,14 +178,14 @@ namespace ActivityHost
             CompleteOrDissmissReminder(reminder, true);
             if (reminder.ReminderTypes == ActivityUtils.Enums.EReminderTypes.POWEROFF)
             {
-                ProcessStartInfo psi = new ProcessStartInfo("shutdown", "/s /f /t 30");
+                ProcessStartInfo psi = new ProcessStartInfo("shutdown", "/s /t 30");
                 psi.CreateNoWindow = true;
                 psi.UseShellExecute = false;
                 Process.Start(psi);
             }
             else if (reminder.ReminderTypes == ActivityUtils.Enums.EReminderTypes.BREAK)
             {
-                Process.Start("rundll32.exe", "powrprof.dll,SetSuspendState 0,1,0");
+                Process.Start("rundll32.exe", "powrprof.dll,SetSuspendState 0,0,0");
 
             }
         }
